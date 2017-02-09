@@ -47,25 +47,22 @@ for (Dico dico : parameters) {
 		return Parameters.fromDico(d);
 	}
 	public Parameters change(String key1, final String nk) throws LucasException {
-		if (this.parameters.stream().filter(new Predicate<Dico>() {
-			@Override
-			public boolean test(Dico d) {
-				return d.key.equals(nk);
+		for (Dico dico : parameters) {
+			if (dico.key==nk) {
+				throw new LucasException("Parameters: change(String key1,String nk) ->  nk deja present danns les parameters");
+
 			}
-		}).count() > 0) {
-			throw new LucasException("Parameters: change(String key1,String nk) ->  nk deja present danns les parameters");
 		}
+		
 		this.getDico(key1).setKey(nk);
 		return this;
 	}
 	public Parameters change_newk(String key1, final String nk) throws LucasException {
-		if (this.parameters.stream().filter(new Predicate<Dico>() {
-			@Override
-			public boolean test(Dico d) {
-				return d.key.equals(nk);
+		for (Dico dico : parameters) {
+			if (dico.key==nk) {
+				throw new LucasException("Parameters: change(String key1,String nk) ->  nk deja present danns les parameters");
+
 			}
-		}).count() > 0) {
-			throw new LucasException("Parameters: change_new(String key1,String nk) ->  nk deja present danns les parameters");
 		}
 		this.AddParam(this.getDico(key1).copy().setKey(nk));
 		return this;
