@@ -1,0 +1,14 @@
+package db;
+
+import util.Parameters;
+
+public class db_Post_Helper {
+	public static String My_Table = Tables.Post;
+	public static String date = "date";
+	public static String text = "text";
+	public static String id_user = "id_user";
+	
+	public static boolean insertPost(Parameters p) {
+		
+	}
+}

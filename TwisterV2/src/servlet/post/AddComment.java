@@ -1,6 +1,7 @@
 package servlet.post;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,38 +10,35 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONException;
 
-import util.Error;
-import util.IOLUCAS;
-import util.io;
+import services.post.SAddComment;
+import util.LucasException;
+import util.Parameters;
 
-public class AddComment extends HttpServlet implements IOLUCAS {
-	public HttpServletResponse response = null;
-	private String text;
-	private String token;
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-	public void koko(String text, String key) throws JSONException, IOException {
-		this.text = text;
-		this.token = key;
-		if (text == null || token == null) {
-			io.print_json_or_print(response, Error.ErrArgs.to_JSON());
-		}
-
-		
-	}
+public class AddComment extends HttpServlet {
+	
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		this.response  = resp;
 		try {
-			koko(req.getParameter("text"), req.getParameter("key"));
+			new SAddComment(Parameters.req(req), resp);
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (LucasException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
 	}
-	
-	
+
 }

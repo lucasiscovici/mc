@@ -13,7 +13,10 @@ public enum Error {
 		  //LOGIN
 		  LoginExist(1,"User already exist with this login"),
 		  LoginNotExist(1,"Unknown User"),
-	  	  BadPassword(2,"Bad password");
+	  	  BadPassword(2,"Bad password"),
+	  //MONGO
+	  MongoError(200, "pb mango");
+
 
 	  private final int code;
 	  private String description;

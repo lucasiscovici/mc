@@ -1,0 +1,7 @@
+package servlet.post;
+
+import javax.servlet.http.HttpServlet;
+
+public class AddComment extends HttpServlet {
+
+}

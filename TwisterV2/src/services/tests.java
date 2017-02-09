@@ -13,16 +13,14 @@ import util.io;
 //import services.friend.SAddFriend;
 //import services.friend.SRemoveFriend;
 import services.friend.SSearch;
+import services.post.SAddComment;
 import services.user.SLogin;
 
 class test {
 	public static void main(String[] args) throws NumberFormatException, ClassNotFoundException, IOException, JSONException, LucasException {
 		//new SLogin(Dico.toP("login", "luluperet","password","popo"));
-		try {
-			io.print(db_Helper.select("SELECT * FROM User"));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			io.print(Error.SqlError.setDescription(e.getMessage()));
-		}
+		//new SAddComment(Dico.toP("key","4222126b-0a4a-4c77-9e38-86bc9a5f0cfa","text","tralala..."));
+		io.print(db_Helper.selectMongo("Post", null));
+		//new SSearch(Dico.toP("key","4222126b-0a4a-4c77-9e38-86bc9a5f0cfa","text","tralala...","friends","","query",""));
 	}
 }

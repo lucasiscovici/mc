@@ -1,5 +1,6 @@
 package db;
 
+import java.net.UnknownHostException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,6 +10,21 @@ import util.Dico;
 import util.Parameters;
 //import util.io;
 
+
+
+
+
+
+
+
+import util.io;
+
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
+import com.mongodb.Mongo;
 import com.mysql.jdbc.ResultSetMetaData;
 import com.mysql.jdbc.Statement;
 
@@ -32,6 +48,24 @@ public class db_Helper {
 		}
 		return liste;
 	}
+	private static int getRowCount(ResultSet resultSet) {
+	    if (resultSet == null) {
+	        return 0;
+	    }
+	    try {
+	        resultSet.last();
+	        return resultSet.getRow();
+	    } catch (SQLException exp) {
+	        exp.printStackTrace();
+	    } finally {
+	        try {
+	            resultSet.beforeFirst();
+	        } catch (SQLException exp) {
+	            exp.printStackTrace();
+	        }
+	    }
+	    return 0;
+	}
 	public static Parameters select(String query) throws SQLException, ClassNotFoundException {
 		List<Dico> liste = new ArrayList<Dico>();
 		//io.print(query);
@@ -41,7 +75,13 @@ public class db_Helper {
 		List<String> columns = getColumnsNames(r);
 		
 		int c = 0;
+		int o = getRowCount(r);
 		while (r.next()) {
+			if (o==1) {
+				for (String string : columns) {
+					liste.add(Dico.kv(string, r.getString(string)));
+				}
+			}else{
 			Dico l = new Dico();
 			l.countD=c;
 			for (String string : columns) {
@@ -49,6 +89,7 @@ public class db_Helper {
 			}
 			liste.add(l);
 			c++;
+			}
 		}
 		r.close();
 		s.close();	
@@ -64,6 +105,9 @@ public class db_Helper {
 		return query;
 	}
 	public static String where(Parameters dico) {
+		if (dico==null) {
+			return "";
+		}
 		return " WHERE "+multipleAnd(dico);
 	}
 	public static Parameters select(String query,Parameters dico) throws SQLException, ClassNotFoundException {
@@ -101,6 +145,7 @@ public class db_Helper {
 		String query = "SELECT COUNT(`id`) as \"count\" FROM "+table+"";
 		//io.print(dico);
 		Parameters result = selectAndWhere(query, dico);
+		//io.print(result);
 		return result.getValueInt("count");
 	}
 
@@ -153,5 +198,52 @@ public class db_Helper {
 	}
 	public static boolean selectOK(String table,Parameters d) throws SQLException, ClassNotFoundException {
 		return selectAndWhere_Count(table, d) > 0;
+	}
+	public static Mongo getMyMongo() throws UnknownHostException {
+		return new Mongo(DBStatic.mongo_host, DBStatic.mongo_port);
+		
+	}
+	public static DB getMyDB() throws UnknownHostException {
+		return getMyMongo().getDB(DBStatic.mongo_db);
+	}
+	public static DBCollection getMyCollection(String table) throws UnknownHostException {
+		return getMyDB().getCollection(table);
+	}
+	public static BasicDBObject CreateRequest() {
+		return new BasicDBObject();
+	}
+	public static int insertMongo(String table,Parameters p) throws UnknownHostException {
+		BasicDBObject r= CreateRequest();
+		for (Dico d : p.parameters) {
+			r.put(d.getKey(), d.getValue());
+		}
+		return getMyCollection(table).insert(r).getN();
+	}
+	public static boolean insertMongoOK(String table,Parameters p) throws UnknownHostException {
+		return insertMongo(table,p) > 0;
+
+	}
+	public static void whereMongo(BasicDBObject r, Parameters p) {
+		if (p==null) {
+			return;
+		}
+		for (Dico d : p.parameters) {
+			r.put(d.getKey(), d.getValue());
+		}
+	}
+	
+	public static Parameters selectMongo(String table, Parameters p) throws UnknownHostException {
+		DBCollection dc = getMyCollection(table);
+		BasicDBObject r = CreateRequest();
+		whereMongo(r, p);
+		DBCursor dcu = dc.find(r);
+		Parameters pn = new Parameters();
+		int c = 0;
+		while (dcu.hasNext()) {
+			DBObject dbObject = (DBObject) dcu.next();
+			io.print(dbObject);
+			pn.AddParam(dbObject);
+		}
+		return pn;
 	}
 }

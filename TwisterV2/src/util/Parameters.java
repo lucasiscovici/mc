@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
-
 import javax.servlet.http.HttpServletRequest;
+
+import com.mongodb.DBObject;
 
 public class Parameters {
 	public List<Dico> parameters;
@@ -155,6 +156,18 @@ for (Dico dico : parameters) {
 	public Parameters AddParam(Dico dico){
 //		if (dico.getValue().length() > 0) {
 		this.parameters.add(dico);
+//		}
+		return this;
+	}
+	int co = 0;
+	public Parameters AddParam(DBObject db){
+//		if (dico.getValue().length() > 0) {
+		Dico d = new Dico();
+		d.setKey(co);
+		co++;
+		for (String key : db.keySet()) {
+			d.addD(key, db.get(key).toString());
+		}
 //		}
 		return this;
 	}
