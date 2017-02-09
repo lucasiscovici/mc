@@ -8,7 +8,6 @@ import java.lang.reflect.Method;
 import java.util.InputMismatchException;
 import java.util.Optional;
 import java.util.Scanner;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -192,8 +191,5 @@ public class io {
 }
 
 
- public static String uniqueID(){
-	 return UUID.randomUUID().toString();
- }
 }
 

@@ -37,8 +37,7 @@ public class Dico {
 		}
 	}
 	public Dico(String value) {
-		// TODO Auto-generated constructor stub
-		this.key = io.uniqueID();
+		this.key = Usefull.uniqueID();
 		this.value = value;
 	}
 	public static Parameters fv(String...values) {
@@ -51,8 +50,12 @@ public class Dico {
 	public static Dico vT(Service ob,String key) {
 		return new Dico(key,ob.Local_params.getValue(key));
 	}
+	
 	public static Parameters vT_toP(Service ob,String key) {
 		return Parameters.fromDicos(vT(ob, key));
+	}
+	public static Parameters vT_toP(Service ob,String...keys) {
+		return  Dico.psp(ob.Local_params, keys);
 	}
 	public static Parameters toP(Object...values) throws LucasException {
 		Parameters p = new Parameters();
@@ -85,6 +88,16 @@ public class Dico {
 	}
 	public static Dico k(String value) {
 		return new Dico(value,"");
+	}
+	
+	public static Parameters ks(String...values) {
+		Parameters p = new Parameters();
+		
+		for (String string : values) {
+	
+			p.AddParam(Dico.k(string));
+		}
+		return p;
 	}
 	public static Dico v(int value) {
 		return new Dico(""+value);
@@ -184,4 +197,8 @@ public static Dico kvs(String key,String[] values) {
 		}
 		return d;
 	}
+	public static Parameters psp(Parameters pa,String...strings) {
+		return pa.PS(strings);
+	}
+	
 }

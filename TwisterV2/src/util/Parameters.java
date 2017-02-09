@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,6 +25,18 @@ public class Parameters {
 			}
 		}
 		return new Dico("null","null");
+	}
+	public List<Dico> getDicos(String...key) {
+		List<Dico> d = new ArrayList<Dico>();
+
+		 List<String> ds = new ArrayList<String>(Arrays.asList(key));
+for (Dico dico : parameters) {
+	if (ds.contains(dico.key)) {
+		d.add(dico);
+	}
+}
+		
+		return d;
 	}
 
 	public Parameters copy() {
@@ -144,9 +159,21 @@ public class Parameters {
 		return new Parameters(values);
 	}
 	public Parameters AddParam(Dico dico){
-		if (dico.getValue().length() > 0) {
+//		if (dico.getValue().length() > 0) {
 		this.parameters.add(dico);
-		}
+//		}
+		return this;
+	}
+	public Parameters AddParam(Parameters p, String key){
+//		if (dico.getValue().length() > 0) {
+		this.parameters.add(p.getDico(key));
+//		}
+		return this;
+	}
+	public Parameters AddParam(Parameters p, String...keys){
+//		if (dico.getValue().length() > 0) {
+		this.parameters.addAll(p.getDicos(keys));
+//		}
 		return this;
 	}
 	public Parameters AddParam(String key,Object id){

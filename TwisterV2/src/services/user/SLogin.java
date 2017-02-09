@@ -14,6 +14,7 @@ import util.Error;
 import util.JSONHelper;
 import util.LucasException;
 import util.Parameters;
+import util.Usefull;
 import util.io;
 
 public class SLogin extends Service {
@@ -61,8 +62,7 @@ public class SLogin extends Service {
 			}
 			
 			//UNIQUE KEY
-			String key = io.uniqueID();
-			this.Local_params.AddParam("key", key);
+			String key = Usefull.uniqueID();
 			
 			try {
 				//GET ID FROM LOGIN 
@@ -72,6 +72,7 @@ public class SLogin extends Service {
 					io.print_json_or_print(this.response, Error.SqlError.setDescription("Pb insertion session",this));
 					return;
 				}
+				this.Local_params.AddParam(params, "id_user","key","login").change("id_user", "id");
 				
 				io.print_json_or_print(this.response,JSONHelper.to_json(this)); 
 			} catch (JSONException e) {
@@ -83,7 +84,7 @@ public class SLogin extends Service {
 	
 	// CALL FOR RESPONSE JSON
 	public Parameters to_json() {
-		return Dico.vT_toP(this,"key");
+		return Dico.vT_toP(this,"key","id","login");
 	}
 
 	@Override

@@ -12,6 +12,7 @@ import util.IParameters;
 import util.LucasException;
 import util.Parameters;
 import util.TOJSON;
+//import util.io;
 
 public abstract class Service implements IOLUCAS, IParameters, TOJSON, ServiceKoko  {
 	public Parameters Local_params = new Parameters(); 
@@ -20,7 +21,7 @@ public abstract class Service implements IOLUCAS, IParameters, TOJSON, ServiceKo
 	public Parameters params = null; //
 	
 	public Service() throws NumberFormatException, ClassNotFoundException, IOException, SQLException, JSONException, LucasException {
-		this(null);
+		this(new Parameters());
 	}
 
 	public Service(Parameters params) throws NumberFormatException, ClassNotFoundException, IOException, SQLException, JSONException, LucasException {
@@ -29,6 +30,7 @@ public abstract class Service implements IOLUCAS, IParameters, TOJSON, ServiceKo
 
 	public Service(Parameters params,HttpServletResponse resp) throws NumberFormatException, ClassNotFoundException, IOException, SQLException, JSONException, LucasException {
 		this.params = params;
+		
 		this.response = resp;
 		getEntry = giveGetEntry();
 		koko();
