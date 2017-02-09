@@ -25,6 +25,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.Mongo;
+import com.mongodb.WriteResult;
 import com.mysql.jdbc.ResultSetMetaData;
 import com.mysql.jdbc.Statement;
 
@@ -212,12 +213,16 @@ public class db_Helper {
 	public static BasicDBObject CreateRequest() {
 		return new BasicDBObject();
 	}
-	public static int insertMongo(String table,Parameters p) throws UnknownHostException {
+	public static long insertMongo(String table,Parameters p) throws UnknownHostException {
 		BasicDBObject r= CreateRequest();
+		long ds = getMyCollection(table).count();
 		for (Dico d : p.parameters) {
 			r.put(d.getKey(), d.getValue());
 		}
-		return getMyCollection(table).insert(r).getN();
+		WriteResult d = getMyCollection(table).insert(r);
+		long df = getMyCollection(table).count();
+
+		return df-ds;
 	}
 	public static boolean insertMongoOK(String table,Parameters p) throws UnknownHostException {
 		return insertMongo(table,p) > 0;
@@ -241,8 +246,10 @@ public class db_Helper {
 		int c = 0;
 		while (dcu.hasNext()) {
 			DBObject dbObject = (DBObject) dcu.next();
-			io.print(dbObject);
+			//io.print(dbObject);
+			pn.co=c++;
 			pn.AddParam(dbObject);
+			
 		}
 		return pn;
 	}

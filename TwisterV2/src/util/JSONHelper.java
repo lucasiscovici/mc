@@ -2,6 +2,7 @@ package util;
 
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -17,17 +18,19 @@ public final class JSONHelper {
 			}
 		}
 		
-		return k.toString();
+		return k.;
 	}
 	public static String to_json(TOJSON list) throws JSONException {
 		JSONObject k = new JSONObject();
 		for (Dico elt: list.to_json().parameters) {
 			if (elt.is_dicd) {
-				k.put(elt.key, elt.valuesd);
+				JSONArray  ja = new JSONArray(elt.valuesd);
+				k.put(elt.key, ja);
 			}else{
 			k.put(elt.key, elt.value);
 			}
 		}
+		
 		return k.toString();
 	}
 }

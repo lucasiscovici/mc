@@ -53,6 +53,7 @@ public class SSearch extends Service {
 		
 		if (params.getValue("key").length()>0 && db_User_Helper.Auth(params)) {
 			this.Local_params.AddParam("message", db_Post_Helper.listPostFromKey(params.PS("key")));
+			io.print(Local_params.getValue("message"));
 			io.print_json_or_print(response, JSONHelper.to_json(this));
 		}
 	}

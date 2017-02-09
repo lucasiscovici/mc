@@ -159,15 +159,21 @@ for (Dico dico : parameters) {
 //		}
 		return this;
 	}
-	int co = 0;
+	public int co = 0;
 	public Parameters AddParam(DBObject db){
 //		if (dico.getValue().length() > 0) {
 		Dico d = new Dico();
 		d.setKey(co);
-		co++;
+		d.countD = co;
+//io.print(co);
 		for (String key : db.keySet()) {
+			if (key.charAt(0)!='_') {
+				
+			
 			d.addD(key, db.get(key).toString());
+			}
 		}
+		this.AddParam(d);
 //		}
 		return this;
 	}

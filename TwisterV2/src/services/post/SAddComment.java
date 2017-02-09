@@ -64,6 +64,7 @@ public class SAddComment extends Service {
 		if (!db_Post_Helper.insertPost(params)) {
 			io.print_json_or_print(response, Error.MongoError.depuis(this));return;
 		}
+		io.print_text(response, "OK");
 	}
 
 }
