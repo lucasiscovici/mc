@@ -1,6 +1,5 @@
 package db;
 
-import java.awt.Cursor;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -8,7 +7,7 @@ import java.util.List;
 
 import util.Dico;
 import util.Parameters;
-import util.io;
+//import util.io;
 
 import com.mysql.jdbc.ResultSetMetaData;
 import com.mysql.jdbc.Statement;
@@ -29,27 +28,27 @@ public class db_Helper {
 
 		// The column count starts from 1
 		for (int i = 1; i <= columnCount; i++ ) {
-		  liste.add(rsmd.getColumnName(i));
+			liste.add(rsmd.getColumnName(i));
 		}
 		return liste;
 	}
 	public static Parameters select(String query) throws SQLException, ClassNotFoundException {
 		List<Dico> liste = new ArrayList<Dico>();
-		io.print(query);
+		//io.print(query);
 		Statement s =  giveMeAnStatement();
-		io.print(query);
+		//io.print(query);
 		ResultSet r = s.executeQuery(query);
 		List<String> columns = getColumnsNames(r);
-		
+
 		while (r.next()) {
 			for (String string : columns) {
 				liste.add(new Dico(string, r.getString(string)));
 			}
-			
+
 		}
 		r.close();
 		s.close();	
-		
+
 		return new Parameters(liste);
 	}
 	public static String multipleAnd(Parameters dico) {
@@ -70,10 +69,17 @@ public class db_Helper {
 	public static Parameters selectAndWhere(String query,Parameters dico) throws SQLException, ClassNotFoundException {
 		return select(query, dico);
 	}
+
+
 	public static Parameters selectAndWhere(String select,String table,Parameters dico) throws SQLException, ClassNotFoundException {
 		String query = CreateSelectFrom(Dico.fv(select), table);
 		return select(query, dico);
 	}
+	public static Integer selectAndWhereID(String table,Parameters dico) throws SQLException, ClassNotFoundException {
+		String query = CreateSelectFrom(Dico.fv("id"), table);
+		return select(query, dico).getValueInt("id");
+	}
+
 	public static Parameters selectAndWhere(String table,Parameters dico,String...selects) throws SQLException, ClassNotFoundException {
 		String query = CreateSelectFrom(Dico.fv(selects), table);
 		return select(query, dico);
@@ -93,13 +99,13 @@ public class db_Helper {
 		Parameters result = selectAndWhere(query, dico);
 		return result.getValueInt("count");
 	}
-	
+
 	public static int insert(String query) throws SQLException, ClassNotFoundException {
 		//io.print(query);
 		Statement s = giveMeAnStatement();
 		return s.executeUpdate(query);
 	}
-	
+
 	public static String stringMe(List<String> d) {
 		String queryn = "";
 		for (String string : d) {
@@ -126,7 +132,7 @@ public class db_Helper {
 	}
 	public static int insert(String table,Parameters d) throws SQLException, ClassNotFoundException {
 		String query = "INSERT INTO "+table+"(";
-		 query += keysMe(d.getOnlyKeys())+")";
+		query += keysMe(d.getOnlyKeys())+")";
 		return insertValues(query, d.getOnlyValues());
 	}
 	public static int delete(String table,Parameters d) throws SQLException, ClassNotFoundException {

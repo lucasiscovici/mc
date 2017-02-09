@@ -1,7 +1,14 @@
 package util;
 
-import java.util.List;
-
+/**
+ * @author lucasiscovici
+ *
+ */
 public interface TOJSON{
-	public List<Dico> to_json();
+	
+	/**
+	 * @return Dico.vT_toP(this,"key1","key2",etc);
+
+	 */
+	public Parameters to_json();
 }

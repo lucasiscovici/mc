@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.function.Predicate;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,7 +21,39 @@ public class Parameters {
 				return dico;
 			}
 		}
-		return null;
+		return new Dico("null","null");
+	}
+
+	public Parameters copy() {
+		List<Dico> d = new ArrayList<Dico>();
+		for (Dico dico : parameters) {
+			d.add(dico.copy());
+		}
+		return Parameters.fromDico(d);
+	}
+	public Parameters change(String key1, final String nk) throws LucasException {
+		if (this.parameters.stream().filter(new Predicate<Dico>() {
+			@Override
+			public boolean test(Dico d) {
+				return d.key.equals(nk);
+			}
+		}).count() > 0) {
+			throw new LucasException("Parameters: change(String key1,String nk) ->  nk deja present danns les parameters");
+		}
+		this.getDico(key1).setKey(nk);
+		return this;
+	}
+	public Parameters change_newk(String key1, final String nk) throws LucasException {
+		if (this.parameters.stream().filter(new Predicate<Dico>() {
+			@Override
+			public boolean test(Dico d) {
+				return d.key.equals(nk);
+			}
+		}).count() > 0) {
+			throw new LucasException("Parameters: change_new(String key1,String nk) ->  nk deja present danns les parameters");
+		}
+		this.AddParam(this.getDico(key1).copy().setKey(nk));
+		return this;
 	}
 	public Parameters getDicos(String key) {
 		Parameters p = new Parameters();
@@ -50,8 +83,15 @@ public class Parameters {
 	public String getValue(String key) {
 			return getDico(key).getValue();
 	}
-	public int getValueInt(String key) {
-		return Integer.parseInt(getDico(key).getValue());
+	public Integer getValueInt(String key) {
+		Dico c =getDico(key);
+		if (c==null || c.getValue() == "null") {
+			return null;
+		}else{
+			return Integer.parseInt(c.getValue());
+
+		}
+				
 }
 	public List<String> getValuesk(String key) {
 		return getDicos(key).getOnlyValues();
@@ -62,6 +102,7 @@ public class Parameters {
 	
 	public Parameters(HttpServletRequest req) {
 		parameters = new ArrayList<Dico>();
+		@SuppressWarnings("unchecked")
 		Enumeration<String> parameterNames = req.getParameterNames();
 		while (parameterNames.hasMoreElements()) {
 			Dico d = new Dico();
@@ -107,6 +148,10 @@ public class Parameters {
 		this.parameters.add(dico);
 		}
 		return this;
+	}
+	public Parameters AddParam(String key,Object id){
+
+		return AddParam(Dico.kv(key, id.toString()));
 	}
 	public boolean CheckIfErrParams(String[] params) {
 		List<String> l = Arrays.asList(params);

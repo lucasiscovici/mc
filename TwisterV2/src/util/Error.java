@@ -12,7 +12,7 @@ public enum Error {
 	  //USER
 		  //LOGIN
 		  LoginExist(1,"User already exist with this login"),
-		  LoginNotExist(1,"Unknow User"),
+		  LoginNotExist(1,"Unknown User"),
 	  	  BadPassword(2,"Bad password");
 
 	  private final int code;
@@ -25,12 +25,17 @@ public enum Error {
 	  }
 
 	  public String getDescription() {
-	     return description;
+	     return toString();
 	  }
 	  public Error detail(String d) {
 		this.description2 += " | Detail: "+d;
 		  return this;
 	}
+	  public Error detail(String d,Object dd) {
+			this.description2 += " | Detail: "+d;
+			this.depuis(dd);
+			  return this;
+		}
 	  public Error depuis(Object d) {
 			  return this.depuis(d.getClass().getName());
 		}
@@ -49,9 +54,14 @@ public enum Error {
 		  this.description = d;
 		  return this;
 	  }
+	  public Error setDescription(String d,Object t){
+		  this.description = d;
+		  this.detail(d).depuis(t);
+		  return this;
+	  }
 	  @Override
 	  public String toString() {
-	    String dh = code + ": " + description + ": " + description2;
+	    String dh = code + " : " + description + " " + description2;
 	    description2 = "";
 	    return dh;
 	  }

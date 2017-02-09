@@ -1,14 +1,15 @@
 package util;
 
-import java.io.IOException;
-import java.sql.SQLException;
-
-import javax.servlet.http.HttpServletResponse;
-
-import org.json.JSONException;
-
+/**
+ * @author lucasiscovici
+ *
+ */
 public interface IParameters {
-	static public String[] getEntry = {};
-	static Parameters params = null;
+	public Parameters params = null;
+	/**
+	 * @param getEntry
+	 * @return Dico.vs_a("key1","key2",etc); OU new String[]{"key1","key2",etc}
+	 */
+	public String[] giveGetEntry();
 
 }

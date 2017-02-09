@@ -120,6 +120,7 @@ public class io {
 	}
 	
 	
+	@SuppressWarnings("rawtypes")
 	public static Optional pscan(String ph,String scan_quoi) throws InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException, IllegalArgumentException{
 		 	Object[] obj = {};// for method1()
 	        // Object[] obj={"hello"}; for method1(String str)

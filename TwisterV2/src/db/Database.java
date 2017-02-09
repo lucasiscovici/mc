@@ -34,7 +34,7 @@ return dataSource.getConnection();
 public static Connection getMySQLConnection() throws SQLException, ClassNotFoundException {
     Class.forName("com.mysql.jdbc.Driver");
 
-	if (DBStatic.mysql_pooling==false) {
+	if (!DBStatic.mysql_pooling) {
 		return (DriverManager.getConnection("jdbc:mysql://"+ DBStatic.mysql_host + "/" + DBStatic.mysql_db, DBStatic.mysql_username, DBStatic.mysql_password));
 			
 		}else
