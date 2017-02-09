@@ -39,12 +39,16 @@ public class db_Helper {
 		//io.print(query);
 		ResultSet r = s.executeQuery(query);
 		List<String> columns = getColumnsNames(r);
-
+		
+		int c = 0;
 		while (r.next()) {
+			Dico l = new Dico();
+			l.countD=c;
 			for (String string : columns) {
-				liste.add(new Dico(string, r.getString(string)));
+				l.addD(string, r.getString(string));
 			}
-
+			liste.add(l);
+			c++;
 		}
 		r.close();
 		s.close();	

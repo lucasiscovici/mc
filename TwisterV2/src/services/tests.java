@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import org.json.JSONException;
 
+import db.db_Helper;
 import util.Dico;
 import util.Error;
 import util.LucasException;//import services.user.SLogin;
@@ -18,7 +19,7 @@ class test {
 	public static void main(String[] args) throws NumberFormatException, ClassNotFoundException, IOException, JSONException, LucasException {
 		//new SLogin(Dico.toP("login", "luluperet","password","popo"));
 		try {
-			new SLogin(Dico.toP("login","luluperet","password","popo"));
+			io.print(db_Helper.select("SELECT * FROM User"));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			io.print(Error.SqlError.setDescription(e.getMessage()));

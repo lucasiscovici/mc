@@ -10,9 +10,13 @@ public class Dico {
 	String key;
 	String value = null;
 	List<String> values = null;
+	List<Dico> valuesd = null;
+	
 	public Dico(Object o, Object o1){
 		
 	}
+	boolean is_dicd = false;
+
 	boolean is_dic = false;
 	public Dico(String key, String value) {
 		// TODO Auto-generated constructor stub
@@ -36,9 +40,27 @@ public class Dico {
 			return Dico.kv(key, value);
 		}
 	}
+	
 	public Dico(String value) {
 		this.key = Usefull.uniqueID();
 		this.value = value;
+	}
+	public int countD = 0;
+	public Dico addD(String s,String g) {
+		
+		this.is_dicd = true;
+		if (this.valuesd==null) {
+			this.valuesd = new ArrayList<Dico>();
+			this.setKey(countD);
+			
+		}
+		this.valuesd.add(Dico.kv(s, g));
+		
+		return this;
+	}
+	public Dico setKey(Object ob) {
+		this.key = ob.toString();
+		return this;
 	}
 	public static Parameters fv(String...values) {
 		Parameters p = new Parameters();
@@ -174,7 +196,13 @@ public static Dico kvs(String key,String[] values) {
 			for (String string : values) {
 				d += string+" ";
 			}
-		}else{
+		}else if(this.is_dicd) {
+			d+="\n";
+			for (Dico dd : valuesd) {
+				d+= dd.toString();
+			}
+		}
+		else{
 			d+=this.value;
 		}
 		d+="\n";
