@@ -67,6 +67,13 @@ public class io {
 			print_json(response, s);
 		}
 	}
+	public static void print_json_or_print(HttpServletResponse response,Object s) throws IOException {
+		if (response==null) {
+			print(s);
+		}else{
+			print_json(response, s.toString());
+		}
+	}
 	public static void print_json_or_printFromString(HttpServletResponse response,String s) throws IOException, JSONException {
 		if (response==null) {
 			print(s);

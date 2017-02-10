@@ -19,45 +19,45 @@ public class db_User_Helper {
 		// TODO Auto-generated method stub
 	}
 	
-	public static boolean CheckIfExist(Parameters p) throws NumberFormatException, SQLException, ClassNotFoundException {
-		return db_Helper.selectOK(My_Table,p.PS(login)); 
+	public static boolean CheckIfExist(Parameters params) throws NumberFormatException, SQLException, ClassNotFoundException {
+		return db_Helper.selectOK(My_Table,params.PS(login)); 
 	}
 	
-	public static boolean Auth(Parameters p) throws ClassNotFoundException, SQLException {
-		return db_Helper.selectOK(Tables.Session, p.PS(session_key));
+	public static boolean Auth(Parameters params) throws ClassNotFoundException, SQLException {
+		return db_Helper.selectOK(Tables.Session, params.PS(session_key));
 	}
 	
-	public static boolean InsertUser(Parameters p) throws SQLException, ClassNotFoundException {
-		return db_Helper.insertOK(My_Table,p.PS(prenom,nom,password,login)); 
+	public static boolean InsertUser(Parameters params) throws SQLException, ClassNotFoundException {
+		return db_Helper.insertOK(My_Table,params.PS(prenom,nom,password,login)); 
 	}
 	
-	public static boolean InsertSession(Parameters p) throws SQLException, ClassNotFoundException {
-		p.AddParam(session_id_user, db_User_Helper.getIdWithLogin(p));
+	public static boolean InsertSession(Parameters params) throws SQLException, ClassNotFoundException {
+		params.AddParam(session_id_user, db_User_Helper.getIdWithLogin(params));
 		
-		if (db_Helper.selectOK(Tables.Session, p.PS(session_id_user))) {
-			db_Helper.deleteOK(Tables.Session, p.PS(session_id_user,session_key));
+		if (db_Helper.selectOK(Tables.Session, params.PS(session_id_user))) {
+			db_Helper.deleteOK(Tables.Session, params.PS(session_id_user));
 		}
-		return db_Helper.insertOK(Tables.Session,p.PS(session_id_user,session_key)); 
+		return db_Helper.insertOK(Tables.Session,params.PS(session_id_user,session_key)); 
 	}
 	
-	public static boolean DeleteSession(Parameters p) throws SQLException, ClassNotFoundException {
+	public static boolean DeleteSession(Parameters params) throws SQLException, ClassNotFoundException {
 
-		return db_Helper.deleteOK(Tables.Session,p.PS(session_key)); 
+		return db_Helper.deleteOK(Tables.Session,params.PS(session_key)); 
 	}
 	
-	public static boolean CheckPassword(Parameters p) throws NumberFormatException, SQLException, ClassNotFoundException {
+	public static boolean CheckPassword(Parameters params) throws NumberFormatException, SQLException, ClassNotFoundException {
 
-		return db_Helper.selectOK(My_Table,p.PS(login,password));
+		return db_Helper.selectOK(My_Table,params.PS(login,password));
 	}
 	
-	public static int getIdWithLogin(Parameters p) throws NumberFormatException, SQLException, ClassNotFoundException {
+	public static int getIdWithLogin(Parameters params) throws NumberFormatException, SQLException, ClassNotFoundException {
 		
-		return db_Helper.selectAndWhereID(My_Table, p.PS(login));
+		return db_Helper.selectAndWhereID(My_Table, params.PS(login));
 	}
 	
-	public static Integer getIdWithKey(Parameters p) throws ClassNotFoundException, SQLException {
+	public static Integer getIdWithKey(Parameters params) throws ClassNotFoundException, SQLException {
 		
-		return db_Helper.selectAndWhere("id_user",Tables.Session,p.PS(session_key)).getValueInt("id_user");
+		return db_Helper.selectAndWhere("id_user",Tables.Session,params.PS(session_key)).getValueInt("id_user");
 	}
 }
 

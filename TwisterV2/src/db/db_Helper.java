@@ -19,6 +19,7 @@ import util.Parameters;
 
 import util.io;
 
+import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
@@ -85,6 +86,7 @@ public class db_Helper {
 			}else{
 			Dico l = new Dico();
 			l.countD=c;
+			l.false_key = true;
 			for (String string : columns) {
 				l.addD(string, r.getString(string));
 			}
@@ -136,7 +138,7 @@ public class db_Helper {
 	public static String CreateSelectFrom(Parameters param,String table) {
 		String query = "SELECT ";
 		for (Dico dico: param.parameters) {
-			query += " "+dico.getValue()+",";
+			query += " `"+dico.getValue()+"`,";
 		}
 		query = query.substring(0, query.length() - 1);
 		query+= " FROM "+table+" ";
@@ -189,6 +191,7 @@ public class db_Helper {
 		String query = "DELETE FROM "+table+"";
 		query += where(d);
 		Statement s = giveMeAnStatement();
+		//io.print(query);
 		return s.executeUpdate(query);	
 	}
 	public static boolean insertOK(String table,Parameters d) throws SQLException, ClassNotFoundException {
@@ -213,6 +216,7 @@ public class db_Helper {
 	public static BasicDBObject CreateRequest() {
 		return new BasicDBObject();
 	}
+	
 	public static long insertMongo(String table,Parameters p) throws UnknownHostException {
 		BasicDBObject r= CreateRequest();
 		long ds = getMyCollection(table).count();
@@ -224,8 +228,25 @@ public class db_Helper {
 
 		return df-ds;
 	}
+	public static long deleteMongo(String table,Parameters p) throws UnknownHostException {
+		BasicDBObject r= CreateRequest();
+		long ds = getMyCollection(table).count();
+		for (Dico d : p.parameters) {
+			r.put(d.getKey(), d.getValue());
+			
+		}
+		WriteResult d = getMyCollection(table).remove(r);
+
+		long df = getMyCollection(table).count();
+		return df-ds;
+
+	}
 	public static boolean insertMongoOK(String table,Parameters p) throws UnknownHostException {
-		return insertMongo(table,p) > 0;
+		return insertMongo(table,p) != 0;
+
+	}
+	public static boolean deleteMongoOK(String table,Parameters p) throws UnknownHostException {
+		return deleteMongo(table,p) != 0;
 
 	}
 	public static void whereMongo(BasicDBObject r, Parameters p) {
@@ -242,6 +263,28 @@ public class db_Helper {
 		BasicDBObject r = CreateRequest();
 		whereMongo(r, p);
 		DBCursor dcu = dc.find(r);
+		Parameters pn = new Parameters();
+		int c = 0;
+		while (dcu.hasNext()) {
+			DBObject dbObject = (DBObject) dcu.next();
+			//io.print(dbObject);
+			pn.co=c++;
+			pn.AddParam(dbObject);
+			
+		}
+		return pn;
+	}
+	public static Parameters selectMongoIn(String table,String quoi, List p) throws UnknownHostException {
+		DBCollection dc = getMyCollection(table);
+		//BasicDBObject r = CreateRequest();
+		//whereMongo(r, p);
+		//io.print(p);
+		 BasicDBList docIds = new BasicDBList();
+		 docIds.addAll(p);
+		 DBObject inClause = new BasicDBObject("$in", docIds);
+         DBObject r = new BasicDBObject(quoi, inClause);
+		DBCursor dcu = dc.find(r);
+		
 		Parameters pn = new Parameters();
 		int c = 0;
 		while (dcu.hasNext()) {

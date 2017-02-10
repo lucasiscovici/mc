@@ -51,25 +51,48 @@ for (Dico dico : parameters) {
 
 			}
 		}
-		
-		this.getDico(key1).setKey(nk);
+		for (Dico dico : parameters) {
+			if (dico.false_key) {
+				for (Dico dico2 : dico.valuesd) {
+					if (dico2.key.equals(key1)) {
+						dico2.key=nk;
+					}
+				}
+			}else{
+			if (dico.key.equals(key1)) {
+				dico.key=nk;
+			}
+			}
+		}
 		return this;
 	}
 	public Parameters change_newk(String key1, final String nk) throws LucasException {
 		for (Dico dico : parameters) {
-			if (dico.key==nk) {
+			if (dico.key.equals(nk)) {
 				throw new LucasException("Parameters: change(String key1,String nk) ->  nk deja present danns les parameters");
 
 			}
 		}
-		this.AddParam(this.getDico(key1).copy().setKey(nk));
+		Parameters df = this.getDicos(key1).copy(); 
+		for (Dico dico : df.parameters) {
+			dico.setKey(nk);
+		}
+		this.AddParam(df);
 		return this;
 	}
 	public Parameters getDicos(String key) {
 		Parameters p = new Parameters();
 		for (Dico dico : parameters) {
+			if (dico.false_key==true) {
+				for (Dico dico2 : dico.valuesd) {
+					if (dico2.key.equals(key)) {
+						p.AddParam(dico2);
+					}
+				}
+			}else{
 			if (dico.key.equals(key)) {
 				p.AddParam(dico);
+			}
 			}
 		}
 		return p;
@@ -107,7 +130,7 @@ for (Dico dico : parameters) {
 		return getDicos(key).getOnlyValues();
 	}
 	public List<String> getValues(String key) {
-		return getDico(key).getValues();
+		return getDicos(key).getOnlyValues();
 }
 	
 	public Parameters(HttpServletRequest req) {
@@ -163,6 +186,8 @@ for (Dico dico : parameters) {
 	public Parameters AddParam(DBObject db){
 //		if (dico.getValue().length() > 0) {
 		Dico d = new Dico();
+		d.is_dicd = true;
+		d.false_key = true;
 		d.setKey(co);
 		d.countD = co;
 //io.print(co);
@@ -183,6 +208,12 @@ for (Dico dico : parameters) {
 //		}
 		return this;
 	}
+	public Parameters AddParam(Object...keys) throws LucasException{
+//		if (dico.getValue().length() > 0) {
+		this.parameters.addAll(Dico.toP(keys).parameters);
+//		}
+		return this;
+	}
 	public Parameters AddParam(Parameters p, String...keys){
 //		if (dico.getValue().length() > 0) {
 		this.parameters.addAll(p.getDicos(keys));
@@ -193,8 +224,12 @@ for (Dico dico : parameters) {
 
 		return AddParam(Dico.kv(key, id.toString()));
 	}
-	public boolean CheckIfErrParams(String[] params) {
-		List<String> l = Arrays.asList(params);
+	public Parameters AddParam(String key,Parameters id){
+
+		return AddParam(Dico.kvsd(key, id.parameters));
+	}
+	public boolean CheckIfErrParams(String[] getEntry) {
+		List<String> l = Arrays.asList(getEntry);
 		ArrayList<String> al = new ArrayList<String>(l);
 		
 		for (Dico dico : this.parameters) {

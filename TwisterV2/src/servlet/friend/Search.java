@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONException;
 
-import services.friend.SSearch;
+import services.post.SSearch;
 import util.LucasException;
 import util.Parameters;
 

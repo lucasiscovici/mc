@@ -13,10 +13,12 @@ public class db_Friend_Helper {
 	public static String from = "from";
 	public static String to = "to";
 	
-	public static String id_friend = "from";
+	public static String id_friend = "id_friend";
 
 
-
+	public static Parameters listFriendsFromKey(Parameters params) throws ClassNotFoundException, SQLException, LucasException {
+		return db_Helper.selectAndWhere("to", My_Table, params.AddParam("from",db_User_Helper.getIdWithKey(params)).PS("from")).change("to", "id_friend");
+	}
 	public static boolean InsertFriend(Parameters p) throws SQLException, ClassNotFoundException, LucasException {
 
 		Parameters p2 = p.copy().AddParam(from, db_User_Helper.getIdWithKey(p)).change(id_friend, to);

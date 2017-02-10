@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONString;
+
 import services.utils.Service;
 
 public class Dico {
@@ -11,10 +16,11 @@ public class Dico {
 	String value = null;
 	List<String> values = null;
 	List<Dico> valuesd = null;
-	
+	public boolean false_key = false;
 	public Dico(Object o, Object o1){
 		
 	}
+	
 	boolean is_dicd = false;
 
 	boolean is_dic = false;
@@ -26,17 +32,33 @@ public class Dico {
 	public boolean is_null() {
 		return key.equals("null") && value.equals("null");
 	}
-	public Dico(String key, List<String> values) {
+	public Dico(String key, List<?> values) {
 		// TODO Auto-generated constructor stub
 		this.key = key;
-		this.values = values;
-		this.is_dic = true;
+		 if(values != null && !values.isEmpty())
+		    {
+		        if (values.get(0) instanceof String)
+		        {
+		        	this.values = (List<String>) values;
+		    		this.is_dic = true;
+		        }
+		        else if(values.get(0) instanceof Dico)    
+		        {
+		        	this.valuesd = (List<Dico>) values;
+		    		this.is_dicd = true;
+		        }
+		        
+		    }
 
 	}
+
 	public Dico copy() {
 		if (is_dic) {
 			return Dico.kvs(key, values);
-		}else{
+		}else if (is_dicd){
+			return Dico.kvsd(key, valuesd);
+		}
+		else{
 			return Dico.kv(key, value);
 		}
 	}
@@ -55,7 +77,7 @@ public class Dico {
 			
 		}
 		this.valuesd.add(Dico.kv(s, g));
-		
+		this.is_dicd = true;
 		return this;
 	}
 	public Dico setKey(Object ob) {
@@ -70,7 +92,7 @@ public class Dico {
 		return p;
 	}
 	public static Dico vT(Service ob,String key) {
-		return new Dico(key,ob.Local_params.getValue(key));
+		return ob.Local_params.getDico(key).copy();
 	}
 	
 	public static Parameters vT_toP(Service ob,String key) {
@@ -98,6 +120,9 @@ public class Dico {
 	}
 	public static Dico kvs(String key, List<String> values) {
 		return new Dico(key,values);
+	}
+	public static Dico kvsd(String key, List<Dico> dicos) {
+		return new Dico(key,dicos);
 	}
 	public static Dico kv(String key, String value) {
 		return new Dico(key,value);
@@ -190,23 +215,56 @@ public static Dico kvs(String key,String[] values) {
 	}
 	@Override
 	public String toString() {
+		String d = this.key+": ";
 		// TODO Auto-generated method stub
-		String d = ""+this.key+":  " ;
 		if (this.is_Dico()) {
 			for (String string : values) {
 				d += string+" ";
 			}
 		}else if(this.is_dicd) {
-			d+="\n";
-			for (Dico dd : valuesd) {
-				d+= dd.toString();
+			if (this.valuesd == null) {
+				return "\n";
 			}
+			for (Dico dd : valuesd) {
+				d+= "\n"+dd.toString();
+			}
+			d+="\n\n";
 		}
 		else{
 			d+=this.value;
 		}
-		d+="\n";
 		return d;
+	}
+	
+	public Object toJSON() throws JSONException {
+		//io.print(this.is_dicd);
+
+		if(this.is_dicd) {
+			JSONArray arr = new JSONArray();
+			JSONObject k = new JSONObject();
+			
+			for (Dico d : this.valuesd) {
+				//io.print(d);
+				if (d.false_key) {
+					arr.put( ((JSONArray) d.toJSON()).get(0));
+				}else{
+				k.put(d.key, d.toJSON());
+
+				
+				}
+			}
+			if (k.length() >0) {
+				
+			
+			arr.put(k);
+			}
+			
+			return arr;
+		}
+		else{
+			return (String) this.getValue();
+		}
+
 	}
 	public static Dico fromString(String[] strings) {
 		return new Dico(strings[0],strings[1]);
@@ -221,7 +279,11 @@ public static Dico kvs(String key,String[] values) {
 	public static List<Dico> ps(Parameters pa,String...strings) {
 		List<Dico> d = new ArrayList<Dico>();
 		for (int i = 0; i < strings.length; i++) {
-			d.add(fromString(new String[]{strings[i],pa.getValue(strings[i])}));
+			for (String dico : pa.getValues(strings[i])) {
+				
+			
+			d.add(fromString(new String[]{strings[i],dico}));
+			}
 		}
 		return d;
 	}

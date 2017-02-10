@@ -1,4 +1,4 @@
-package services.friend;
+package services.post;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -17,31 +17,31 @@ import util.LucasException;
 import util.Parameters;
 import util.io;
 
-public class SSearch extends Service {
+public class SSearchBis extends Service {
 
-	public SSearch() throws NumberFormatException, ClassNotFoundException, IOException, SQLException, JSONException,
+	public SSearchBis() throws NumberFormatException, ClassNotFoundException, IOException, SQLException, JSONException,
 			LucasException {
 		super();
 	}
 
-	public SSearch(Parameters params) throws NumberFormatException, ClassNotFoundException, IOException, SQLException,
+	public SSearchBis(Parameters params) throws NumberFormatException, ClassNotFoundException, IOException, SQLException,
 			JSONException, LucasException {
 		super(params);
 	}
 
-	public SSearch(Parameters params, HttpServletResponse resp) throws NumberFormatException, ClassNotFoundException,
+	public SSearchBis(Parameters params, HttpServletResponse resp) throws NumberFormatException, ClassNotFoundException,
 			IOException, SQLException, JSONException, LucasException {
 		super(params, resp);
 	}
 
 	@Override
 	public String[] giveGetEntry() {
-		return Dico.vs_a("key","query","friends");
+		return Dico.vs_a("key","query","ok_friends");
 	}
 
 	@Override
 	public Parameters to_json() {
-		return Dico.vT_toP(this, "message");
+		return Dico.vT_toP(this, "messages");
 	}
 
 	@Override
@@ -52,9 +52,16 @@ public class SSearch extends Service {
 		}
 		
 		if (params.getValue("key").length()>0 && db_User_Helper.Auth(params)) {
-			this.Local_params.AddParam("message", db_Post_Helper.listPostFromKey(params.PS("key")));
-			io.print(Local_params.getValue("message"));
+			if (params.getValue("ok_friends").length() > 0 && params.getValue("ok_friends").equals("true")) {
+				this.Local_params.AddParam("messages", db_Post_Helper.listPostFromFriends(params.PS("key")));
+				io.print_json_or_print(response, JSONHelper.to_json(this));
+
+				
+			}else{
+			this.Local_params.AddParam("messages", db_Post_Helper.listPostFromKey(params.PS("key")));
+
 			io.print_json_or_print(response, JSONHelper.to_json(this));
+			}
 		}
 	}
 

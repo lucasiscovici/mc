@@ -12,6 +12,7 @@ import db.db_User_Helper;
 import services.utils.Service;
 import util.Dico;
 import util.Error;
+import util.JSONHelper;
 import util.LucasException;
 import util.Parameters;
 import util.io;
@@ -46,7 +47,7 @@ public class SAddComment extends Service {
 	@Override
 	public Parameters to_json() {
 		// TODO Auto-generated method stub
-		return null;
+		return Dico.vT_toP(this, "response");
 	}
 
 	@Override
@@ -64,7 +65,9 @@ public class SAddComment extends Service {
 		if (!db_Post_Helper.insertPost(params)) {
 			io.print_json_or_print(response, Error.MongoError.depuis(this));return;
 		}
-		io.print_text(response, "OK");
+		//io.print_text(response, "OK");
+		Local_params.AddParam("response",Dico.toP("id",db_Post_Helper.id_post));
+		io.print_json_or_print(response, JSONHelper.to_json(this));
 	}
 
 }
