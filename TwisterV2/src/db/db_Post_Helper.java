@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import util.LucasException;
 import util.Parameters;
 import util.Usefull;
-import util.io;
+//import util.io;
 
 public class db_Post_Helper {
 	public static String My_Table = Tables.Post;

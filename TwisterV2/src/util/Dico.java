@@ -7,7 +7,6 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONString;
 
 import services.utils.Service;
 
@@ -32,6 +31,7 @@ public class Dico {
 	public boolean is_null() {
 		return key.equals("null") && value.equals("null");
 	}
+	@SuppressWarnings("unchecked")
 	public Dico(String key, List<?> values) {
 		// TODO Auto-generated constructor stub
 		this.key = key;

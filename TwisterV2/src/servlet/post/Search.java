@@ -1,4 +1,4 @@
-package servlet.friend;
+package servlet.post;
 
 import java.io.IOException;
 import java.sql.SQLException;

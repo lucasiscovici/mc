@@ -17,7 +17,7 @@ import util.Parameters;
 
 
 
-import util.io;
+//import util.io;
 
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
@@ -26,7 +26,6 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.Mongo;
-import com.mongodb.WriteResult;
 import com.mysql.jdbc.ResultSetMetaData;
 import com.mysql.jdbc.Statement;
 
@@ -223,7 +222,7 @@ public class db_Helper {
 		for (Dico d : p.parameters) {
 			r.put(d.getKey(), d.getValue());
 		}
-		WriteResult d = getMyCollection(table).insert(r);
+		getMyCollection(table).insert(r);
 		long df = getMyCollection(table).count();
 
 		return df-ds;
@@ -235,7 +234,7 @@ public class db_Helper {
 			r.put(d.getKey(), d.getValue());
 			
 		}
-		WriteResult d = getMyCollection(table).remove(r);
+	getMyCollection(table).remove(r);
 
 		long df = getMyCollection(table).count();
 		return df-ds;
@@ -274,7 +273,8 @@ public class db_Helper {
 		}
 		return pn;
 	}
-	public static Parameters selectMongoIn(String table,String quoi, List p) throws UnknownHostException {
+	@SuppressWarnings("unchecked")
+	public static Parameters selectMongoIn(String table,String quoi, @SuppressWarnings("rawtypes") List p) throws UnknownHostException {
 		DBCollection dc = getMyCollection(table);
 		//BasicDBObject r = CreateRequest();
 		//whereMongo(r, p);
