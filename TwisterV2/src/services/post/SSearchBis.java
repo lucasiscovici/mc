@@ -45,10 +45,10 @@ public class SSearchBis extends Service {
 	}
 
 	@Override
-	public void koko() throws IOException, NumberFormatException, SQLException, JSONException, ClassNotFoundException,
-			LucasException {
+	public void koko() {
 		if(params.CheckIfErrParams(getEntry)){
-			io.print_json_or_print(response, Error.ErrArgs.depuis(this).to_JSON());return;
+			RespS.c(this, Error.ErrArgs);
+			return;
 		}
 		
 		if (params.getValue("key").length()>0 && db_User_Helper.Auth(params)) {

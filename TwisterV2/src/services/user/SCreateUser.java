@@ -42,22 +42,42 @@ public class SCreateUser extends Service {
 	}
 
 	@Override
-	public void koko() throws IOException, NumberFormatException, SQLException, JSONException, ClassNotFoundException,
-			LucasException {
+	public void koko() {
 		if (params.CheckIfErrParams(getEntry)) {
-			io.print_json_or_print(response, Error.ErrArgs.depuis(this));
+			RespS.c(this, Error.ErrArgs);
+			return;
 		}else{
 
 			
-			if (db_User_Helper.CheckIfExist(params)) {
-				io.print_json_or_print(response, Error.LoginExist.depuis(this));
-			}else{
-				if (db_User_Helper.InsertUser(params)){
-					io.print_json_or_printFromString(response, "OK");
+			try {
+				if (db_User_Helper.CheckIfExist(params)) {
+					RespS.c(this, Error.LoginExist);
+					return;
 				}else{
-					io.print_json_or_print(response, Error.SqlError.setDescription("pb d'ajout d'un user",this));
+					if (db_User_Helper.InsertUser(params)){
+						io.print_json_or_printFromString(response, "OK");
+					}else{
+						RespS.c(this, Error.SqlError);
+						return;
+					}
+					
 				}
-				
+				RespS.cj(this);
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 

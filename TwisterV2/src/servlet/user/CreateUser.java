@@ -33,7 +33,7 @@ public class CreateUser extends HttpServlet  {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
-			new SCreateUser(Parameters.req(req), resp);
+			new SCreateUser(Parameters.req(req), resp).print();
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			io.print_text(resp, Error.JsonError.depuis(this));

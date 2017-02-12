@@ -24,7 +24,7 @@ public class RemoveFriend extends HttpServlet {
 		// TODO Auto-generated method stub
 
 		try {
-			new SRemoveFriend(Parameters.req(req), resp);
+			new SRemoveFriend(Parameters.req(req), resp).print();
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

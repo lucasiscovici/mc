@@ -20,7 +20,7 @@ protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 		throws ServletException, IOException {
 
 	try {
-		new SLogout(Parameters.req(req), resp);
+		new SLogout(Parameters.req(req), resp).print();
 	} catch (JSONException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();

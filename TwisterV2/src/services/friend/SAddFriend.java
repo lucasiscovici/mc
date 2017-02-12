@@ -45,22 +45,47 @@ public class SAddFriend extends Service {
 	}
 
 	@Override
-	public void koko() throws IOException, NumberFormatException, SQLException, JSONException, ClassNotFoundException,
-			LucasException {
+	public void koko() {
 		if (params.CheckIfErrParams(getEntry)) {
-			io.print_json_or_print(response, Error.ErrArgs.to_JSON());
+			RespS.c(this, Error.ErrArgs);
+			return;
 		}else{
 			//Check Auth with Key
-			if (!db_User_Helper.Auth(params)) {
-				io.print_json_or_print(response, Error.NAUTH.detail("key incorrect",this));
-				return;
+			try {
+				if (!db_User_Helper.Auth(params)) {
+					RespS.c(this, Error.NAUTH.detail("key incorrect"));
+					return;
+				}
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			
 			//Insert Friend
-			if (!db_Friend_Helper.InsertFriend(params)) {
-				io.print_json_or_print(response, Error.SqlError.detail("PB Insert friend check ids",this));
-			}else{
-				io.print_text(response, "OK");
+			try {
+				if (!db_Friend_Helper.InsertFriend(params)) {
+					RespS.c(this, Error.SqlError.detail("PB Insert friend check ids"));
+					return;
+				}else{
+					try {
+						io.print_text(response, "OK");
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (LucasException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 	}

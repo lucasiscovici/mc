@@ -21,7 +21,7 @@ public class AddComment extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
-			new SAddComment(Parameters.req(req), resp);
+			new SAddComment(Parameters.req(req), resp).print();
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

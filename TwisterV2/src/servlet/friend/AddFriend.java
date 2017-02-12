@@ -26,7 +26,7 @@ public class AddFriend extends HttpServlet {
 		// TODO Auto-generated method stub
 
 		try {
-			new SAddFriend(Parameters.req(req), resp);
+			new SAddFriend(Parameters.req(req), resp).print();
 		} catch (JSONException e) {
 			io.print_text(resp,Error.JsonError);
 			e.printStackTrace();

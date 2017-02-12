@@ -49,17 +49,45 @@ public class SListFriends extends Service {
 	}
 
 	@Override
-	public void koko() throws IOException, NumberFormatException, SQLException, JSONException, ClassNotFoundException,
-			LucasException {
+	public void koko() {
 		// TODO Auto-generated method stub
 		if (params.CheckIfErrParams(getEntry)) {
-			io.print_json_or_print(response, Error.ErrArgs.depuis(this));
+			RespS.c(this, Error.ErrArgs);
+			return;
 		}
-		if (!db_User_Helper.Auth(params)) {
-			io.print_json_or_print(response, Error.NAUTH.depuis(this));
+		try {
+			if (!db_User_Helper.Auth(params)) {
+				RespS.c(this, Error.NAUTH);
+				return;
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		Local_params.AddParam("response",db_Friend_Helper.listFriendsFromKey(params));
-		io.print_json_or_print(response, JSONHelper.to_json(this));
+		try {
+			Local_params.AddParam("response",db_Friend_Helper.listFriendsFromKey(params));
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (LucasException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			io.print_json_or_print(response, JSONHelper.to_json(this));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

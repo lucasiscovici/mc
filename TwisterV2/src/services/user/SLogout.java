@@ -55,17 +55,34 @@ public class SLogout extends Service  {
 	}
 
 	@Override
-	public void koko() throws IOException, NumberFormatException, SQLException, JSONException, ClassNotFoundException,
-			LucasException {
+	public void koko() {
 		// TODO Auto-generated method stub
 		if(params.CheckIfErrParams(getEntry)){
-			io.print_json_or_print(response, Error.ErrArgs.to_JSON());
+			RespS.c(this, Error.ErrArgs);
+			return;
 		}else{
-			boolean ok_delete_session = db_User_Helper.DeleteSession(params);
-			if (!ok_delete_session) {
-				io.print_json_or_print(response, Error.SqlError.detail("Key Introuvable"));
-			}else{
-				io.print_text(response, "OK");
+			try {
+				if (!db_User_Helper.DeleteSession(params)) {
+					RespS.c(this, Error.SqlError);
+					return;
+				}else{
+					io.print_text(response, "OK");
+				}
+				try {
+					RespS.cj(this);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 		

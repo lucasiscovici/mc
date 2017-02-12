@@ -1,6 +1,7 @@
 package services.post;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletResponse;
@@ -48,18 +49,44 @@ public class SRemoveComment extends Service {
 	}
 
 	@Override
-	public void koko() throws IOException, NumberFormatException, SQLException, JSONException, ClassNotFoundException,
-			LucasException {
+	public void koko() {
 		if (params.CheckIfErrParams(getEntry)) {
-			io.print_json_or_print(response, Error.ErrArgs.depuis(this));
+			RespS.c(this, Error.ErrArgs);
+			return;
 		}
-		if (!db_User_Helper.Auth(params)) {
-			io.print_json_or_print(response, Error.NAUTH.depuis(this));
+		try {
+			if (!db_User_Helper.Auth(params)) {
+				RespS.c(this, Error.NAUTH);
+				return;
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		if (!db_Post_Helper.removePost(params)) {
-			io.print_json_or_print(response, Error.MongoError.depuis(this));
+		try {
+			if (!db_Post_Helper.removePost(params)) {
+				RespS.c(this, Error.MongoError);
+				return;
+			}
+		} catch (UnknownHostException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
-		io.print_text(response,"OK");
+		try {
+			RespS.cj(this);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			io.print_text(response,"OK");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -44,21 +44,44 @@ public class SRemoveFriend extends Service {
 	}
 
 	@Override
-	public void koko() throws IOException, NumberFormatException, SQLException, JSONException, ClassNotFoundException,
-	LucasException {
+	public void koko() {
 
 		if (params.CheckIfErrParams(getEntry)) {
-			io.print_json_or_print(response, Error.ErrArgs.depuis(this).to_JSON());
+			RespS.c(this, Error.ErrArgs);
+			return;
 		}else{
-			if (!db_User_Helper.Auth(params)) {
-				io.print_json_or_print(response, Error.NAUTH.detail("key incorrect",this));
-				return;
+			try {
+				if (!db_User_Helper.Auth(params)) {
+					RespS.c(this, Error.NAUTH.detail("key incorrect"));
+					return;
+				}
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 
-			if (!db_Friend_Helper.RemoveFriend(params)) {
-				io.print_json_or_print(response, Error.SqlError.detail("PB delete friend check ids",this));
-			}else{
-				io.print_text(response, "OK");
+			try {
+				if (!db_Friend_Helper.RemoveFriend(params)) {
+					RespS.c(this, Error.SqlError.detail("PB delete friend check ids"));
+					return;
+				}else{
+					io.print_text(response, "OK");
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (LucasException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 	}

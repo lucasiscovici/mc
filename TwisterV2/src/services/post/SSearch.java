@@ -1,6 +1,7 @@
 package services.post;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletResponse;
@@ -45,16 +46,34 @@ public class SSearch extends Service {
 	}
 
 	@Override
-	public void koko() throws IOException, NumberFormatException, SQLException, JSONException, ClassNotFoundException,
-			LucasException {
+	public void koko() {
 		if(params.CheckIfErrParams(getEntry)){
-			io.print_json_or_print(response, Error.ErrArgs.depuis(this).to_JSON());return;
+			RespS.c(this, Error.ErrArgs);
+			return;
 		}
 		
-		if (params.getValue("key").length()>0 && db_User_Helper.Auth(params)) {
-			this.Local_params.AddParam("messages", db_Post_Helper.listPostFromKey(params.PS("key")));
-
-			io.print_json_or_print(response, JSONHelper.to_json(this));
+		try {
+			if (params.getValue("key").length()>0 && db_User_Helper.Auth(params)) {
+				this.Local_params.AddParam("messages", db_Post_Helper.listPostFromKey(params.PS("key")));
+				
+				io.print_json_or_print(response, JSONHelper.to_json(this));
+			}
+			RespS.cj(this);
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
