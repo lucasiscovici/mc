@@ -3,6 +3,7 @@ package services.user;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONException;
@@ -17,18 +18,30 @@ import util.io;
 
 public class SCreateUser extends Service {
 
+	
+	
 	public SCreateUser() throws NumberFormatException, ClassNotFoundException, IOException, SQLException, JSONException,
 			LucasException {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	public SCreateUser(Parameters params) throws NumberFormatException, ClassNotFoundException, IOException,
-			SQLException, JSONException, LucasException {
-		super(params);
+	public SCreateUser(HttpServletRequest req, HttpServletResponse resp) throws NumberFormatException,
+			ClassNotFoundException, IOException, SQLException, JSONException, LucasException {
+		super(req, resp);
+		// TODO Auto-generated constructor stub
 	}
 
 	public SCreateUser(Parameters params, HttpServletResponse resp) throws NumberFormatException,
 			ClassNotFoundException, IOException, SQLException, JSONException, LucasException {
 		super(params, resp);
+		// TODO Auto-generated constructor stub
+	}
+
+	public SCreateUser(Parameters params) throws NumberFormatException, ClassNotFoundException, IOException,
+			SQLException, JSONException, LucasException {
+		super(params);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -42,8 +55,7 @@ public class SCreateUser extends Service {
 	}
 
 	@Override
-	public void koko() throws IOException, NumberFormatException, SQLException, JSONException, ClassNotFoundException,
-			LucasException {
+	public void koko() {
 		if (params.CheckIfErrParams(getEntry)) {
 			io.print_json_or_print(response, Error.ErrArgs.depuis(this));
 		}else{

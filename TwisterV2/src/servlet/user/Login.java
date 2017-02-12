@@ -11,9 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONException;
 
-
+import services.user.SLogin;
 import util.LucasException;
-import util.Parameters;
 
 
 @SuppressWarnings("serial")
@@ -23,7 +22,8 @@ public class Login extends HttpServlet  {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
-			new services.user.SLogin(Parameters.req(req),resp);
+			new SLogin(req,resp).print();
+			
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

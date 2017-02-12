@@ -15,6 +15,7 @@ import util.Error;
 import util.JSONHelper;
 import util.LucasException;
 import util.Parameters;
+import util.TestError;
 import util.io;
 
 public class SSearch extends Service {
@@ -36,7 +37,7 @@ public class SSearch extends Service {
 
 	@Override
 	public String[] giveGetEntry() {
-		return Dico.vs_a("key","query","friends");
+		return Dico.vs_a("key");
 	}
 
 	@Override
@@ -45,17 +46,26 @@ public class SSearch extends Service {
 	}
 
 	@Override
-	public void koko() throws IOException, NumberFormatException, SQLException, JSONException, ClassNotFoundException,
-			LucasException {
-		if(params.CheckIfErrParams(getEntry)){
-			io.print_json_or_print(response, Error.ErrArgs.depuis(this).to_JSON());return;
+	public void koko() {
+		try {
+			if (TestError.params(this)) {
+				
+			
+			if (params.getValue("key").length()>0 && db_User_Helper.Auth(params)) {
+				this.Local_params.AddParam("messages", db_Post_Helper.listPostFromKey(params.PS("key")));
+
+				io.print_json_or_print(response, JSONHelper.to_json(this));
+			}
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
-		if (params.getValue("key").length()>0 && db_User_Helper.Auth(params)) {
-			this.Local_params.AddParam("messages", db_Post_Helper.listPostFromKey(params.PS("key")));
-
-			io.print_json_or_print(response, JSONHelper.to_json(this));
-		}
+		
 	}
 
 }
