@@ -2,6 +2,7 @@ package util;
 
 import java.sql.SQLException;
 
+import db.db_Session_Helper;
 import db.db_User_Helper;
 import services.utils.Service;
 
@@ -15,7 +16,7 @@ public class TestError {
 			return false;
 		}
 
-		if (!db_User_Helper.Auth(params)) {
+		if (!db_Session_Helper.c().Auth(params)) {
 			RespS.c(th, Error.NAUTH);
 			return false;
 

@@ -1,32 +1,43 @@
 package db;
 
+import java.net.UnknownHostException;
 import java.sql.SQLException;
 
+import db.util.db;
 import util.LucasException;
 import util.Parameters;
 //import util.io;
 
-public class db_Friend_Helper {
+public class db_Friend_Helper extends db {
 	
+	public static db_Friend_Helper c() {
+		return new db_Friend_Helper();
+	}
+	public db_Friend_Helper() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public static String My_Table = Tables.Friend;
 	
 	public static String from = "from";
 	public static String to = "to";
 	
 	public static String id_friend = "id_friend";
-	public static String id_f = null;
 
-	public static Parameters listFriendsFromKey(Parameters params) throws ClassNotFoundException, SQLException, LucasException {
-		return db_Helper.selectAndWhere("to", My_Table, params.AddParam("from",db_User_Helper.getIdWithKey(params)).PS("from")).change("to", "id_friend");
+	public  Parameters listFriendsFromKey(Parameters params) throws ClassNotFoundException, SQLException, LucasException {
+		return SelectWith(to, params.AddParam(from,db_Session_Helper.c().getIdWithKey(params)).PS(from)).change(to, id_friend);
 	}
-	public static boolean InsertFriend(Parameters p) throws SQLException, ClassNotFoundException, LucasException {
 
-		Parameters p2 = p.copy().AddParam(from, db_User_Helper.getIdWithKey(p)).change(id_friend, to).PS(from,to);
+	@Override
+	public boolean Insert(Parameters params)
+			throws ClassNotFoundException, SQLException, LucasException, UnknownHostException {
+		// TODO Auto-generated method stub
+		Parameters p2 = params.copy().AddParam(from, db_Session_Helper.c().getIdWithKey(params)).change(id_friend, to).PS(from,to);
 
 		if (!p2.getValue(from).equals(p2.getValue(to))) {
 			
-			if (db_Helper.insertOK(My_Table, p2)){
-				id_f = p2.getValue("id");
+			if (InsertOK( p2)){
+				params.AddParam(p2,"id");
 				return true;
 			}else{
 				return false;
@@ -36,12 +47,28 @@ public class db_Friend_Helper {
 
 		return false;
 	}
-
-	public static boolean RemoveFriend(Parameters p) throws SQLException, ClassNotFoundException, LucasException {
-
-		Parameters p2 = p.copy().AddParam(from, db_User_Helper.getIdWithKey(p)).change(id_friend, to);
-
-		return db_Helper.deleteOK(My_Table, p2.PS(from,to));
-
+	@Override
+	public boolean Remove(Parameters params)
+			throws ClassNotFoundException, SQLException, LucasException, UnknownHostException {
+		// TODO Auto-generated method stub
+		Parameters p2 = params.copy().AddParam(from, db_Session_Helper.c().getIdWithKey(params)).change(id_friend, to);
+		return this.RemoveWithId(p2);
+	}
+	@Override
+	public boolean Update(Parameters params)
+			throws ClassNotFoundException, SQLException, LucasException, UnknownHostException {
+		// TODO Auto-generated method stub
+		return this.UpdateWithId(params);
+	}
+	@Override
+	public Parameters Select(Parameters params)
+			throws ClassNotFoundException, SQLException, LucasException, UnknownHostException {
+		// TODO Auto-generated method stub
+		return this.SelectWithId(params);
+	}
+	@Override
+	public String GiveMyTable() {
+		// TODO Auto-generated method stub
+		return My_Table;
 	}
 }

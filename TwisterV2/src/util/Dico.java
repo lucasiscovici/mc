@@ -2,6 +2,7 @@ package util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -14,15 +15,32 @@ public class Dico {
 	String key;
 	String value = null;
 	List<String> values = null;
-	List<Dico> valuesd = null;
+	public List<Dico> valuesd = null;
 	public boolean false_key = false;
 	public Dico(Object o, Object o1){
 		
 	}
-	
-	boolean is_dicd = false;
+	public Dico kill(String k) {
+		Iterator<Dico> d = valuesd.iterator();
+		while (d .hasNext()) {
+			Dico dd = d.next();
+			if(dd.key==k) {
+				d.remove();
+			}
+			else if (dd.is_dic) {
+				dd.kill(k);
+			}
+			
+		}
+		return this;
+	}
+	public Parameters valuesdP() {
+		List<Dico> d = this.copy().valuesd;
+		return Parameters.fromDico(d);
+	}
+	public boolean is_dicd = false;
 
-	boolean is_dic = false;
+	public boolean is_dic = false;
 	public Dico(String key, String value) {
 		// TODO Auto-generated constructor stub
 		this.key = key;
@@ -56,7 +74,11 @@ public class Dico {
 		if (is_dic) {
 			return Dico.kvs(key, values);
 		}else if (is_dicd){
-			return Dico.kvsd(key, valuesd);
+			List<Dico> d = new ArrayList<Dico>();
+			for (Dico dico : valuesd) {
+					d.add(dico.copy());
+			}
+			return Dico.kvsd(key, d);
 		}
 		else{
 			return Dico.kv(key, value);
@@ -80,6 +102,31 @@ public class Dico {
 		this.is_dicd = true;
 		return this;
 	}
+public Dico addD(Dico g) {
+		
+		this.is_dicd = true;
+		if (this.valuesd==null) {
+			this.valuesd = new ArrayList<Dico>();
+			this.setKey(countD);
+			
+		}
+		this.valuesd.add(g);
+		this.is_dicd = true;
+		return this;
+	}
+
+public Dico addD(Parameters g) {
+	
+	this.is_dicd = true;
+	if (this.valuesd==null) {
+		this.valuesd = new ArrayList<Dico>();
+		this.setKey(countD);
+		
+	}
+	this.valuesd.addAll(g.parameters);
+	this.is_dicd = true;
+	return this;
+}
 	public Dico setKey(Object ob) {
 		this.key = ob.toString();
 		return this;
@@ -87,7 +134,11 @@ public class Dico {
 	public static Parameters fv(String...values) {
 		Parameters p = new Parameters();
 		for (String string : values) {
+			if (string.length() > 0) {
+				
+			
 			p.AddParam(Dico.v(string));
+			}
 		}
 		return p;
 	}
@@ -108,8 +159,14 @@ public class Dico {
 		}
 		for (int i = 0; i < values.length; i++) {
 			if (i%2==0) {
+				if (values[i+1] instanceof String) {
+					
 				
 			p.AddParam(values[i].toString(), values[i+1].toString());
+				}else if(values[i+1] instanceof Parameters){
+					p.AddParam(values[i].toString(),((Parameters) values[i+1]));
+
+				}
 			}
 			
 		}
@@ -296,12 +353,21 @@ public static Dico kvs(String key,String[] values) {
 	public static List<Dico> ps(Parameters pa,String...strings) {
 		List<Dico> d = new ArrayList<Dico>();
 		for (int i = 0; i < strings.length; i++) {
-			for (String dico : pa.getValues(strings[i])) {
-				
-			
-			d.add(fromString(new String[]{strings[i],dico}));
+			for (Dico dico : pa.getDicos(strings[i]).parameters) {
+					d.add(dico.copy());
 			}
 		}
+		return d;
+	}
+	public static List<Dico> psn(Parameters pa,String...strings) {
+		List<Dico> d = new ArrayList<Dico>();
+		List<String> s = new ArrayList<String>(Arrays.asList(strings));
+		for (Dico dico : pa.parameters) {
+			if (!s.contains(dico.key)) {
+				d.add(dico.copy());
+			}
+		}
+		
 		return d;
 	}
 	public static Parameters psp(Parameters pa,String...strings) {

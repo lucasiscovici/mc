@@ -15,6 +15,7 @@ import util.Error;
 import util.LucasException;
 import util.io;
 
+@SuppressWarnings("serial")
 public class AddFriend extends HttpServlet {
 	
 	@Override

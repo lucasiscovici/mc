@@ -3,6 +3,7 @@ package util;
 import java.util.Arrays;  
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,9 +16,25 @@ public class Parameters {
 		// TODO Auto-generated method stub
 
 	}
-	
+	public Parameters kill(String k) {
+		Iterator<Dico> d = parameters.iterator();
+	while (d .hasNext()) {
+		Dico dd = d.next();
+		if(dd.key==k) {
+			d.remove();
+		}
+		else if (dd.is_dic) {
+			dd.kill(k);
+		}
+		
+	}
+	return this;
+	}
 	public Dico getDico(String key) {
 		for (Dico dico : parameters) {
+			if (dico.is_dicd) {
+				return dico.valuesdP().getDico(key);
+			}
 			if (dico.key.equals(key)) {
 				return dico;
 			}
@@ -52,7 +69,7 @@ for (Dico dico : parameters) {
 			}
 		}
 		for (Dico dico : parameters) {
-			if (dico.false_key) {
+			if (dico.false_key || dico.is_dicd) {
 				for (Dico dico2 : dico.valuesd) {
 					if (dico2.key.equals(key1)) {
 						dico2.key=nk;
@@ -220,6 +237,26 @@ for (Dico dico : parameters) {
 //		}
 		return this;
 	}
+	public Parameters AddParamR(String...keys) throws LucasException{
+		List<String> s = new ArrayList<String>(Arrays.asList(keys));
+//		
+		if (keys.length < 2) {
+			throw new LucasException("AddParamR deux params min");
+		}
+		
+		return Dico.toP(keys[0],this.PS((String[]) s.subList(1,s.size()).toArray()));
+	}
+	public Parameters AddParamRIn(String...keys) throws LucasException{
+		List<String> s = new ArrayList<String>(Arrays.asList(keys));
+		
+		if (keys.length < 2) {
+			throw new LucasException("AddParamRIN deux params min");
+		}
+		
+		this.getDico(keys[0]).addD(this.PS((String[]) s.subList(1,s.size()).toArray()));
+		return Dico.toP(keys[0],this.PS((String[]) s.subList(1,s.size()).toArray()));
+	}
+
 	public Parameters AddParam(String key,Object id){
 
 		return AddParam(Dico.kv(key, id.toString()));
@@ -250,6 +287,14 @@ for (Dico dico : parameters) {
 		}
 		return false;
 	}
+	public Parameters cp(String a, String b) throws LucasException {
+		Dico d = this.getDico(a);
+		Dico d2 = this.getDico(b);
+		if (!d2.is_null()) {
+			throw new LucasException("Parameters cp vers b, clé deja dans params");
+		}
+		return this.AddParam(d.copy().setKey("b"));
+	}
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
@@ -267,5 +312,8 @@ for (Dico dico : parameters) {
 	}
 	public Parameters PS(String...strings) {
 		return fromDico(Dico.ps(this, strings));
+	}
+	public Parameters PSN(String...strings) {
+		return fromDico(Dico.psn(this, strings));
 	}
 }

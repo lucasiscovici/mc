@@ -3,49 +3,84 @@ package db;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
 
+import db.util.dbM;
 import util.LucasException;
 import util.Parameters;
 import util.Usefull;
-import util.io;
 //import util.io;
 
-public class db_Post_Helper {
+public class db_Post_Helper extends dbM {
 	public static String My_Table = Tables.Post;
+
 	public static String date = "date";
 	public static String text = "text";
 	public static String id_user = "id_user";
-	public static String id_post = null;
 	
-	public boolean idPostOK() {
-		return id_post != null;
+	public static String id_friend = "id_friend";
+
+
+	public static db_Post_Helper c() {
+		return new db_Post_Helper();
 	}
-	public static boolean insertPost(Parameters params) throws UnknownHostException, ClassNotFoundException, SQLException {
-		params.AddParam("date", Usefull.currentDate());
-		params.AddParam("id_user", db_User_Helper.getIdWithKey(params));	
-		params.AddParam("id", db_Post_Helper.listPost(null).parameters.size());	
-		if (db_Helper.insertMongoOK(My_Table, params.PS("text", "id_user", "date","id"))){
-			id_post = params.getValue("id");
+
+	public db_Post_Helper() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Parameters listPostFromKey(Parameters params)
+			throws ClassNotFoundException, SQLException, UnknownHostException {
+		Parameters p2 = params.copy().AddParam(id_user, db_Session_Helper.c().getIdWithKey(params));
+		return SelectMongoWith(id_user, p2);
+	}
+
+	public Parameters listPostFromFriends(Parameters params)
+			throws ClassNotFoundException, SQLException, UnknownHostException, LucasException {
+		Parameters p2 = db_Friend_Helper.c().listFriendsFromKey(params);
+		return db_Helper.selectMongoIn(My_Table, id_user, p2.getValues(id_friend));
+	}
+
+	@Override
+	public boolean Insert(Parameters params)
+			throws ClassNotFoundException, SQLException, LucasException, UnknownHostException {
+
+		params.AddParam(date, Usefull.currentDate());
+		params.AddParam(id_user, db_Session_Helper.c().getIdWithKey(params));
+
+		Parameters p2 = params.PS(text, id_user, date);
+
+		if (InsertMongoOK(p2)) {
+			params.AddParam(p2, "id"); // pique le "id" de p2 et le met dans params
 			return true;
-		}else{
-			id_post = null;
+		} else {
 			return false;
 		}
 	}
-	public static Parameters listPost(Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException {
-		return db_Helper.selectMongo(My_Table, params);
+
+	@Override
+	public boolean Remove(Parameters params)
+			throws ClassNotFoundException, SQLException, LucasException, UnknownHostException {
+		// TODO Auto-generated method stub
+		return this.RemoveMongoWithId(params);
 	}
-	public static boolean removePost(Parameters params) throws UnknownHostException {
-		return db_Helper.deleteMongoOK(My_Table, params.PS("id"));
+
+	@Override
+	public boolean Update(Parameters params)
+			throws ClassNotFoundException, SQLException, LucasException, UnknownHostException {
+		// TODO Auto-generated method stub
+		return this.UpdateMongoWithId(params);
 	}
-	
-	
-	public static Parameters listPostFromKey(Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException {
-		Parameters p2 = params.copy().AddParam(id_user, db_User_Helper.getIdWithKey(params));
-		return db_Helper.selectMongo(My_Table, p2.PS(id_user));
+
+	@Override
+	public Parameters Select(Parameters params)
+			throws ClassNotFoundException, SQLException, LucasException, UnknownHostException {
+		// TODO Auto-generated method stub
+		return this.SelectMongoWithId(params);
 	}
-	public static Parameters listPostFromFriends(Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException, LucasException {
-		Parameters p2 = db_Friend_Helper.listFriendsFromKey(params);
-		//io.print(p2);
-		return db_Helper.selectMongoIn(My_Table,"id_user",p2.getValues("id_friend"));
+
+	@Override
+	public String GiveMyTable() {
+		// TODO Auto-generated method stub
+		return My_Table;
 	}
 }
