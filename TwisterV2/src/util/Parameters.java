@@ -209,11 +209,13 @@ for (Dico dico : parameters) {
 		d.countD = co;
 //io.print(co);
 		for (String key : db.keySet()) {
-			if (key.charAt(0)!='_') {
-				
-			
-			d.addD(key, db.get(key).toString());
+			String keyo = key;
+			if (key.charAt(0)=='_') {
+				keyo = key.substring(1, key.length());
 			}
+			d.addD(keyo, db.get(key).toString());
+			
+			
 		}
 		this.AddParam(d);
 //		}

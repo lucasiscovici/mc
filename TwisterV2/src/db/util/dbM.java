@@ -47,6 +47,10 @@ public abstract class dbM implements db_crud {
 		// TODO Auto-generated method stub
 		return db_Helper.deleteMongoOK(_My_Table, params.PS("id"));
 	}
+	public boolean RemoveMongoWith(Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException {
+		// TODO Auto-generated method stub
+		return db_Helper.deleteMongoOK(_My_Table, params);
+	}
 	public Parameters SelectMongoWithId(Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException {
 		// TODO Auto-generated method stub
 		return db_Helper.selectMongo(_My_Table, params.PS("id"));

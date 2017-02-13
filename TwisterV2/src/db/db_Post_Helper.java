@@ -56,12 +56,30 @@ public class db_Post_Helper extends dbM {
 			return false;
 		}
 	}
+	public boolean Insert2(Parameters params)
+			throws ClassNotFoundException, SQLException, LucasException, UnknownHostException {
 
+		params.AddParam(date, Usefull.currentDate());
+
+		Parameters p2 = params.PS(text, id_user, date);
+
+		if (InsertMongoOK(p2)) {
+			params.AddParam(p2, "id"); // pique le "id" de p2 et le met dans params
+			return true;
+		} else {
+			return false;
+		}
+	}
 	@Override
 	public boolean Remove(Parameters params)
 			throws ClassNotFoundException, SQLException, LucasException, UnknownHostException {
 		// TODO Auto-generated method stub
 		return this.RemoveMongoWithId(params);
+	}
+	public boolean Remove2(Parameters params)
+			throws ClassNotFoundException, SQLException, LucasException, UnknownHostException {
+		// TODO Auto-generated method stub
+		return this.RemoveMongoWith(params);
 	}
 
 	@Override
@@ -76,6 +94,11 @@ public class db_Post_Helper extends dbM {
 			throws ClassNotFoundException, SQLException, LucasException, UnknownHostException {
 		// TODO Auto-generated method stub
 		return this.SelectMongoWithId(params);
+	}
+	public Parameters Select2(Parameters params)
+			throws ClassNotFoundException, SQLException, LucasException, UnknownHostException {
+		// TODO Auto-generated method stub
+		return this.SelectMongoWith(params);
 	}
 
 	@Override

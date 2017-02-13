@@ -10,13 +10,7 @@ import util.Dico;
 import util.LucasException;
 import util.Parameters;
 //import util.io;
-
-
-
-
-
-
-
+import util.io;
 
 //import util.io;
 
@@ -295,14 +289,20 @@ public class db_Helper {
 			r.put(d.getKey(), d.getValue());
 		}
 		 WriteResult w =  getMyCollection(table).insert(r);
-
+		 String id = r.get( "_id" ).toString();
+		 p.AddParam("id", id);
+		 io.print(id);
 		return w.getError()!=null;
 	}
 	public static boolean deleteMongo(String table,Parameters p) throws UnknownHostException {
 		BasicDBObject r= CreateRequest();
+		if (p!=null) {
+			
+		
 		for (Dico d : p.parameters) {
 			r.put(d.getKey(), d.getValue());
 			
+		}
 		}
 		 WriteResult w = getMyCollection(table).remove(r);
 
