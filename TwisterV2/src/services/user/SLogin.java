@@ -74,7 +74,6 @@ public class SLogin extends Service {
 				// FOR RESP JSON
 
 				this.Local_params.AddParam("response", params.PS("id_user", "key", "login").change("id_user", "id"));
-
 				RespS.cj(this);
 
 			}

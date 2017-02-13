@@ -33,4 +33,8 @@ public class RespS {
 		t.RespS = new RespS(t, JSONHelper.to_json(t));
 		
 	}
+	public static void cj(Service t,JSONObject e) throws JSONException {
+		t.RespS = new RespS(t, e);
+		
+	}
 }

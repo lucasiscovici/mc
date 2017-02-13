@@ -12,7 +12,6 @@ import org.json.JSONException;
 
 import services.post.SAddComment;
 import util.LucasException;
-import util.Parameters;
 
 public class AddComment extends HttpServlet {
 	
@@ -21,7 +20,7 @@ public class AddComment extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
-			new SAddComment(Parameters.req(req), resp).print();
+			new SAddComment(req, resp).print();
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

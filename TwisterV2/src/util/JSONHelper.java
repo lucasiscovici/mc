@@ -16,4 +16,9 @@ public final class JSONHelper {
 		}
 		return k;
 	}
+	public static JSONObject to_json_dico(Dico list) throws JSONException {
+		JSONObject k = new JSONObject();
+		k.put(list.key, list.toJSON());
+		return k;
+	}
 }

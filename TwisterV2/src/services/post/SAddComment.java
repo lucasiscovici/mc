@@ -3,6 +3,7 @@ package services.post;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONException;
@@ -19,18 +20,25 @@ public class SAddComment extends Service {
 
 	public SAddComment() throws NumberFormatException, ClassNotFoundException, IOException, SQLException, JSONException,
 			LucasException {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public SAddComment(Parameters params) throws NumberFormatException, ClassNotFoundException, IOException,
-			SQLException, JSONException, LucasException {
-		super(params);
+	public SAddComment(HttpServletRequest req, HttpServletResponse resp) throws NumberFormatException,
+			ClassNotFoundException, IOException, SQLException, JSONException, LucasException {
+		super(req, resp);
 		// TODO Auto-generated constructor stub
 	}
 
 	public SAddComment(Parameters params, HttpServletResponse resp) throws NumberFormatException,
 			ClassNotFoundException, IOException, SQLException, JSONException, LucasException {
 		super(params, resp);
+		// TODO Auto-generated constructor stub
+	}
+
+	public SAddComment(Parameters params) throws NumberFormatException, ClassNotFoundException, IOException,
+			SQLException, JSONException, LucasException {
+		super(params);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -53,15 +61,13 @@ public class SAddComment extends Service {
 			if (TestError.params_auth(this)) { // ErrParams+AUTH
 
 				if (!db_Post_Helper.insertPost(params)) {
-					RespS.c(this, Error.MongoError);
+					RespS.c(this, Error.MongoError.detail("insertion"));
 					return;
 				}
-
 				Local_params.AddParam("response", Dico.toP("id", db_Post_Helper.id_post));
 				RespS.cj(this);
-
 			}
-			
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

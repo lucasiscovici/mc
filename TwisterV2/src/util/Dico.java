@@ -115,6 +115,9 @@ public class Dico {
 		}
 		return p;
 	}
+	public Parameters toPa() {
+		return Parameters.fromDicos(this);
+	}
 	public static List<Dico> vsT(Service ob,String...keys) {
 		return Dico.ps(ob.Local_params.PS(keys));
 	}
@@ -246,20 +249,34 @@ public static Dico kvs(String key,String[] values) {
 			for (Dico d : this.valuesd) {
 				//io.print(d);
 				if (d.false_key) {
-					arr.put( ((JSONArray) d.toJSON()).get(0));
+					Object dff = d.toJSON();
+					if (dff instanceof JSONArray) {
+						arr.put( ((JSONArray) d.toJSON()).get(0));
+
+					}else{
+						arr.put(d.toJSON());
+
+					}
 				}else{
 				k.put(d.key, d.toJSON());
 
 				
 				}
 			}
+			
 			if (k.length() >0) {
 				
 			
 			arr.put(k);
 			}
+			if (arr.length()>1) {
+				
+			
 			
 			return arr;
+			}else{
+				return k;
+			}
 		}
 		else{
 			return (String) this.getValue();

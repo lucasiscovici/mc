@@ -92,7 +92,7 @@ public class io {
 	}
 	public static void print_json_or_print(HttpServletResponse response,Error s) throws IOException, JSONException {
 		if (response==null) {
-			print(s.getDescription());
+			print(s.to_JSON());
 		}else{
 			print_json(response, s.to_JSON());
 		}
