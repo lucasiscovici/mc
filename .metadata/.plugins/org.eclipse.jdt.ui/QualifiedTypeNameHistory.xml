@@ -4,4 +4,6 @@
 <fullyQualifiedTypeName name="services.user.SLogin"/>
 <fullyQualifiedTypeName name="util.TestError"/>
 <fullyQualifiedTypeName name="util.Parameters"/>
+<fullyQualifiedTypeName name="util.RespS"/>
+<fullyQualifiedTypeName name="javax.servlet.http.HttpServletResponse"/>
 </qualifiedTypeNameHistroy>
