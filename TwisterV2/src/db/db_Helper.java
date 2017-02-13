@@ -173,18 +173,24 @@ public class db_Helper {
 		queryn = queryn.substring(0,queryn.length()-1);
 		return queryn;
 	}
-	public static int insertValues(String query,List<String> d) throws SQLException, ClassNotFoundException {
+	public static int insertValues(String query,Parameters dd) throws SQLException, ClassNotFoundException {
+		List<String> d = dd.getOnlyValues();
 		query += " VALUES( ";
 		query +=stringMe(d); 
 		query += ")";
 		//io.print(query);
 		Statement s = giveMeAnStatement();
-		return s.executeUpdate(query);
+		int sf =  s.executeUpdate(query,Statement.RETURN_GENERATED_KEYS);
+		ResultSet rs = s.getGeneratedKeys();
+        if (rs.next()){
+            dd.AddParam("id", rs.getInt(1));
+        }
+        return sf;
 	}
 	public static int insert(String table,Parameters d) throws SQLException, ClassNotFoundException {
 		String query = "INSERT INTO "+table+"(";
 		query += keysMe(d.getOnlyKeys())+")";
-		return insertValues(query, d.getOnlyValues());
+		return insertValues(query, d);
 	}
 	public static int delete(String table,Parameters d) throws SQLException, ClassNotFoundException {
 		String query = "DELETE FROM "+table+"";

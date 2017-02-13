@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import util.LucasException;
 import util.Parameters;
 import util.Usefull;
+import util.io;
 //import util.io;
 
 public class db_Post_Helper {
@@ -44,6 +45,7 @@ public class db_Post_Helper {
 	}
 	public static Parameters listPostFromFriends(Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException, LucasException {
 		Parameters p2 = db_Friend_Helper.listFriendsFromKey(params);
+		//io.print(p2);
 		return db_Helper.selectMongoIn(My_Table,"id_user",p2.getValues("id_friend"));
 	}
 }

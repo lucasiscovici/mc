@@ -12,7 +12,6 @@ import org.json.JSONException;
 
 import services.post.SSearch;
 import util.LucasException;
-import util.Parameters;
 
 public class Search extends HttpServlet{
 
@@ -24,7 +23,7 @@ public class Search extends HttpServlet{
 		// TODO Auto-generated method stub
 
 		try {
-			new SSearch(Parameters.req(req), resp);
+			new SSearch(req, resp).print();
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

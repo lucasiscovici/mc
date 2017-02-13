@@ -13,20 +13,16 @@ import org.json.JSONException;
 import services.friend.SAddFriend;
 import util.Error;
 import util.LucasException;
-import util.Parameters;
 import util.io;
 
 public class AddFriend extends HttpServlet {
-//		params = new Parameters();
-//		params.AddParam(Dico.kv("key", "95ce6855-b2ac-4c36-9d66-c0f5da17bb64"));
-//		params.AddParam(Dico.kv("id_friend", "2"));
-
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
 		try {
-			new SAddFriend(Parameters.req(req), resp).print();
+			new SAddFriend(req, resp).print();
 		} catch (JSONException e) {
 			io.print_text(resp,Error.JsonError);
 			e.printStackTrace();

@@ -62,31 +62,31 @@ public class SListFriends extends Service {
 			}
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			RespS.c(this, Error.ClassNotFoundException);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			RespS.c(this, Error.SQLException);
 		}
 		try {
 			Local_params.AddParam("response",db_Friend_Helper.listFriendsFromKey(params));
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			RespS.c(this, Error.ClassNotFoundException);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			RespS.c(this, Error.SQLException);
 		} catch (LucasException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			RespS.c(this, Error.LucasException);
 		}
 		try {
 			io.print_json_or_print(response, JSONHelper.to_json(this));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			RespS.c(this, Error.IOException);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			RespS.c(this, Error.JSONException);
 		}
 	}
 

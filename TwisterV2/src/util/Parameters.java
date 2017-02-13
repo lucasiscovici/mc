@@ -224,6 +224,14 @@ for (Dico dico : parameters) {
 
 		return AddParam(Dico.kv(key, id.toString()));
 	}
+	public Parameters AddParam(String key,Dico id){
+
+		return AddParam(key,id.toPa());
+	}
+	public Parameters AddParam(String key,String id){
+
+		return AddParam(Dico.kv(key, id));
+	}
 	public Parameters AddParam(String key,Parameters id){
 
 		return AddParam(Dico.kvsd(key, id.parameters));

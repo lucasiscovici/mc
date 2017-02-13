@@ -74,26 +74,25 @@ public class SLogin extends Service {
 				// FOR RESP JSON
 
 				this.Local_params.AddParam("response", params.PS("id_user", "key", "login").change("id_user", "id"));
-
 				RespS.cj(this);
 
 			}
 
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			RespS.c(this, Error.JSONException);
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			RespS.c(this, Error.NumberFormatException);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			RespS.c(this, Error.ClassNotFoundException);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			RespS.c(this, Error.SQLException);
 		} catch (LucasException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			RespS.c(this, Error.LucasException);
 		}
 
 	}

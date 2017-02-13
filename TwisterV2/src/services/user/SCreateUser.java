@@ -3,6 +3,7 @@ package services.user;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONException;
@@ -13,7 +14,7 @@ import util.Dico;
 import util.Error;
 import util.LucasException;
 import util.Parameters;
-import util.io;
+import util.TestError;
 
 public class SCreateUser extends Service {
 
@@ -30,57 +31,56 @@ public class SCreateUser extends Service {
 			ClassNotFoundException, IOException, SQLException, JSONException, LucasException {
 		super(params, resp);
 	}
+	
+
+	public SCreateUser(HttpServletRequest req, HttpServletResponse resp) throws NumberFormatException,
+			ClassNotFoundException, IOException, SQLException, JSONException, LucasException {
+		super(req, resp);
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public String[] giveGetEntry() {
-		return Dico.vs_a("prenom","nom","login","password");
+		return Dico.vs_a("prenom", "nom", "login", "password");
 	}
 
 	@Override
 	public Parameters to_json() {
-		return null;
+		return Dico.vT_toP(this, "response");
 	}
 
 	@Override
 	public void koko() {
-		if (params.CheckIfErrParams(getEntry)) {
-			RespS.c(this, Error.ErrArgs);
-			return;
-		}else{
+		try {
+			if (TestError.params(this)) {
 
-			
-			try {
-				if (db_User_Helper.CheckIfExist(params)) {
+				if (!db_User_Helper.CheckIfExist(params)) {
 					RespS.c(this, Error.LoginExist);
 					return;
-				}else{
-					if (db_User_Helper.InsertUser(params)){
-						io.print_json_or_printFromString(response, "OK");
-					}else{
-						RespS.c(this, Error.SqlError);
-						return;
-					}
-					
 				}
+				
+				if (!db_User_Helper.InsertUser(params)) {
+					RespS.c(this, Error.SqlError);
+					return;
+				}
+				
+				Local_params.AddParam("response", "OK");
 				RespS.cj(this);
-			} catch (NumberFormatException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
-		}
 
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			RespS.c(this, Error.NumberFormatException);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			RespS.c(this, Error.SQLException);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			RespS.c(this, Error.ClassNotFoundException);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			RespS.c(this, Error.JSONException);
+		}
 	}
 
 }

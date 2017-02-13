@@ -4,7 +4,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public enum Error {
-	  ErrArgs(-1, "Args Error"),
+
+	  ErrArgs(8, "Args Error"),
 	  NAUTH(401, "Auth Error"),
 	  SqlError(1000, "BD Error"),
 	  JavaError(10000, "Java Error"),
@@ -12,10 +13,18 @@ public enum Error {
 	  //USER
 		  //LOGIN
 		  LoginExist(1,"User already exist with this login"),
-		  LoginNotExist(1,"Unknown User"),
-	  	  BadPassword(2,"Bad password"),
+		  LoginNotExist(2,"Unknown User"),
+	  	  BadPassword(3,"Bad password"),
 	  //MONGO
-	  MongoError(200, "pb mango");
+	  MongoError(200, "pb mango"),
+	  //Catch error
+	  NumberFormatException(4, "NumberFormatException Error"),
+	  SQLException(5, "SQLException Error"),
+	  ClassNotFoundException(6, "ClassNotFoundException Error"),
+	  JSONException(7, "JSONException Error"),
+	  LucasException(8, "LucasException Error"),
+	  IOException(9, "IOException Error"),
+	  UnknownHostException(10, "UnknownHostException Error");
 
 
 	  private final int code;

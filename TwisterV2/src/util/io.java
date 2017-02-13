@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.InputMismatchException;
-import java.util.Optional;
+//import java.util.Optional;
 import java.util.Scanner;
 
 import javax.servlet.http.HttpServletResponse;
@@ -92,7 +92,7 @@ public class io {
 	}
 	public static void print_json_or_print(HttpServletResponse response,Error s) throws IOException, JSONException {
 		if (response==null) {
-			print(s.getDescription());
+			print(s.to_JSON());
 		}else{
 			print_json(response, s.to_JSON());
 		}
@@ -127,7 +127,7 @@ public class io {
 	
 	
 	@SuppressWarnings("rawtypes")
-	public static Optional pscan(String ph,String scan_quoi) throws InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException, IllegalArgumentException{
+	/*public static Optional pscan(String ph,String scan_quoi) throws InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException, IllegalArgumentException{
 		 	Object[] obj = {};// for method1()
 	        // Object[] obj={"hello"}; for method1(String str)
 	        // Object[] obj={"hello",1}; for method1(String str,int number)
@@ -167,7 +167,7 @@ public class io {
 	        	return Optional.empty();
 
 			}
-	}
+	}*/
 	public Object pscan(String ph,String scan_quoi,int index ) throws InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException{
 	 	// Object[] obj = {};// for method1()
         // Object[] obj={"hello"}; for method1(String str)
