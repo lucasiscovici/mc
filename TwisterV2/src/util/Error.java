@@ -15,7 +15,15 @@ public enum Error {
 		  LoginNotExist(1,"Unknown User"),
 	  	  BadPassword(2,"Bad password"),
 	  //MONGO
-	  MongoError(200, "pb mango");
+	  MongoError(200, "pb mango"),
+	  //Catch Error
+	  SQLException(30, "SQLException Error"),
+	  UnknownHostException(31, "UnknownHostException Error"),
+	  ClassNotFoundException(32, "ClassNotFoundException Error"),
+	  JSONException(33, "JSONException Error"),
+	  LucasException(34, "LucasException Error"),
+	  IOException(35, "IOException Error"),
+	  NumberFormatException(36, "NumberFormatException Error");
 
 
 	  private final int code;
