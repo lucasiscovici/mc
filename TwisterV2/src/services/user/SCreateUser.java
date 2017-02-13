@@ -70,6 +70,7 @@ public class SCreateUser extends Service {
 
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
+<<<<<<< HEAD
 			RespS.c(this, Error.NumberFormatException);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -80,6 +81,18 @@ public class SCreateUser extends Service {
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			RespS.c(this, Error.JSONException);
+=======
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+>>>>>>> ac6e7af607ffcc8bb2755005dab74c9ffbbf2604
 		}
 	}
 

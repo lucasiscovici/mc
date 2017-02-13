@@ -17,10 +17,13 @@ import util.Parameters;
 import util.TestError;
 
 public class SAddFriend extends Service {
+<<<<<<< HEAD
 	
 	/**
 	 * @return Service()
 	 */
+=======
+>>>>>>> ac6e7af607ffcc8bb2755005dab74c9ffbbf2604
 
 	public SAddFriend() throws NumberFormatException, ClassNotFoundException, IOException, SQLException, JSONException,
 			LucasException {
@@ -63,6 +66,12 @@ public class SAddFriend extends Service {
 	 * @return Dico.vs_a("id_friend", "key")
 	 */
 
+	public SAddFriend(HttpServletRequest req, HttpServletResponse resp) throws NumberFormatException,
+			ClassNotFoundException, IOException, SQLException, JSONException, LucasException {
+		super(req, resp);
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public String[] giveGetEntry() {
 		return Dico.vs_a("id_friend", "key");
@@ -95,6 +104,7 @@ public class SAddFriend extends Service {
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+<<<<<<< HEAD
 			RespS.c(this, Error.SQLException);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -105,6 +115,18 @@ public class SAddFriend extends Service {
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			RespS.c(this, Error.JSONException);
+=======
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (LucasException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+>>>>>>> ac6e7af607ffcc8bb2755005dab74c9ffbbf2604
 		}
 	}
 

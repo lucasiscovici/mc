@@ -13,7 +13,10 @@ import db.db_Post_Helper;
 import db.db_User_Helper;
 import services.utils.Service;
 import util.Dico;
+<<<<<<< HEAD
 import util.Error;
+=======
+>>>>>>> ac6e7af607ffcc8bb2755005dab74c9ffbbf2604
 import util.LucasException;
 import util.Parameters;
 import util.TestError;
@@ -73,7 +76,11 @@ public class SSearch extends Service {
 			RespS.c(this, Error.ClassNotFoundException);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+<<<<<<< HEAD
 			RespS.c(this, Error.SQLException);
+=======
+			e.printStackTrace();
+>>>>>>> ac6e7af607ffcc8bb2755005dab74c9ffbbf2604
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			RespS.c(this, Error.JSONException);

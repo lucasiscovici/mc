@@ -13,7 +13,10 @@ import db.db_Post_Helper;
 import db.db_User_Helper;
 import services.utils.Service;
 import util.Dico;
+<<<<<<< HEAD
 import util.Error;
+=======
+>>>>>>> ac6e7af607ffcc8bb2755005dab74c9ffbbf2604
 import util.LucasException;
 import util.Parameters;
 import util.TestError;
@@ -77,6 +80,7 @@ public class SSearchBis extends Service {
 			}
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
+<<<<<<< HEAD
 			RespS.c(this, Error.ClassNotFoundException);
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
@@ -90,6 +94,21 @@ public class SSearchBis extends Service {
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			RespS.c(this, Error.JSONException);
+=======
+			e.printStackTrace();
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (LucasException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+>>>>>>> ac6e7af607ffcc8bb2755005dab74c9ffbbf2604
 		}
 	}
 
