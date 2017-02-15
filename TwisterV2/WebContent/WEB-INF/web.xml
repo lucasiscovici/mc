@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app id="WebApp_ID" version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+	
 	<servlet>
 		<servlet-name>Login</servlet-name>
 		<servlet-class>servlet.session.Login</servlet-class>
-	</servlet><servlet>
+	</servlet>
+	<servlet>
 		<servlet-name>Logout</servlet-name>
 		<servlet-class>servlet.session.Logout</servlet-class>
 	</servlet>
@@ -56,9 +58,10 @@
 		<servlet-name>RemoveFriend</servlet-name>
 		<url-pattern>/removefriend</url-pattern>
 	</servlet-mapping>
+	
 	<servlet-mapping>
-		<servlet-name>ListPost</servlet-name>
-		<url-pattern>/listpost</url-pattern>
+		<servlet-name>ListPosts</servlet-name>
+		<url-pattern>/listposts</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>AddPost</servlet-name>
