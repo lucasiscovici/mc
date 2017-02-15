@@ -7,27 +7,60 @@ import db.util.db;
 import util.LucasException;
 import util.Parameters;
 
+/**
+ * Classe db_Session_Helper
+ */
+
 public class db_Session_Helper extends db {
-	public static String MyTable = Tables.Session;
+	public String MyTable = Tables.Session;
 	public static String session_id_user = "id_user";
 	public static String session_key = "key";
 
+	/**
+	 * 
+	 * @return new db_Session_Helper()
+	 */
+	
 	public static db_Session_Helper c() {
 		return new db_Session_Helper();
 	}
+	
+	/**
+	 * Constructeur db_Session_helper()
+	 */
 
 	public db_Session_Helper() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	/**
+	 * 
+	 * @param params Un paramètre
+	 * @return CheckIfExistWith(params.PS(session_key))
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 
 	public boolean Auth(Parameters params) throws ClassNotFoundException, SQLException {
 		return CheckIfExistWith(params.PS(session_key));
 	}
+	
+	/**
+	 * 
+	 * @param params Un paramètre
+	 * @return this.getXWithX(session_id_user, params.PS(session_key)).getValueInt(session_id_user)
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 
 	public Integer getIdWithKey(Parameters params) throws ClassNotFoundException, SQLException {
 		return this.getXWithX(session_id_user, params.PS(session_key)).getValueInt(session_id_user);
 	}
+	
+	/**
+	 * @return true si l'insertion c'est faites, false sinon
+	 */
 
 	@Override
 	public boolean Insert(Parameters params)
@@ -46,6 +79,10 @@ public class db_Session_Helper extends db {
 			return false;
 		}
 	}
+	
+	/**
+	 * @return this.RemoveWith(params.PS(session_key))
+	 */
 
 	@Override
 	public boolean Remove(Parameters params)
@@ -53,6 +90,10 @@ public class db_Session_Helper extends db {
 		// TODO Auto-generated method stub
 		return this.RemoveWith(params.PS(session_key));
 	}
+	
+	/**
+	 * @return this.UpdateWithId(params)
+	 */
 
 	@Override
 	public boolean Update(Parameters params)
@@ -60,12 +101,20 @@ public class db_Session_Helper extends db {
 		// TODO Auto-generated method stub
 		return this.UpdateWithId(params);
 	}
+	
+	/**
+	 * @return Tables.Session
+	 */
 
 	@Override
 	public String GiveMyTable() {
 		// TODO Auto-generated method stub
-		return this.MyTable;
+		return Tables.Session;
 	}
+	
+	/**
+	 * @return this.SelectWithId(params)
+	 */
 
 	@Override
 	public Parameters Select(Parameters params)

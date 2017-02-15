@@ -27,6 +27,14 @@
 		<servlet-name>AddComment</servlet-name>
 		<servlet-class>servlet.post.AddComment</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>Presentation</servlet-name>
+		<servlet-class>servlet.Presentation</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Presentation</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Login</servlet-name>
 		<url-pattern>/login</url-pattern>

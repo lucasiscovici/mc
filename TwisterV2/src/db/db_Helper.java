@@ -6,13 +6,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bson.types.ObjectId;
+
 import util.Dico;
 import util.LucasException;
 import util.Parameters;
 //import util.io;
-import util.io;
 
 //import util.io;
+
+import util.io;
 
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
@@ -25,15 +28,35 @@ import com.mongodb.WriteResult;
 import com.mysql.jdbc.ResultSetMetaData;
 import com.mysql.jdbc.Statement;
 
+/**
+ * Classe db_Helper
+ */
+
 public class db_Helper {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
 	}
+	
+	/**
+	 * 
+	 * @return (Statement) Database.getMySQLConnection().createStatement()
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	
 	public static Statement giveMeAnStatement() throws SQLException, ClassNotFoundException {
 		return (Statement) Database.getMySQLConnection().createStatement();
 	}
+	
+	/**
+	 * 
+	 * @param rs Un ResultSet
+	 * @return La liste de nos colonne
+	 * @throws SQLException
+	 */
+	
 	public static List<String> getColumnsNames(ResultSet rs) throws SQLException {
 		List<String> liste = new ArrayList<String>();
 		ResultSetMetaData rsmd = (ResultSetMetaData) rs.getMetaData();
@@ -45,6 +68,13 @@ public class db_Helper {
 		}
 		return liste;
 	}
+	
+	/**
+	 * 
+	 * @param resultSet Un ResultSet
+	 * @return Le nombre de ligne de notre résultat
+	 */
+	
 	private static int getRowCount(ResultSet resultSet) {
 	    if (resultSet == null) {
 	        return 0;
@@ -63,6 +93,15 @@ public class db_Helper {
 	    }
 	    return 0;
 	}
+	
+	/**
+	 * 
+	 * @param query Une requête
+	 * @return Un paramètre
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	
 	public static Parameters select(String query) throws SQLException, ClassNotFoundException {
 		List<Dico> liste = new ArrayList<Dico>();
 		//io.print(query);
@@ -89,11 +128,19 @@ public class db_Helper {
 			c++;
 			}
 		}
+		
 		r.close();
 		s.close();	
 
 		return new Parameters(liste);
 	}
+	
+	/**
+	 * 
+	 * @param dico Un Dico
+	 * @return Une requête
+	 */
+	
 	public static String multipleAnd(Parameters dico) {
 		String query = "";
 		for (Dico dico2 : dico.parameters) {
@@ -106,6 +153,13 @@ public class db_Helper {
 		query = query.substring(0, query.length() - 3);
 		return query;
 	}
+	
+	/**
+	 * 
+	 * @param dico Un Dico
+	 * @return Une requête
+	 */
+	
 	public static String multipleAnd(Dico dico) {
 		String query = "";
 		for (Dico dico2 : dico.valuesd) {
@@ -118,36 +172,110 @@ public class db_Helper {
 		query = query.substring(0, query.length() - 3);
 		return query;
 	}
+	
+	/**
+	 * 
+	 * @param dico Un Dico
+	 * @return Une requête
+	 */
+	
 	public static String where(Parameters dico) {
 		if (dico==null) {
 			return "";
 		}
 		return " WHERE "+multipleAnd(dico);
 	}
+	
+	/**
+	 * 
+	 * @param query Une requête
+	 * @param dico Un paramètre
+	 * @return select(query)
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	
 	public static Parameters select(String query,Parameters dico) throws SQLException, ClassNotFoundException {
 		query += where(dico);
 		return select(query);
 	}
+	
+	/**
+	 * 
+	 * @param query Une requête
+	 * @param dico Un paramètre
+	 * @return select(query, dico)
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	
 	public static Parameters selectAndWhered(String query,Parameters dico) throws SQLException, ClassNotFoundException {
 		return select(query, dico);
 	}
 	
+	/**
+	 * 
+	 * @param table Une table
+	 * @param dico Un paramètre
+	 * @return select(table, dico)
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	
 	public static Parameters selectAndWhere(String table,Parameters dico) throws SQLException, ClassNotFoundException {
-		return selectAndWhere(table, dico,"");
+		return select(table, dico);
 	}
+	
+	/**
+	 * 
+	 * @param select Une chaine de caractère
+	 * @param table Une table
+	 * @param dico Un Paramètre
+	 * @return select(query, dico)
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	
 	public static Parameters selectAndWhere(String select,String table,Parameters dico) throws SQLException, ClassNotFoundException {
 		String query = CreateSelectFrom(Dico.fv(select), table);
 		return select(query, dico);
 	}
+	
+	/**
+	 * 
+	 * @param table Une table
+	 * @param dico Un paramètre
+	 * @return select(query, dico).getValueInt("id")
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	
 	public static Integer selectAndWhereID(String table,Parameters dico) throws SQLException, ClassNotFoundException {
 		String query = CreateSelectFrom(Dico.fv("id"), table);
 		return select(query, dico).getValueInt("id");
 	}
+	
+	/**
+	 * 
+	 * @param table Une talbe
+	 * @param dico Un paramètre
+	 * @param selects Un ensemble de chaine de caractère
+	 * @return select(query, dico)
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
 
 	public static Parameters selectAndWhere(String table,Parameters dico,String...selects) throws SQLException, ClassNotFoundException {
 		String query = CreateSelectFrom(Dico.fv(selects), table);
 		return select(query, dico);
 	}
+	
+	/**
+	 * 
+	 * @param param Un paramètre
+	 * @return Une requête
+	 */
+	
 	public static String PrepareVirgule(Parameters param) {
 		String query = "";
 		 for (Dico dico: param.parameters) {
@@ -156,12 +284,32 @@ public class db_Helper {
 		query = query.substring(0, query.length() - 1);
 		return query;
 	}
+	
+	/**
+	 * 
+	 * @param param Un paramètre
+	 * @param table Une table
+	 * @return Une requête
+	 */
+	
 	public static String CreateSelectFrom(Parameters param,String table) {
 		String query = "SELECT ";
 		query+=PrepareVirgule(param);
 		query+= " FROM "+table+" ";
 		return query;
 	}
+	
+	/**
+	 * 
+	 * @param table Une table
+	 * @param sets Un paramètre
+	 * @param where Un paramètre
+	 * @return Une exécution de modification
+	 * @throws LucasException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	
 	public static int update(String table,Parameters sets,Parameters where) throws LucasException, ClassNotFoundException, SQLException {
 		String query = "UPDATE "+table;
 		if (sets==null || sets.parameters.size()==0) {
@@ -174,6 +322,19 @@ public class db_Helper {
 		return s.executeUpdate(query);
 
 	}
+	
+	/**
+	 * 
+	 * @param table Une table
+	 * @param sets Un paramètre
+	 * @param where Un paramètre
+	 * @return Une modification Mongo
+	 * @throws LucasException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws UnknownHostException
+	 */
+	
 	public static boolean updateMongo(String table,Parameters sets,Parameters where) throws LucasException, ClassNotFoundException, SQLException, UnknownHostException {
 		DBObject jo = CreateRequest();
 		if (sets==null || sets.parameters.size()==0) {
@@ -192,14 +353,49 @@ public class db_Helper {
 		}
 		}
 		WriteResult w = getMyCollection(table).update(r,jo);
-		return w.getError() != null;
+		return w.getError() == null;
 	}
+	
+	/**
+	 * 
+	 * @param table Une table
+	 * @param sets Un paramètre
+	 * @param where Un paramètre
+	 * @return update(table,sets,where) > 0 true, false sinon
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws LucasException
+	 */
+	
 	public static boolean updateOK(String table,Parameters sets,Parameters where) throws SQLException, ClassNotFoundException, LucasException {
 		return update(table,sets,where) > 0;
 	}
+	
+	/**
+	 * 
+	 * @param table Une table
+	 * @param sets Un paramètre
+	 * @param where Un paramètre
+	 * @return updateMongo(table,sets,where)
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws LucasException
+	 * @throws UnknownHostException
+	 */
+	
 	public static boolean updateMongoOK(String table,Parameters sets,Parameters where) throws SQLException, ClassNotFoundException, LucasException, UnknownHostException {
 		return updateMongo(table,sets,where);
 	}
+	
+	/**
+	 * 
+	 * @param table Une table
+	 * @param dico Un paramètre
+	 * @return Compte le nombre de ligne du résultat d'un select and where
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	
 	public static int selectAndWhere_Count(String table,Parameters dico) throws SQLException, ClassNotFoundException {
 		String query = "SELECT COUNT(`id`) as \"count\" FROM "+table+"";
 		//io.print(dico);
@@ -207,12 +403,26 @@ public class db_Helper {
 		//io.print(result);
 		return result.getValueInt("count");
 	}
+	
+	/**
+	 * 
+	 * @param query Une requête
+	 * @return une insertion
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
 
 	public static int insert(String query) throws SQLException, ClassNotFoundException {
 		//io.print(query);
 		Statement s = giveMeAnStatement();
 		return s.executeUpdate(query);
 	}
+	
+	/**
+	 * 
+	 * @param d Une liste de Chaine de caractère
+	 * @return Une requête
+	 */
 
 	public static String stringMe(List<String> d) {
 		String queryn = "";
@@ -222,6 +432,13 @@ public class db_Helper {
 		queryn = queryn.substring(0,queryn.length()-1);
 		return queryn;
 	}
+	
+	/**
+	 * 
+	 * @param d Une liste de Chaine de caractère
+	 * @return Une requête
+	 */
+	
 	public static String keysMe(List<String> d) {
 		String queryn = "";
 		for (String string : d) {
@@ -230,6 +447,16 @@ public class db_Helper {
 		queryn = queryn.substring(0,queryn.length()-1);
 		return queryn;
 	}
+	
+	/**
+	 * 
+	 * @param query Une requête
+	 * @param dd Un paramètre
+	 * @return Une insertion de valeur
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	
 	public static int insertValues(String query,Parameters dd) throws SQLException, ClassNotFoundException {
 		List<String> d = dd.getOnlyValues();
 		query += " VALUES( ";
@@ -244,11 +471,31 @@ public class db_Helper {
         }
         return sf;
 	}
+	
+	/**
+	 * 
+	 * @param table Une table
+	 * @param d Un paramètre
+	 * @return insertValues(query, d)
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	
 	public static int insert(String table,Parameters d) throws SQLException, ClassNotFoundException {
 		String query = "INSERT INTO "+table+"(";
 		query += keysMe(d.getOnlyKeys())+")";
 		return insertValues(query, d);
 	}
+	
+	/**
+	 * 
+	 * @param table Une table
+	 * @param d Un paramètre
+	 * @return s.executeUpdate(query)
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	
 	public static int delete(String table,Parameters d) throws SQLException, ClassNotFoundException {
 		String query = "DELETE FROM "+table+"";
 		query += where(d);
@@ -256,32 +503,107 @@ public class db_Helper {
 		//io.print(query);
 		return s.executeUpdate(query);	
 	}
+	
+	/**
+	 * 
+	 * @param table Une table
+	 * @param d Un paramètre
+	 * @return selectMongo(table, d).parameters.size() > 0 true, false sinon
+	 * @throws UnknownHostException
+	 */
+	
 	public static boolean selectMongoOK(String table,Parameters d) throws UnknownHostException {
 		return selectMongo(table, d).parameters.size() > 0;
 
 	}
+	
+	/**
+	 * 
+	 * @param table Une table
+	 * @param d Un paramètre
+	 * @return insert(table,d) > 0 true, false sinon
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	
 	public static boolean insertOK(String table,Parameters d) throws SQLException, ClassNotFoundException {
 		return insert(table,d) > 0;
 	}
+	
+	/**
+	 * 
+	 * @param table Une table
+	 * @param d Un paramètre
+	 * @return delete(table,d) > 0 true, false sinon
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	
 	public static boolean deleteOK(String table,Parameters d) throws SQLException, ClassNotFoundException {
 		return delete(table,d) > 0;
 	}
+	
+	/**
+	 * 
+	 * @param table Une table
+	 * @param d Un paramètre
+	 * @return selectAndWhere_Count(table, d) > 0 true, false sinon
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	
 	public static boolean selectOK(String table,Parameters d) throws SQLException, ClassNotFoundException {
 		return selectAndWhere_Count(table, d) > 0;
 	}
+	
+	/**
+	 * 
+	 * @return new Mongo(DBStatic.mongo_host, DBStatic.mongo_port)
+	 * @throws UnknownHostException
+	 */
+	
 	public static Mongo getMyMongo() throws UnknownHostException {
 		return new Mongo(DBStatic.mongo_host, DBStatic.mongo_port);
 		
 	}
+	
+	/**
+	 * 
+	 * @return getMyMongo().getDB(DBStatic.mongo_db)
+	 * @throws UnknownHostException
+	 */
+	
 	public static DB getMyDB() throws UnknownHostException {
 		return getMyMongo().getDB(DBStatic.mongo_db);
 	}
+	
+	/**
+	 * 
+	 * @param table
+	 * @return getMyDB().getCollection(table)
+	 * @throws UnknownHostException
+	 */
+	
 	public static DBCollection getMyCollection(String table) throws UnknownHostException {
 		return getMyDB().getCollection(table);
 	}
+	
+	/**
+	 * 
+	 * @return new BasicDBObject()
+	 */
+	
 	public static BasicDBObject CreateRequest() {
 		return new BasicDBObject();
 	}
+	
+	/**
+	 * 
+	 * @param table Une table
+	 * @param p Un paramètre
+	 * @return w.getError()==null true, false sinon
+	 * @throws UnknownHostException
+	 */
 	
 	public static boolean insertMongo(String table,Parameters p) throws UnknownHostException {
 		BasicDBObject r= CreateRequest();
@@ -291,9 +613,18 @@ public class db_Helper {
 		 WriteResult w =  getMyCollection(table).insert(r);
 		 String id = r.get( "_id" ).toString();
 		 p.AddParam("id", id);
-		 io.print(id);
-		return w.getError()!=null;
+		 //io.print(id);
+		return w.getError()==null;
 	}
+	
+	/**
+	 * 
+	 * @param table Une table
+	 * @param p Un paramètre
+	 * @return w.getError()==null true, false sinon
+	 * @throws UnknownHostException
+	 */
+	
 	public static boolean deleteMongo(String table,Parameters p) throws UnknownHostException {
 		BasicDBObject r= CreateRequest();
 		if (p!=null) {
@@ -306,42 +637,90 @@ public class db_Helper {
 		}
 		 WriteResult w = getMyCollection(table).remove(r);
 
-		return w.getError()!=null;
+		return w.getError()==null;
 
 	}
+	
+	/**
+	 * 
+	 * @param table Un table
+	 * @param p Un paramètre
+	 * @return insertMongo(table,p)
+	 * @throws UnknownHostException
+	 */
+	
 	public static boolean insertMongoOK(String table,Parameters p) throws UnknownHostException {
 		return insertMongo(table,p);
 
 	}
+	
+	/**
+	 * 
+	 * @param table Une table
+	 * @param p Un paramètre
+	 * @return deleteMongo(table,p)
+	 * @throws UnknownHostException
+	 */
+	
 	public static boolean deleteMongoOK(String table,Parameters p) throws UnknownHostException {
 		return deleteMongo(table,p);
 
 	}
+	
+	/**
+	 * 
+	 * @param r Un BasicDBObject
+	 * @param p Un paramètre
+	 */
+	
 	public static void whereMongo(BasicDBObject r, Parameters p) {
 		if (p==null) {
 			return;
 		}
 		for (Dico d : p.parameters) {
+			if (d.getKey().equals("_id")) {
+				r.put(d.getKey(), new ObjectId(d.getValue()));
+				
+			}else{
 			r.put(d.getKey(), d.getValue());
+			}
 		}
 	}
+	
+	/**
+	 * 
+	 * @param table Une table
+	 * @param p Un paramètre
+	 * @return Un paramètre
+	 * @throws UnknownHostException
+	 */
 	
 	public static Parameters selectMongo(String table, Parameters p) throws UnknownHostException {
 		DBCollection dc = getMyCollection(table);
 		BasicDBObject r = CreateRequest();
+	
 		whereMongo(r, p);
 		DBCursor dcu = dc.find(r);
 		Parameters pn = new Parameters();
 		int c = 0;
 		while (dcu.hasNext()) {
 			DBObject dbObject = (DBObject) dcu.next();
-			//io.print(dbObject);
 			pn.co=c++;
 			pn.AddParam(dbObject);
 			
 		}
 		return pn;
 	}
+	
+	/**
+	 * 
+	 * @param select Une chaine de caractère
+	 * @param table Une table
+	 * @param p Un paramètre
+	 * @return Un paramètre
+	 * @throws UnknownHostException
+	 */
+	
 	public static Parameters selectMongo(String select,String table, Parameters p) throws UnknownHostException {
 		DBCollection dc = getMyCollection(table);
 		BasicDBObject r = CreateRequest();
@@ -353,13 +732,23 @@ public class db_Helper {
 		int c = 0;
 		while (dcu.hasNext()) {
 			DBObject dbObject = (DBObject) dcu.next();
-			//io.print(dbObject);
+			
 			pn.co=c++;
 			pn.AddParam(dbObject);
 			
 		}
 		return pn;
 	}
+	
+	/**
+	 * 
+	 * @param table Une table
+	 * @param p Un paramètre
+	 * @param select Un ensemble de chaine de caractère
+	 * @return Un paramètre
+	 * @throws UnknownHostException
+	 */
+	
 	public static Parameters selectMongo(String table, Parameters p,String...select) throws UnknownHostException {
 		DBCollection dc = getMyCollection(table);
 		BasicDBObject r = CreateRequest();
@@ -382,6 +771,16 @@ public class db_Helper {
 		}
 		return pn;
 	}
+	
+	/**
+	 * 
+	 * @param table Une table
+	 * @param quoi Une chaine de caractère
+	 * @param p Un paramètre
+	 * @return Un paramètre
+	 * @throws UnknownHostException
+	 */
+	
 	@SuppressWarnings("unchecked")
 	public static Parameters selectMongoIn(String table,String quoi, @SuppressWarnings("rawtypes") List p) throws UnknownHostException {
 		DBCollection dc = getMyCollection(table);

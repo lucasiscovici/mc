@@ -8,9 +8,19 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+/**
+ * Classe Database 
+ */
+
 public class Database {
 static Database database;
 private DataSource dataSource;
+
+/**
+ * Constructeur Database
+ * @param jndiname Une chaine de caractère
+ * @throws SQLException
+ */
 
 public Database(String jndiname) throws SQLException {
 try
@@ -27,10 +37,25 @@ throw new SQLException(jndiname +" is missing in JNDI! : "+e.getMessage());
 }
 
 }
+
+/**
+ * 
+ * @return Notre connexion SQL
+ * @throws SQLException
+ */
+
 public Connection getConnection() throws SQLException {
 return dataSource.getConnection();
 
 }
+
+/**
+ * 
+ * @return la connexion à MySql
+ * @throws SQLException
+ * @throws ClassNotFoundException
+ */
+
 public static Connection getMySQLConnection() throws SQLException, ClassNotFoundException {
     Class.forName("com.mysql.jdbc.Driver");
 

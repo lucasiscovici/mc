@@ -15,9 +15,19 @@ import services.friend.SRemoveFriend;
 import util.LucasException;
 import util.Parameters;
 
+/**
+ * Classe représentant un servlet pour supprimer un ami
+ */
+
 public class RemoveFriend extends HttpServlet {
 	public static void main(String[] args) {
 	}
+	
+	/**
+	 * Appellera le service nécessaire à l'exécution de notre requête
+	 * @param req Requête à exécuter
+	 * @param resp Réponse de la requête
+	 */
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

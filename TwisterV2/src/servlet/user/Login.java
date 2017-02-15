@@ -16,7 +16,17 @@ import util.LucasException;
 
 
 @SuppressWarnings("serial")
+
+/**
+ * Classe représentant un servlet de connexion
+ */
 public class Login extends HttpServlet  {
+	
+	/**
+	 * Appellera le service nécessaire à l'exécution de notre requête
+	 * @param req Requête à exécuter
+	 * @param resp Réponse de la requête
+	 */
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

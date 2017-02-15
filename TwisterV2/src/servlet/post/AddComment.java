@@ -13,7 +13,17 @@ import org.json.JSONException;
 import services.post.SAddComment;
 import util.LucasException;
 
+/**
+ * Classe représentant un servlet pour ajouter un commentaire
+ */
+
 public class AddComment extends HttpServlet {
+	
+	/**
+	 * Appellera le service nécessaire à l'exécution de notre requête
+	 * @param req Requête à exécuter
+	 * @param resp Réponse de la requête
+	 */
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)

@@ -1,5 +1,9 @@
 package db;
 
+/**
+ * Interface DBStatic
+ */
+
 public interface DBStatic {
 	public static String mysql_host = "li328.lip6.fr:33306"; 
 	public static String mysql_db = "gr3_isco_goug"; 

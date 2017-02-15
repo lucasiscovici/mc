@@ -13,7 +13,17 @@ import org.json.JSONException;
 import services.user.SLogout;
 import util.LucasException;
 
+/**
+ * Classe représentant un servlet de déconnexion
+ */
+
 public class Logout extends HttpServlet {
+	
+	/**
+	 * Appellera le service nécessaire à l'exécution de notre requête
+	 * @param req Requête à exécuter
+	 * @param resp Réponse de la requête
+	 */
 
 protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 		throws ServletException, IOException {

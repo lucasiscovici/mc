@@ -16,7 +16,18 @@ import util.LucasException;
 import util.io;
 
 @SuppressWarnings("serial")
+
+/**
+ * Classe représentant un servlet de création d'un utilisateur
+ */
+
 public class CreateUser extends HttpServlet  {
+	
+	/**
+	 * Appellera le service nécessaire à l'exécution de notre requête
+	 * @param req Requête à exécuter
+	 * @param resp Réponse de la requête
+	 */
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -25,22 +36,12 @@ public class CreateUser extends HttpServlet  {
 			new SCreateUser(req, resp).print();
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
-			io.print_text(resp, Error.JsonError.depuis(this));
+			e.printStackTrace();
 		} catch (NumberFormatException e) {
-			try {
-				io.print_json_or_print(resp, Error.JavaError.depuis(this));
-			} catch (JSONException e1) {
-				io.print_text(resp, Error.JsonError.depuis(this));
-
-			}
+			e.printStackTrace();
 			// TODO Auto-generated catch block
 		} catch (SQLException e) {
-			try {
-				io.print_json_or_print(resp, Error.SqlError.detail(e.getMessage()).depuis(this));
-			} catch (JSONException e1) {
-				io.print_text(resp, Error.JsonError.depuis(this));
-
-			}
+			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

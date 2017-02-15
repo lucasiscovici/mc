@@ -15,8 +15,18 @@ import util.Error;
 import util.LucasException;
 import util.io;
 
+/**
+ * Classe représnetant un servlet pour ajouter un ami
+ */
+
 @SuppressWarnings("serial")
 public class AddFriend extends HttpServlet {
+	
+	/**
+	 * Appellera le service nécessaire à l'exécution de notre requête
+	 * @param req Requête à exécuter
+	 * @param resp Réponse de la requête
+	 */
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -25,16 +35,9 @@ public class AddFriend extends HttpServlet {
 		try {
 			new SAddFriend(req, resp).print();
 		} catch (JSONException e) {
-			io.print_text(resp,Error.JsonError);
 			e.printStackTrace();
 		} catch (SQLException e) {
-			try {
-				io.print_json_or_print(resp, Error.SqlError.detailT(this, e.getMessage()));
-			} catch (JSONException e1) {
-				io.print_text(resp, Error.SqlError.detailT(this, e.getMessage()));
-				e1.printStackTrace();
-			}
-
+			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
