@@ -56,7 +56,7 @@ public class Parameters {
 		if(dd.key==k) {
 			d.remove();
 		}
-		else if (dd.is_dic && enfants) {
+		else if (dd.is_dicd && enfants) {
 			dd.kill(k);
 		}
 		
@@ -177,18 +177,16 @@ public class Parameters {
 	public Parameters getDicos(String key) {
 		Parameters p = new Parameters();
 		for (Dico dico : parameters) {
-			if (dico.false_key==true) {
-				for (Dico dico2 : dico.valuesd) {
-					if (dico2.key.equals(key)) {
-						p.AddParam(dico2);
-					}
-				}
+			
+			if (dico.false_key==true &&  dico.is_dicd) {
+				p.AddParam(dico.toPa().getDicos(key));
 			}else{
 			if (dico.key.equals(key)) {
 				p.AddParam(dico);
 			}
 			}
 		}
+		
 		return p;
 	}
 	
@@ -480,7 +478,7 @@ public class Parameters {
 	}
 	
 	/**
-	 * 
+	 * ADD in local param the dico with key String[1] to a new DIco with the key String[0] 
 	 * @param keys Un ensemble de chaine de caractère
 	 * @return this.AddParam(Dico.toP(keys[0],d)).kill("messages",false)
 	 * @throws LucasException
@@ -488,25 +486,45 @@ public class Parameters {
 	
 	public Parameters AddParamRIN(String...keys) throws LucasException{
 		List<String> s = new ArrayList<String>(Arrays.asList(keys));
-		
+	
 		if (keys.length < 2) {
 			throw new LucasException("AddParamRIN deux params min");
 		}
-		Parameters d = this.PS(s.subList(1,s.size()).toArray(new String[s.size()-1]));
-		return this.AddParam(Dico.toP(keys[0],d)).kill("messages",false);
+		Parameters d = this.PS(s.subList(1,s.size()).toArray(new String[0]));
+
+		if (getDicosOK(keys[0])) {
+			 getDico(keys[0]).addD(d);
+			return this.kill(keys[1],false);
+		}
+		return this.AddParam(Dico.toP(keys[0],d)).kill(keys[1],false);
 
 	}
-	
-	/**
-	 * 
-	 * @param key Une chaine de caractère
-	 * @param id Un objet
-	 * @return AddParam(Dico.kv(key, id.toString()))
-	 */
 
+	public Parameters AddParamResponse(String...keys) throws LucasException {
+		
+		return AddParamRIN(Dico.combine("response",keys));
+		
+		
+	}
+	/**
+	 * Ajoute dans le parameters actuel la clé key et la valeur id en fonction de sont type
+	 * @param key Un string
+	 * @param id Un objet
+	 * @return this
+	 */
 	public Parameters AddParam(String key,Object id){
 
-		return AddParam(Dico.kv(key, id.toString()));
+		if (id instanceof Dico) {
+			return this.AddParam(key, (Dico) id);
+		}else if (id instanceof String) {
+			return this.AddParam(key, (String) id);
+
+		}else if (id instanceof Parameters) {
+			return this.AddParam(key, (Parameters) id);
+
+		}else{
+			return this.AddParam(key, id.toString());
+		}
 	}
 	
 	/**
@@ -546,9 +564,9 @@ public class Parameters {
 	}
 	
 	/**
-	 * 
+	 * CHECK si les getEntry{@link services.utils.Service#getEntry} obligatoire sont present dans les params {@link services.utils.Service#params}
 	 * @param getEntry Liste de chaine de caractère
-	 * @return true si des entrée ont été ajouté, false sinon
+	 * @return true si erreur (les getEntry ne sont pas present dans les params), true sinon
 	 */
 	
 	public boolean CheckIfErrParams(String[] getEntry) {
@@ -619,7 +637,7 @@ public class Parameters {
 	}
 	
 	/**
-	 * 
+	 * Crée un nouveau {@link Parameters} avec comme données celle qui correspondent avec les noms de clés donnée en strings
 	 * @param strings Des chaines de caractères
 	 * @return fromDico(Dico.ps(this, strings))
 	 */
@@ -636,5 +654,63 @@ public class Parameters {
 	
 	public Parameters PSN(String...strings) {
 		return fromDico(Dico.psn(this, strings));
+	}
+
+	/**
+	 *Ajoute dans le parameters actuel une clé response et une valeur p {@link Parameters#AddParam(String, Object)}
+	 * @param p
+	 * @return
+	 */
+	public Parameters response(Object p) {
+		// TODO Auto-generated method stub
+		this.AddParam("response",p);
+		return this;
+	}
+
+	/** 
+	 * CHECK if exists params (dicos) with key string
+	 * @param string
+	 * @return true if exist dicos with key string
+	 */
+	public boolean getDicosOK(String string) {
+		// TODO Auto-generated method stub
+		return getDicos(string).parameters.size() > 0;
+	}
+
+	/**
+	 * Ajoute dans le parameters actuel une clé response et une valeur "OK" {@link Parameters#response(Object)
+	 * @return this
+	 */
+	public Parameters AddParamRespOK() {
+		// TODO Auto-generated method stub
+		this.response("OK");
+		return this;
+	}
+
+	/**
+	 * add in the actual parameters, key = "response" et value = params.getDico("id") {@link Parameters#getDico(String)}
+	 * {@link Parameters#response(Object)}
+	 * @param params
+	 * @return this
+	 */
+	public Parameters responseID(Parameters params) {
+		// TODO Auto-generated method stub
+		Dico id = params.getDico("id");
+		this.response(id);
+		return this;
+	}
+
+	/**
+	 * add in actual parameters  string: friends  and add response: string {@link Parameters#AddParamResponse(String...)}
+	 * @param string
+	 * @param friends
+	 * @return Parameters
+	 * @throws LucasException
+	 */
+	public Parameters AddParamResponse(String string, Parameters friends) throws LucasException {
+		// TODO Auto-generated method stub
+		this.AddParam(string, friends);
+		this.AddParamResponse(string);
+		return this;
 	}
 }

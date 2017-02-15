@@ -18,6 +18,8 @@ import util.TestError;
 
 /**
  * Classe du service Suppression d'ami
+ * GET: KEY + ID | KEY + ID_FRIEND | KEY + TYPE=ALL
+ * OUT: RESPONSE:OK
  */
 
 public class SRemoveFriend extends Service {
@@ -76,7 +78,7 @@ public class SRemoveFriend extends Service {
 
 	@Override
 	public String[] giveGetEntry() {
-		return Dico.vs_a("id", "key");
+		return Dico.vs_ak();
 	}
 	
 	/**
@@ -85,7 +87,7 @@ public class SRemoveFriend extends Service {
 
 	@Override
 	public Parameters to_json() {
-		return Dico.vT_toP(this, "response");
+		return Dico.response(this);
 	}
 	
 	/**
@@ -97,15 +99,35 @@ public class SRemoveFriend extends Service {
 
 		try {
 			if (TestError.params_auth(this)) {
-
-				if (!db_Friend_Helper.c().Remove(params)) {
-					RespS.c(this, Error.SqlError.detail("PB delete friend check ids"));
+				
+				if (params.getDicosOK("id_friend")) {
+					if (!db_Friend_Helper.c().RemoveWithKeyandID(params)) {
+						RespS.c(this, Error.SqlError.detail("PB delete friend check id id_friend"));
+						return;
+					}
+				}else if(params.getDicosOK("id")){
+					if (!db_Friend_Helper.c().RemoveWithId(params)) {
+						RespS.c(this, Error.SqlError.detail("PB delete friend check ids"));
+						return;
+					}
+				}else if(params.getDicosOK("type") && params.getValue("type").equals("ALL")){
+					if (!db_Friend_Helper.c().RemoveWith(null)) {
+						RespS.c(this, Error.SqlError.detail("PB delete friend all"));
+						return;
+					}
+				}
+				
+				else{
+					RespS.c(this, Error.ErrArgs);
 					return;
+				
 				}
 
-				Local_params.AddParam("response", "OK");
+				Local_params.AddParamRespOK();
 				RespS.cj(this);
+				
 			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			RespS.c(this, Error.SQLException);

@@ -3,14 +3,17 @@ package util;
 /**
  * Interface IParameters
  */
+/**
+ * @author lucasiscovici
+ *
+ */
 public interface IParameters {
-	public Parameters params = null;
-	
 	/**
-	 * @param getEntry
-	 * @return Dico.vs_a("key1","key2",etc); OU new String[]{"key1","key2",etc}
+	 * parametres du services (avec les parametres d'entrés par def)
 	 */
-	
+	/**  Méthode permettant de récupérer nos entrée
+	 * @return Dico.vs_a(keyA,keyB,....); ou new String[]{key1,key2..};
+	 */
 	public String[] giveGetEntry();
 
 }

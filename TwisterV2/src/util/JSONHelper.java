@@ -21,7 +21,6 @@ public final class JSONHelper {
 		JSONObject k = new JSONObject();
 	
 		for (Dico elt: list.to_json().parameters) {
-			
 			k.put(elt.key, elt.toJSON());
 		}
 		return k;

@@ -66,14 +66,19 @@ public class db_Session_Helper extends db {
 	public boolean Insert(Parameters params)
 			throws ClassNotFoundException, SQLException, LucasException, UnknownHostException {
 		// TODO Auto-generated method stub
-		params.AddParam(session_id_user, db_User_Helper.c().getIdWithLogin(params));
+		Parameters p2 = params.copy();
+		int idWithLogin = db_User_Helper.c().getIdWithLogin(params);
+		p2.AddParam(session_id_user, db_User_Helper.c().getIdWithLogin(params));
 
-		if (SelectOK(params.PS(session_id_user))) {
-			DeleteOK(params.PS(session_id_user));
+		if (SelectOK(p2.PS(session_id_user))) {
+			DeleteOK(p2.PS(session_id_user));
 		}
-		Parameters p2 = params.PS(session_id_user, session_key);
+		p2 = p2.PS(session_id_user, session_key);
+		
 		if (InsertOK(p2)) {
 			params.AddParam(p2, "id");
+			//EXCEPTIONELLE
+			params.AddParam(session_id_user,idWithLogin);
 			return true;
 		} else {
 			return false;

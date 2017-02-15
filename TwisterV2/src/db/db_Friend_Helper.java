@@ -4,6 +4,7 @@ import java.net.UnknownHostException;
 import java.sql.SQLException;
 
 import db.util.db;
+import util.Dico;
 import util.LucasException;
 import util.Parameters;
 //import util.io;
@@ -41,11 +42,8 @@ public class db_Friend_Helper extends db {
 
 	/**
 	 * 
-	 * @param params
-	 *            Un paramètre
-	 * @return SelectWith(to,
-	 *         params.AddParam(from,db_Session_Helper.c().getIdWithKey(params)).PS(from)).change(to,
-	 *         id_friend)
+	 * @param params Parameters
+	 * @return Parameters
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws LucasException
@@ -53,25 +51,33 @@ public class db_Friend_Helper extends db {
 
 	public Parameters listFriendsFromKey(Parameters params)
 			throws ClassNotFoundException, SQLException, LucasException {
-		return SelectWith(to, params.AddParam(from, db_Session_Helper.c().getIdWithKey(params)).PS(from)).change(to,
-				id_friend);
+		
+		Integer fromId = db_Session_Helper.c().getIdWithKey(params);
+		return SelectWith(Dico.toP(from,fromId));
 	}
 
 	/**
 	 * 
-	 * @param params
-	 *            Un paramètre
-	 * @return SelectWith(to,
-	 *         params.AddParam(from,params.getValue("id"))).change(to,
-	 *         id_friend)
+	 * @param params Parameters
+	 * @return Parameters id_friend[]
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws LucasException
 	 */
 	public Parameters listFriendsFromId(Parameters params) throws ClassNotFoundException, SQLException, LucasException {
-		return SelectWith(to, params.AddParam(from, params.getValue("id"))).change(to, id_friend);
+		return SelectWith(params.PS("id").change("id", from));
 	}
-
+	
+	/**
+	 * @param params
+	 * @return {@link db_Friend_Helper#listFriendsFromId}
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws LucasException
+	 */
+	public Parameters listFriendsFromIdUser(Parameters params) throws ClassNotFoundException, SQLException, LucasException {
+		return listFriendsFromId(params.PS("id_user").change("id_user", "id"));
+	}
 	/**
 	 * 
 	 * @return true si l'insertion se fait correctement, false sinon
@@ -80,8 +86,9 @@ public class db_Friend_Helper extends db {
 	public boolean Insert(Parameters params)
 			throws ClassNotFoundException, SQLException, LucasException, UnknownHostException {
 		// TODO Auto-generated method stub
-		Parameters p2 = params.copy().AddParam(from, db_Session_Helper.c().getIdWithKey(params)).change(id_friend, to)
-				.PS(from, to);
+		
+		Integer fromId = db_Session_Helper.c().getIdWithKey(params);
+		Parameters p2 = params.copy().AddParam(from, fromId).change(id_friend, to).PS(from, to);
 
 		if (!p2.getValue(from).equals(p2.getValue(to))) {
 
@@ -148,5 +155,11 @@ public class db_Friend_Helper extends db {
 	public String GiveMyTable() {
 		// TODO Auto-generated method stub
 		return Tables.Friend;
+	}
+
+	public boolean RemoveWithKeyandID(Parameters params) throws ClassNotFoundException, UnknownHostException, SQLException, LucasException {
+		// TODO Auto-generated method stub
+		int idFromKey = db_Session_Helper.c().getIdWithKey(params);
+		return RemoveWith(params.PS("id_friend").change("id_friend","to").AddParam("from",idFromKey));
 	}
 }

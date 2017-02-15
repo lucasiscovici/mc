@@ -11,9 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 
 import services.friend.SAddFriend;
-import util.Error;
 import util.LucasException;
-import util.io;
 
 /**
  * Classe représnetant un servlet pour ajouter un ami
@@ -33,6 +31,7 @@ public class AddFriend extends HttpServlet {
 		// TODO Auto-generated method stub
 
 		try {
+	
 			new SAddFriend(req, resp).print();
 		} catch (JSONException e) {
 			e.printStackTrace();

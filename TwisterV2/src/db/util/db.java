@@ -56,7 +56,7 @@ public abstract class db implements db_crud {
 	 * @throws SQLException
 	 */
 	
-	public boolean CheckIfExistWithId(Parameters params) throws ClassNotFoundException, SQLException {
+	public boolean CheckIfExistWithId(Parameters params) throws ClassNotFoundException, SQLException, LucasException {
 		// TODO Auto-generated method stub
 		return db_Helper.selectOK(_My_Table,params.PS("id"));
 	}
@@ -128,7 +128,7 @@ public abstract class db implements db_crud {
 	
 	public Parameters SelectWithId(Parameters params) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
-		return db_Helper.selectAndWhere("id",_My_Table,params);
+		return db_Helper.selectAndWhereAll(_My_Table,params.PS("id"));
 	}
 	
 	/**
@@ -141,7 +141,7 @@ public abstract class db implements db_crud {
 	
 	public Parameters SelectWith(Parameters params) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
-		return db_Helper.selectAndWhere(_My_Table, params);
+		return db_Helper.selectAndWhereAll(_My_Table, params);
 	}
 	
 	/**
@@ -157,7 +157,7 @@ public abstract class db implements db_crud {
 		// TODO Auto-generated method stub
 		return db_Helper.selectAndWhere(_My_Table, params,selects);
 	}
-	
+
 	/**
 	 * 
 	 * @param select Une chaine de caractère

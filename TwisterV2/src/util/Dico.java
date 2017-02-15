@@ -236,7 +236,7 @@ public class Dico {
 	}
 	
 	/**
-	 * 
+	 * prend depuis Local_params les keys 
 	 * @param ob Un service
 	 * @param key Une chaine de caractère
 	 * @return Un nouveau Dico
@@ -249,7 +249,7 @@ public class Dico {
 	}
 	
 	/**
-	 * 
+	 * prend depuis Local_params les keys 
 	 * @param ob Un service
 	 * @param key Une chaine de caractère
 	 * @return Parameters.fromDicos(vT(ob, key))
@@ -260,7 +260,7 @@ public class Dico {
 	}
 	
 	/**
-	 * 
+	 * prend depuis Local_params les keys 
 	 * @param ob Un service
 	 * @param keys Un ensemble de chaine de caractère
 	 * @return Dico.psp(ob.Local_params, keys)
@@ -272,7 +272,7 @@ public class Dico {
 	
 	/**
 	 * 
-	 * @param values Un ensemble d'objet
+	 * @param values Un ensemble d'objet (String,parameters, Int, double, etc...Dico)
 	 * @return Un nouveau paramètre
 	 * @throws LucasException
 	 */
@@ -481,7 +481,13 @@ public class Dico {
 	public static String[] vs_a(String...values) {
 		return values;
 	}
-	
+
+	public static String[] combine(String v1,String...values) {
+		List<String> d = new ArrayList<String>(Arrays.asList(values));
+		List<String> d2= new ArrayList<String>(Arrays.asList(v1));
+		d2.addAll(d);
+		return d2.toArray(new String[0]);
+	}
 	/**
 	 * 
 	 * @param key Une chaine de caractère
@@ -602,7 +608,7 @@ public class Dico {
 
 					}
 					else{
-						arr.put(d.toJSON());
+						arr.put(dff);
 
 					}
 				}else{
@@ -611,7 +617,7 @@ public class Dico {
 				
 				}
 			}
-			
+
 			if (k.length() >0) {
 				
 			
@@ -623,7 +629,13 @@ public class Dico {
 			
 			return arr;
 			}else{
-				return k;
+				if (arr.length() >0) {
+			
+				
+				return arr.get(0);
+				}else{
+					return k;
+				}
 			}
 		}
 		else{
@@ -665,8 +677,10 @@ public class Dico {
 	
 	public static List<Dico> ps(Parameters pa,String...strings) {
 		List<Dico> d = new ArrayList<Dico>();
+		
 		for (int i = 0; i < strings.length; i++) {
 			for (Dico dico : pa.getDicos(strings[i]).parameters) {
+				
 					d.add(dico.copy());
 			}
 		}
@@ -701,6 +715,25 @@ public class Dico {
 	
 	public static Parameters psp(Parameters pa,String...strings) {
 		return pa.PS(strings);
+	}
+
+	/** Dico.vT_toP(sAddLike, "response");
+	 * @param sAddLike
+	 * @return Dico.vT_toP(sAddLike, "response");
+	 */
+	public static Parameters response(Service sAddLike) {
+		// TODO Auto-generated method stub
+		return Dico.vT_toP(sAddLike, "response");
+	}
+
+	/** Dico.vs_a(string+"key");
+	 * @param string
+	 * @return Dico.vs_a(string+"key");
+	 */
+	public static String[] vs_ak(String...string) {
+		// TODO Auto-generated method stub
+		
+		return Dico.combine("key",string);
 	}
 	
 }

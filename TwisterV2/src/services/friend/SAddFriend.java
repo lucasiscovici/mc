@@ -19,6 +19,8 @@ import util.TestError;
 
 /**
  * Classe du service d'ajout ami
+ * GET: KEY + ID_FRIEND
+ * OUT: RESPONSE:ID=X
  */
 
 public class SAddFriend extends Service {
@@ -88,29 +90,17 @@ public class SAddFriend extends Service {
 		super(req, resp);
 		// TODO Auto-generated constructor stub
 	}
-	
-	/**
-	 * Méthode permettant de récupérer nos entrée
-	 */
 
 	@Override
 	public String[] giveGetEntry() {
-		return Dico.vs_a("id_friend", "key");
+		return Dico.vs_ak("id_friend");
 	}
-	
-	/**
-	 * Récupération du retour json
-	 */
 
 	@Override
 	public Parameters to_json() {
-		return Dico.vT_toP(this, "reponse");
+		return Dico.response(this);
 	}
 	
-	/**
-	 * Méthode qui exécute notre service
-	 */
-
 	@Override
 	public void koko() {
 		try {
@@ -120,12 +110,12 @@ public class SAddFriend extends Service {
 					RespS.c(this, Error.SqlError.detail("PB Insert friend check ids"));
 					return;
 				}
-				Local_params.AddParam("reponse", Dico.toP("id", params.getDico("id")));
+				Local_params.responseID(params);
 				RespS.cj(this);
+				
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-
 			RespS.c(this, Error.SQLException);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -136,11 +126,8 @@ public class SAddFriend extends Service {
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			RespS.c(this, Error.JSONException);
-
-			e.printStackTrace();
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 

@@ -2,10 +2,10 @@
 <web-app id="WebApp_ID" version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 	<servlet>
 		<servlet-name>Login</servlet-name>
-		<servlet-class>servlet.user.Login</servlet-class>
+		<servlet-class>servlet.session.Login</servlet-class>
 	</servlet><servlet>
 		<servlet-name>Logout</servlet-name>
-		<servlet-class>servlet.user.Logout</servlet-class>
+		<servlet-class>servlet.session.Logout</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>CreateUser</servlet-name>
@@ -20,12 +20,12 @@
 		<servlet-class>servlet.friend.RemoveFriend</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>Search</servlet-name>
-		<servlet-class>servlet.post.Search</servlet-class>
+		<servlet-name>ListPosts</servlet-name>
+		<servlet-class>servlet.post.ListPosts</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>AddComment</servlet-name>
-		<servlet-class>servlet.post.AddComment</servlet-class>
+		<servlet-name>AddPost</servlet-name>
+		<servlet-class>servlet.post.AddPost</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>Presentation</servlet-name>
@@ -57,12 +57,12 @@
 		<url-pattern>/removefriend</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>Search</servlet-name>
-		<url-pattern>/search</url-pattern>
+		<servlet-name>ListPost</servlet-name>
+		<url-pattern>/listpost</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>AddComment</servlet-name>
-		<url-pattern>/addcomment</url-pattern>
+		<servlet-name>AddPost</servlet-name>
+		<url-pattern>/addpost</url-pattern>
 	</servlet-mapping>
 
 </web-app>

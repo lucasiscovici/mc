@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.InputMismatchException;
 //import java.util.Optional;
 import java.util.Scanner;
 
@@ -262,7 +261,6 @@ public class io {
 	}
 	
 	
-	@SuppressWarnings("rawtypes")
 	/*public static Optional pscan(String ph,String scan_quoi) throws InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException, IllegalArgumentException{
 		 	Object[] obj = {};// for method1()
 	        // Object[] obj={"hello"}; for method1(String str)

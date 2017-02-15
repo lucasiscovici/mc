@@ -26,11 +26,12 @@ public abstract class dbM implements db_crud {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws UnknownHostException
+	 * @throws LucasException 
 	 */
 	
-	public Parameters getXWithX(String select,Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException {
+	public Parameters getXWithX(String select,Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException, LucasException {
 		// TODO Auto-generated method stub
-		return db_Helper.selectMongo(select,_My_Table,params);
+		return db_Helper.selectMongo(select,_My_Table,params.copy().change("id", "_id"));
 	}
 	
 	/**
@@ -56,12 +57,13 @@ public abstract class dbM implements db_crud {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws UnknownHostException
+	 * @throws LucasException 
 	 */
 	
-	public boolean CheckIfExistWithId(String select,Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException {
+	public boolean CheckIfExistWithId(String select,Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException, LucasException {
 		// TODO Auto-generated method stub
 		//io.print(_My_Table);
-		return db_Helper.selectMongoOK(_My_Table,params.PS("id"));
+		return db_Helper.selectMongoOK(_My_Table,params.PS("id").change("id", "_id"));
 		//return true;
 	}
 	
@@ -73,17 +75,18 @@ public abstract class dbM implements db_crud {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws UnknownHostException
+	 * @throws LucasException 
 	 */
 	
-	public boolean CheckIfExistWith(String select,Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException {
+	public boolean CheckIfExistWith(String select,Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException, LucasException {
 		// TODO Auto-generated method stub
 		//io.print(_My_Table);
-		return db_Helper.selectMongoOK(_My_Table,params.PS(select));
+		return db_Helper.selectMongoOK(_My_Table,params.PS(select).change("id", "_id"));
 		//return true;
 	}
 	
 	/**
-	 * 
+	 * CHECK IF ROW IN DB EXIST WITH PARTICULAR PARAMS (WHERE)
 	 * @param params Un paramètre
 	 * @return db_Helper.selectMongoOK(_My_Table,params.copy().change("id", "_id"))
 	 * @throws ClassNotFoundException
@@ -91,7 +94,6 @@ public abstract class dbM implements db_crud {
 	 * @throws UnknownHostException
 	 * @throws LucasException
 	 */
-	
 	public boolean CheckIfExistWith(Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException, LucasException {
 		// TODO Auto-generated method stub
 		//io.print(_My_Table);
@@ -106,11 +108,12 @@ public abstract class dbM implements db_crud {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws UnknownHostException
+	 * @throws LucasException 
 	 */
 	
-	public boolean RemoveMongoWithId(Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException {
+	public boolean RemoveMongoWithId(Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException, LucasException {
 		// TODO Auto-generated method stub
-		return db_Helper.deleteMongoOK(_My_Table, params.PS("id"));
+		return db_Helper.deleteMongoOK(_My_Table, params.PS("id").change("id", "_id"));
 	}
 	
 	/**
@@ -120,11 +123,12 @@ public abstract class dbM implements db_crud {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws UnknownHostException
+	 * @throws LucasException 
 	 */
 	
-	public boolean RemoveMongoWith(Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException {
+	public boolean RemoveMongoWith(Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException, LucasException {
 		// TODO Auto-generated method stub
-		return db_Helper.deleteMongoOK(_My_Table, params);
+		return db_Helper.deleteMongoOK(_My_Table, params.copy().change("id", "_id"));
 	}
 	
 	/**
@@ -134,11 +138,12 @@ public abstract class dbM implements db_crud {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws UnknownHostException
+	 * @throws LucasException 
 	 */
 	
-	public Parameters SelectMongoWithId(Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException {
+	public Parameters SelectMongoWithId(Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException, LucasException {
 		// TODO Auto-generated method stub
-		return db_Helper.selectMongo(_My_Table, params.PS("id"));
+		return db_Helper.selectMongo(_My_Table, params.PS("id").change("id", "_id"));
 	}
 	
 	/**
@@ -148,14 +153,19 @@ public abstract class dbM implements db_crud {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws UnknownHostException
+	 * @throws LucasException 
 	 */
 	
-	public Parameters SelectMongoWith(Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException {
+	public Parameters SelectMongoWith(Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException, LucasException {
 		// TODO Auto-generated method stub
-		return db_Helper.selectMongo(_My_Table, params);
+		return db_Helper.selectMongo(_My_Table, params.copy().change("id", "_id"));
 
 	}
-	
+	public Parameters SelectMongoWith() throws ClassNotFoundException, SQLException, UnknownHostException, LucasException {
+		// TODO Auto-generated method stub
+		return db_Helper.selectMongo(_My_Table,null);
+
+	}
 	/**
 	 * 
 	 * @param select Une chaine de caractère
@@ -164,11 +174,12 @@ public abstract class dbM implements db_crud {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws UnknownHostException
+	 * @throws LucasException 
 	 */
 	
-	public Parameters SelectMongoWith(String select,Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException {
+	public Parameters SelectMongoWith(String select,Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException, LucasException {
 		// TODO Auto-generated method stub
-		return db_Helper.selectMongo(_My_Table, params.PS(select));
+		return db_Helper.selectMongo(_My_Table, params.PS(select).change("id", "_id"));
 
 	}
 	
@@ -180,11 +191,12 @@ public abstract class dbM implements db_crud {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws UnknownHostException
+	 * @throws LucasException 
 	 */
 	
-	public Parameters SelectMongoWith(Parameters params,String...selects) throws ClassNotFoundException, SQLException, UnknownHostException {
+	public Parameters SelectMongoWith(Parameters params,String...selects) throws ClassNotFoundException, SQLException, UnknownHostException, LucasException {
 		// TODO Auto-generated method stub
-		return db_Helper.selectMongo(_My_Table, params,selects);
+		return db_Helper.selectMongo(_My_Table, params.copy().change("id", "_id"),selects);
 	}
 	
 	/**
@@ -199,7 +211,7 @@ public abstract class dbM implements db_crud {
 	
 	public boolean UpdateMongoWithId(Parameters params) throws ClassNotFoundException, SQLException, LucasException, UnknownHostException {
 		// TODO Auto-generated method stub
-		return db_Helper.updateMongoOK(_My_Table,params.PSN("id"),params.PS("id"));
+		return db_Helper.updateMongoOK(_My_Table,params.PSN("id"),params.PS("id").change("id", "_id"));
 	}
 	
 	/**
@@ -215,7 +227,7 @@ public abstract class dbM implements db_crud {
 	
 	public boolean UpdateMongoWith(Parameters sets,Parameters where) throws ClassNotFoundException, SQLException, LucasException, UnknownHostException {
 		// TODO Auto-generated method stub
-		return db_Helper.updateMongoOK(_My_Table, sets,where);
+		return db_Helper.updateMongoOK(_My_Table, sets,where.copy().change("id", "_id"));
 	}
 	
 	/**
@@ -225,10 +237,11 @@ public abstract class dbM implements db_crud {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws UnknownHostException
+	 * @throws LucasException 
 	 */
 	
-	public boolean InsertMongoOK(Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException {
-		return db_Helper.insertMongoOK(_My_Table, params);
+	public boolean InsertMongoOK(Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException, LucasException {
+		return db_Helper.insertMongoOK(_My_Table, params.copy().change("id", "_id"));
 	}
 	
 	/**
@@ -238,10 +251,11 @@ public abstract class dbM implements db_crud {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws UnknownHostException
+	 * @throws LucasException 
 	 */
 	
-	public boolean SelectMongoOK(Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException {
-		return db_Helper.selectMongoOK(_My_Table, params);
+	public boolean SelectMongoOK(Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException, LucasException {
+		return db_Helper.selectMongoOK(_My_Table, params.copy().change("id", "_id"));
 	}
 	
 	/**
@@ -251,9 +265,10 @@ public abstract class dbM implements db_crud {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws UnknownHostException
+	 * @throws LucasException 
 	 */
 	
-	public boolean DelectMongoOK(Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException {
-		return db_Helper.deleteMongoOK(_My_Table, params);
+	public boolean DelectMongoOK(Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException, LucasException {
+		return db_Helper.deleteMongoOK(_My_Table, params.copy().change("id", "_id"));
 	}
 }

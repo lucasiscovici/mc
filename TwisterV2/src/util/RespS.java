@@ -60,11 +60,10 @@ public class RespS {
 	}
 	
 	/**
-	 * Initialise une réponse RespS(t, JSONHelper.to_json(t))
+	 * Initialise une réponse et avec l'appelle a to_json du service
 	 * @param t Un service
 	 * @throws JSONException
 	 */
-	
 	public static void cj(Service t) throws JSONException {
 		t.RespS = new RespS(t, JSONHelper.to_json(t));
 		

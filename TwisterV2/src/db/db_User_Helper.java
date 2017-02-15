@@ -4,6 +4,7 @@ import java.net.UnknownHostException;
 import java.sql.SQLException;
 
 import db.util.db;
+import util.Dico;
 import util.LucasException;
 import util.Parameters;
 
@@ -39,6 +40,7 @@ public class db_User_Helper extends db {
 		super();
 	}
 	
+//FCT SPECIALE	
 	/**
 	 * 
 	 * @param params Un paramètre
@@ -47,8 +49,6 @@ public class db_User_Helper extends db {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-
-//FCT SPECIALE
 	public boolean CheckPassword(Parameters params) throws NumberFormatException, SQLException, ClassNotFoundException {
 
 		return SelectOK(params.PS(login, password));
@@ -82,6 +82,12 @@ public class db_User_Helper extends db {
 	}
 
 	
+//OVERRIDE PARTICULIER
+	@Override
+	public boolean CheckIfExistWithId(Parameters params) throws ClassNotFoundException, SQLException, LucasException {
+		// TODO Auto-generated method stub
+		return super.CheckIfExistWithId(params.PS("id_user").change("id_user", "id"));
+	}
 	
 //OVERRIDE DES FCTS OBLIGATOIRES
 	/**
@@ -143,6 +149,17 @@ public class db_User_Helper extends db {
 			throws ClassNotFoundException, SQLException, LucasException, UnknownHostException {
 		// TODO Auto-generated method stub
 		return SelectWithId(params);
+	}
+
+	public boolean removeWithLogin(Parameters params) throws ClassNotFoundException, SQLException {
+		// TODO Auto-generated method stub
+		return RemoveWith(params.PS("login"));
+	}
+
+	public boolean RemoveWithKey(Parameters params) throws ClassNotFoundException, SQLException, LucasException {
+		// TODO Auto-generated method stub
+		int IdWK = db_Session_Helper.c().getIdWithKey(params);
+		return RemoveWithId(Dico.toP("id",IdWK));
 	}
 
 }

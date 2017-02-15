@@ -18,6 +18,8 @@ import util.TestError;
 
 /**
  * Classe du service création utilisateur
+ * GET: LOGIN + PRENOM + NOM + PASSWORD
+ * OUT: RESPONSE:OK
  */
 
 public class SCreateUser extends Service {
@@ -106,7 +108,7 @@ public class SCreateUser extends Service {
 	//Liste des sorties Json (nom des dictionnaire Dico, a prendre dans Local_params, pour construire la reponse JSON)
 	@Override
 	public Parameters to_json() {
-		return Dico.vT_toP(this, "response");
+		return Dico.response(this);
 	}
 	
 	/**
@@ -117,6 +119,7 @@ public class SCreateUser extends Service {
 	@Override
 	public void koko() {
 		try {
+			
 			if (TestError.params(this)) { // CHECK ERR PARAMS
 
 				if (db_User_Helper.c().CheckIfExist(params)) { // CHECK IF LOGIN ALREADY EXIST IN DB
@@ -129,8 +132,9 @@ public class SCreateUser extends Service {
 					return;
 				}
 
-				Local_params.AddParam("response", "OK"); // CREATE THE RESPONSE FOR JSON OUTPUT
+				Local_params.AddParamRespOK(); // CREATE THE RESPONSE FOR JSON OUTPUT
 				RespS.cj(this); // CALL THE PRINT FOR JSON (call the function to_json of this service)
+			
 			}
 
 		} catch (NumberFormatException e) {

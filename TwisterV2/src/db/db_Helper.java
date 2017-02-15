@@ -15,7 +15,6 @@ import util.Parameters;
 
 //import util.io;
 
-import util.io;
 
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
@@ -226,6 +225,9 @@ public class db_Helper {
 		return select(table, dico);
 	}
 	
+	public static Parameters selectAndWhereAll(String table,Parameters dico) throws SQLException, ClassNotFoundException {
+		return select("SELECT * FROM "+table, dico);
+	}
 	/**
 	 * 
 	 * @param select Une chaine de caractère
@@ -540,7 +542,7 @@ public class db_Helper {
 	 */
 	
 	public static boolean deleteOK(String table,Parameters d) throws SQLException, ClassNotFoundException {
-		return delete(table,d) > 0;
+		return delete(table,d) != -1;
 	}
 	
 	/**
@@ -627,14 +629,7 @@ public class db_Helper {
 	
 	public static boolean deleteMongo(String table,Parameters p) throws UnknownHostException {
 		BasicDBObject r= CreateRequest();
-		if (p!=null) {
-			
-		
-		for (Dico d : p.parameters) {
-			r.put(d.getKey(), d.getValue());
-			
-		}
-		}
+		whereMongo(r, p);
 		 WriteResult w = getMyCollection(table).remove(r);
 
 		return w.getError()==null;

@@ -21,10 +21,22 @@ import util.TOJSON;
  */
 
 public abstract class Service implements IOLUCAS, IParameters, TOJSON, ServiceKoko  {
+	/**
+	 * parametres du services Local (les parameters ou dicos dont la fonction to_json a besoin pour constuire la response JSON)
+	 */
 	public Parameters Local_params = new Parameters(); 
 	public HttpServletResponse response = null; // FROM IOLUCAS
+	/**
+	 * Entrées obligatoires pour le service
+	 */
 	public String[] getEntry = {}; // FROM IParameters
+	/**
+	 * parametres du services (avec les parametres d'entrés par def)
+	 */
 	public Parameters params = null; //
+	/**
+	 * Response du service -> soit erreur , soit response
+	 */
 	public RespS RespS = null;
 	
 	/**
@@ -93,11 +105,10 @@ public abstract class Service implements IOLUCAS, IParameters, TOJSON, ServiceKo
 	}
 	
 	/**
-	 * Permettra d'afficher la réponse de notre requête
+	 * Permettra d'afficher la réponse de notre requête (ERR, ou response)
 	 * @throws IOException
 	 * @throws JSONException
 	 */
-	
 	public void print() throws IOException, JSONException {
 		if (RespS != null) {
 		RespS.print();
