@@ -32,6 +32,7 @@ public class SCreateUser extends Service {
 	 * @throws LucasException
 	 */
 
+//Constructeurs + Appelle desConstructeurs de Service
 	public SCreateUser() throws NumberFormatException, ClassNotFoundException, IOException, SQLException, JSONException,
 			LucasException {
 		super();
@@ -91,12 +92,10 @@ public class SCreateUser extends Service {
 //OVERRIDE DES FCTS OBLIGATOIRES
 	
 	//Liste des entrées obligatoires
-	@Override
-	
 	/**
 	 * Méthode permettant de récupérer nos entrée
 	 */
-	
+	@Override
 	public String[] giveGetEntry() {
 		return Dico.vs_a("prenom", "nom", "login", "password");
 	}
@@ -104,7 +103,7 @@ public class SCreateUser extends Service {
 	/**
 	 * Récupération du retour json
 	 */
-	
+	//Liste des sorties Json (nom des dictionnaire Dico, a prendre dans Local_params, pour construire la reponse JSON)
 	@Override
 	public Parameters to_json() {
 		return Dico.vT_toP(this, "response");
@@ -114,6 +113,7 @@ public class SCreateUser extends Service {
 	 * Méthode qui exécute notre service
 	 */
 	
+	//FCT PRINCIPALE DU SERVICE (C'est la fonction qui est appellé apres de la creation du service) 
 	@Override
 	public void koko() {
 		try {

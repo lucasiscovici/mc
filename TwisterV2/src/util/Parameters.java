@@ -69,7 +69,6 @@ public class Parameters {
 	 * @param key Une chaine de caractère
 	 * @return un Dico
 	 */
-	
 	public Dico getDico(String key) {
 		for (Dico dico : parameters) {
 			if (dico.key.equals(key)) {
@@ -450,7 +449,7 @@ public class Parameters {
 	 * @return this.AddParam(Dico.toP(keys[0],d))
 	 * @throws LucasException
 	 */
-	
+
 	public Parameters AddParamR(String...keys) throws LucasException{
 		List<String> s = new ArrayList<String>(Arrays.asList(keys));
 //		

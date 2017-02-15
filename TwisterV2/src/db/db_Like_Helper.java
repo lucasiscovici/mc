@@ -1,0 +1,69 @@
+package db;
+
+import java.net.UnknownHostException;
+import java.sql.SQLException;
+
+import db.util.dbM;
+import util.LucasException;
+import util.Parameters;
+import util.Usefull;
+//import util.io;
+
+public class db_Like_Helper extends dbM {
+	public static String My_Table = Tables.Like;
+	
+	public static String date = "date";
+	public static String id_post = "id_post";
+	public static String id_user = "id_user";
+
+	public db_Like_Helper() {
+		super();
+	}
+	public static db_Like_Helper c() {
+		return new db_Like_Helper();
+	}
+	
+public boolean InsertLike(Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException, LucasException {
+	Parameters p2 = params.PS("id_post").AddParam("id_user",db_Session_Helper.c().getIdWithKey(params));
+	if (CheckIfExistWith(p2)) {
+		return false;
+	}
+	return Insert(params);
+}
+	@Override
+	public boolean Insert(Parameters params) throws ClassNotFoundException,
+			SQLException, LucasException, UnknownHostException {
+		params.AddParam(date, Usefull.currentDate());
+		params.AddParam(id_user,db_Session_Helper.c().getIdWithKey(params));
+		Parameters p2 = params.PS(id_user, id_post, date);
+		if (InsertMongoOK(p2)){
+			params.AddParam(p2, "id");
+			return true;
+		}else{
+			return false;
+		}
+	}
+	@Override
+	public boolean Remove(Parameters params) throws ClassNotFoundException,
+			SQLException, LucasException, UnknownHostException {
+		// TODO Auto-generated method stub
+		return RemoveMongoWithId(params);
+	}
+	@Override
+	public boolean Update(Parameters params) throws ClassNotFoundException,
+			SQLException, LucasException, UnknownHostException {
+		// TODO Auto-generated method stub
+		return UpdateMongoWithId(params);
+	}
+	@Override
+	public Parameters Select(Parameters params) throws ClassNotFoundException,
+			SQLException, LucasException, UnknownHostException {
+		// TODO Auto-generated method stub
+		return SelectMongoWithId(params);
+	}
+	@Override
+	public String GiveMyTable() {
+		// TODO Auto-generated method stub
+		return Tables.Like;
+	}
+}

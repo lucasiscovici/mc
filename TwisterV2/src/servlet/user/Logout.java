@@ -16,7 +16,7 @@ import util.LucasException;
 /**
  * Classe représentant un servlet de déconnexion
  */
-
+@SuppressWarnings("serial")
 public class Logout extends HttpServlet {
 	
 	/**

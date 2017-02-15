@@ -94,6 +94,7 @@ public class db_Post_Helper extends dbM {
 	 * @return true si l'insertion a été faites, false sinon
 	 */
 
+
 	@Override
 	public boolean Insert(Parameters params)
 			throws ClassNotFoundException, SQLException, LucasException, UnknownHostException {

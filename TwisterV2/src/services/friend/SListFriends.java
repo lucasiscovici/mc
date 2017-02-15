@@ -19,7 +19,6 @@ import util.TestError;
 /**
  * Classe du service lister ses amis
  */
-
 public class SListFriends extends Service {
 
 	/**

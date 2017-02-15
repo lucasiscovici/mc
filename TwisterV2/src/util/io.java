@@ -78,7 +78,7 @@ public class io {
 	 * @param s Une chaine de caractère
 	 * @throws IOException
 	 */
-	
+
 	public static void print_text(HttpServletResponse response,Object s) throws IOException {
 		if (response==null) {
 			print(s);

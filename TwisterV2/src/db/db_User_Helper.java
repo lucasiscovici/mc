@@ -34,6 +34,7 @@ public class db_User_Helper extends db {
 	 * Constructeur db_User_Helper()
 	 */
 	
+	//constructeur et constructeur du super
 	public db_User_Helper() {
 		super();
 	}
@@ -47,6 +48,7 @@ public class db_User_Helper extends db {
 	 * @throws ClassNotFoundException
 	 */
 
+//FCT SPECIALE
 	public boolean CheckPassword(Parameters params) throws NumberFormatException, SQLException, ClassNotFoundException {
 
 		return SelectOK(params.PS(login, password));
@@ -78,12 +80,14 @@ public class db_User_Helper extends db {
 
 		return db_Helper.selectAndWhereID(My_Table, params.PS(login)); //Get ID of the User White his Login 
 	}
+
 	
+	
+//OVERRIDE DES FCTS OBLIGATOIRES
 	/**
 	 * 
 	 * @return true s'il y a eu insertion, false sinon
 	 */
-	
 	@Override
 	public boolean Insert(Parameters params) throws ClassNotFoundException, SQLException {
 		Parameters p2 = params.PS(prenom, nom, password, login);

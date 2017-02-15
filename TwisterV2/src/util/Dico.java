@@ -117,13 +117,11 @@ public class Dico {
 	
 	/**
 	 * 
-	 * @return Dico.kvs(key, values) si c'est un Dico ou Dico.kv(key, value)
+	 * @return la copy du dico
 	 */
 
 	public Dico copy() {
-		if (is_dic) {
-			return Dico.kvs(key, values);
-		}else if (is_dicd){
+		if (is_dicd){
 			List<Dico> d = new ArrayList<Dico>();
 			for (Dico dico : valuesd) {
 					d.add(dico.copy());
@@ -152,7 +150,7 @@ public class Dico {
 	 * 
 	 * @param s Une chaine de caractère
 	 * @param g Une chaine de caractère
-	 * @return Notre Dico avec une clé et une valeur en plus
+	 * @return Notre Dico avec une clé et une valeur en plus ajoute dans la list<Dico>
 	 */
 	
 	public Dico addD(String s,String g) {
@@ -173,7 +171,7 @@ public class Dico {
 	/**
 	 * 
 	 * @param g Un Dico
-	 * @return Notre Dico avec un Dico en plus
+	 * @return Notre Dico avec un Dico en plus (List<Dico>)
 	 */
 	
 	public Dico addD(Dico g) {
@@ -192,7 +190,7 @@ public class Dico {
 	/**
 	 * 
 	 * @param g Un paramètre
-	 * @return Notre dico avec ajout de g
+	 * @return Notre dico avec ajout des Dico de la List<Dico> du PArameters g
 	 */
 
 	public Dico addD(Parameters g) {
@@ -220,7 +218,7 @@ public class Dico {
 	}
 	
 	/**
-	 * 
+	 * fv -> from values
 	 * @param values Un ensemble de chaine de caractère
 	 * @return Un nouveau paramètre
 	 */

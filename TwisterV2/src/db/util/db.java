@@ -16,7 +16,6 @@ public abstract class db implements db_crud {
 	/**
 	 * Constructeur db()
 	 */
-	
 	public db() {
 		_My_Table = GiveMyTable();
 	}

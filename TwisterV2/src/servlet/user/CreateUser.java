@@ -15,12 +15,12 @@ import util.Error;
 import util.LucasException;
 import util.io;
 
-@SuppressWarnings("serial")
+
 
 /**
  * Classe représentant un servlet de création d'un utilisateur
  */
-
+@SuppressWarnings("serial")
 public class CreateUser extends HttpServlet  {
 	
 	/**

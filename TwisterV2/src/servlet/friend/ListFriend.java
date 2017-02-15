@@ -1,8 +1,7 @@
-package servlet.user;
+package servlet.friend;
 
 import java.io.IOException;
 import java.sql.SQLException;
-
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,30 +10,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONException;
 
-import services.user.SLogin;
+import services.friend.SListFriends;
 import util.LucasException;
+import util.Parameters;
 
-
-
-/**
- * Classe représentant un servlet de connexion
- */
-@SuppressWarnings("serial")
-public class Login extends HttpServlet  {
-	
-	/**
-	 * Appellera le service nécessaire à l'exécution de notre requête
-	 * @param req Requête à exécuter
-	 * @param resp Réponse de la requête
-	 */
+public class ListFriend extends HttpServlet {
+	public static void main(String[] args) {
+	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+
 		try {
-			new SLogin(req,resp).print();
-			
-		} catch (NumberFormatException e) {
+			new SListFriends(Parameters.req(req), resp).print();
+		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
@@ -43,15 +33,13 @@ public class Login extends HttpServlet  {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (JSONException e) {
+		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (LucasException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
-	
 }

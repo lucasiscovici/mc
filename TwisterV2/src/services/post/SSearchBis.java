@@ -21,7 +21,6 @@ import util.Error;
 /**
  * Classe du service recherche bis
  */
-
 public class SSearchBis extends Service {
 	
 	/**
