@@ -2,6 +2,7 @@ package services.friend;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -84,6 +85,7 @@ public class SListFriends extends Service {
 
 	/**
 	 * Méthode qui exécute notre service
+	 * @throws ParseException 
 	 */
 	@Override
 	public void koko() {
@@ -113,10 +115,13 @@ public class SListFriends extends Service {
 			RespS.c(this, Error.ClassNotFoundException);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			RespS.c(this, Error.SQLException);
+			RespS.c(this, Error.SQLException.detail(e.getMessage()));
 		} catch (LucasException e) {
 			// TODO Auto-generated catch block
 			RespS.c(this, Error.LucasException);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

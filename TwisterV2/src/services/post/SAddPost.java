@@ -3,6 +3,7 @@ package services.post;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
+import java.text.ParseException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,7 @@ import util.Error;
 import util.LucasException;
 import util.Parameters;
 import util.TestError;
+import util.io;
 
 /**
  * Classe du service Ajouter Post
@@ -130,6 +132,7 @@ public class SAddPost extends Service {
 				}
 
 				Local_params.responseID(params);
+				//io.print(Local_params);
 				RespS.cj(this);
 			}
 
@@ -146,6 +149,9 @@ public class SAddPost extends Service {
 			// TODO Auto-generated catch block
 			RespS.c(this, Error.LucasException);
 		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

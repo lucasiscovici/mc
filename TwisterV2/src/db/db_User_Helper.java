@@ -162,4 +162,11 @@ public class db_User_Helper extends db {
 		return RemoveWithId(Dico.toP("id",IdWK));
 	}
 
+	public Parameters SelectWithKey(Parameters params) throws ClassNotFoundException, SQLException, LucasException {
+		// TODO Auto-generated method stub
+		int IdWK = db_Session_Helper.c().getIdWithKey(params);
+
+		return SelectWithId(Dico.toP("id",IdWK));
+	}
+
 }

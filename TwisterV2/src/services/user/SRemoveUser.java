@@ -2,6 +2,7 @@ package services.user;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -98,6 +99,9 @@ public class SRemoveUser extends Service {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (LucasException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

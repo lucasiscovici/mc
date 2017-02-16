@@ -18,11 +18,16 @@ protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws Se
 +"<html>"
 +"<head>"
 +	"<title>Twister</title>"
++"<style>"
++"#t:hover {"
++"filter: grayscale(100%);"
++"}"
++"</style>"
 +"<link href=\"https://fonts.googleapis.com/css?family=Caveat+Brush\" rel=\"stylesheet\">"
 +"</head>"
 +"<body style='background-color:#00BFFF'>"
 +"<p style='position:relative;text-align:center;top:33vh;margin:0;color:white;font-size:130px;font-family:\"Caveat Brush\", cursive;'>Twister "
-+"<span><img src='https://upload.wikimedia.org/wikipedia/fr/c/c8/Twitter_Bird.svg' width=\"120px\" /></span></p>"
++"<span><a id='t' href='http://luluperet.github.io/doc' target='_blank' style='transition: all 2s;' ><img src='https://upload.wikimedia.org/wikipedia/fr/c/c8/Twitter_Bird.svg' width=\"120px\" /></a></span></p>"
 +"</body>"
 +"</html>";
 	

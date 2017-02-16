@@ -41,9 +41,10 @@ public abstract class dbM implements db_crud {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws UnknownHostException
+	 * @throws LucasException 
 	 */
 	
-	public Parameters getXWithX(String select) throws ClassNotFoundException, SQLException, UnknownHostException {
+	public Parameters getXWithX(String select) throws ClassNotFoundException, SQLException, UnknownHostException, LucasException {
 		// TODO Auto-generated method stub
 		return db_Helper.selectMongo(select,_My_Table,null);
 		//return null;
@@ -60,7 +61,7 @@ public abstract class dbM implements db_crud {
 	 * @throws LucasException 
 	 */
 	
-	public boolean CheckIfExistWithId(String select,Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException, LucasException {
+	public boolean CheckIfExistWithId(Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException, LucasException {
 		// TODO Auto-generated method stub
 		//io.print(_My_Table);
 		return db_Helper.selectMongoOK(_My_Table,params.PS("id").change("id", "_id"));
@@ -241,7 +242,7 @@ public abstract class dbM implements db_crud {
 	 */
 	
 	public boolean InsertMongoOK(Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException, LucasException {
-		return db_Helper.insertMongoOK(_My_Table, params.copy().change("id", "_id"));
+		return db_Helper.insertMongoOK(_My_Table, params.change("id", "_id"));
 	}
 	
 	/**

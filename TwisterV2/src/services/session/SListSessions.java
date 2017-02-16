@@ -1,6 +1,7 @@
-package services.user;
+package services.session;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.text.ParseException;
 
@@ -9,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONException;
 
-import db.db_User_Helper;
+import db.db_Session_Helper;
 import services.utils.Service;
 import util.Dico;
 import util.LucasException;
@@ -17,30 +18,32 @@ import util.Parameters;
 import util.TestError;
 
 /**
- * SERVICE POuR LISTER LES USERS 
- * GET: KEY | KEY + TYPE=ALL | KEY + ID 
- * OUT: RESPONSE:USERS:ID,PRENOM,NOM,LOGIN,PASSWORD | RESPONSE:USERS:[ID,PRENOM,NOM,LOGIN,PASSWORD]
+ * Classe service pour la liste des session
+ * GET: KEY | KEY + ID | KEY + TYPE=ALL
+ * OUT: RESPONSE:SESSIONS:ID,KEY,DATE,ID_USER | RESPONSE:SESSIONS:[ID,KEY,DATE,ID_USER]
+ *
  */
-public class SListUsers extends Service {
+public class SListSessions extends Service {
 
-	public SListUsers() throws NumberFormatException, ClassNotFoundException, IOException, SQLException, JSONException,
-			LucasException {
+	public SListSessions() throws NumberFormatException, ClassNotFoundException, IOException, SQLException,
+			JSONException, LucasException {
 		// TODO Auto-generated constructor stub
+		super();
 	}
 
-	public SListUsers(Parameters params) throws NumberFormatException, ClassNotFoundException, IOException,
+	public SListSessions(Parameters params) throws NumberFormatException, ClassNotFoundException, IOException,
 			SQLException, JSONException, LucasException {
 		super(params);
 		// TODO Auto-generated constructor stub
 	}
 
-	public SListUsers(Parameters params, HttpServletResponse resp) throws NumberFormatException, ClassNotFoundException,
-			IOException, SQLException, JSONException, LucasException {
+	public SListSessions(Parameters params, HttpServletResponse resp) throws NumberFormatException,
+			ClassNotFoundException, IOException, SQLException, JSONException, LucasException {
 		super(params, resp);
 		// TODO Auto-generated constructor stub
 	}
 
-	public SListUsers(HttpServletRequest req, HttpServletResponse resp) throws NumberFormatException,
+	public SListSessions(HttpServletRequest req, HttpServletResponse resp) throws NumberFormatException,
 			ClassNotFoundException, IOException, SQLException, JSONException, LucasException {
 		super(req, resp);
 		// TODO Auto-generated constructor stub
@@ -59,40 +62,38 @@ public class SListUsers extends Service {
 	}
 
 	@Override
-	public void koko() {
+	public void koko()  {
 		// TODO Auto-generated method stub
 		try {
-
 			if (TestError.params_auth(this)) {
-				Parameters users;
-				db_User_Helper dUH = db_User_Helper.c();
-
-				if (params.getDicosOK("id")) { // KEY + ID - 
-					users = dUH.SelectWithId(params);
-				} else if (params.getDicosOK("type") && params.getValue("type").equals("ALL")) { // KEY + TYPE=ALL -
-					users = dUH.SelectWith(null);
-				} else { // KEY -
-					users = dUH.SelectWithKey(params);
+				db_Session_Helper dSH = db_Session_Helper.c();
+				Parameters sessions;
+				if (params.getDicosOK("id")) { // KEY + ID -
+					sessions = dSH.Select(params);	
+				}else if (params.getDicosOK("type") && params.getValue("type").equals("ALL")) { // KEY + TYPE=ALL
+					sessions = dSH.SelectWith(null);
+				}else { // KEY - 
+					sessions = dSH.SelectWithKey(params);
 				}
-
-				Local_params.AddParamResponse("users", users);
+				Local_params.AddParamResponse("sessions", sessions);
 				RespS.cj(this);
-
 			}
-
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (LucasException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (JSONException e) {
+		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}catch (ParseException e) {
+		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

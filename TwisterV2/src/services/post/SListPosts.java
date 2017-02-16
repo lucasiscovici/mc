@@ -3,6 +3,7 @@ package services.post;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
+import java.text.ParseException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,14 +19,13 @@ import util.Parameters;
 import util.TestError;
 
 /**
- * Classe du service recherche 
- * GET: KEY | KEY + TYPE=ALL | KEY + ID | KEY + FRIENDS(IDS) | KEY + TYPE=MY
- * OUT: RESPONSE:MESSAGES:[ID,DATE,TEXT,ID_USER] | RESPONSE:MESSAGES:ID,DATE,TEXT,ID_USER
+ * Classe du service recherche GET: KEY | KEY + TYPE=ALL | KEY + ID | KEY +
+ * FRIENDS(IDS) | KEY + TYPE=MY OUT: RESPONSE:MESSAGES:[ID,DATE,TEXT,ID_USER]
+ * | RESPONSE:MESSAGES:ID,DATE,TEXT,ID_USER
  */
 
 public class SListPosts extends Service {
 
-	
 	public SListPosts() throws NumberFormatException, ClassNotFoundException, IOException, SQLException, JSONException,
 			LucasException {
 		super();
@@ -68,18 +68,18 @@ public class SListPosts extends Service {
 
 				Parameters messages;
 				db_Post_Helper dPH = db_Post_Helper.c();
-				
+
 				if (params.getDicosOK("friends")) { // KEY + FRIENDS -
 					messages = dPH.listPostFromIdFriends(params);
 				} else if (params.getDicosOK("id")) { // KEY + ID -
 					messages = dPH.SelectMongoWithId(params);
 				} else if (params.getDicosOK("type")) { // KEY + TYPE
-					String Vtype = params.getValue("type"); 
+					String Vtype = params.getValue("type");
 					if (Vtype.equals("MY")) { // TYPE=MY -
 						messages = dPH.listPostFromFriends(params);
-					} else if (Vtype.equals("ALL")) { //TYPE=ALL -
+					} else if (Vtype.equals("ALL")) { // TYPE=ALL -
 						messages = dPH.SelectMongoWith();
-					} else { 
+					} else {
 						RespS.c(this, Error.ErrArgs);
 						return;
 					}
@@ -88,7 +88,7 @@ public class SListPosts extends Service {
 				}
 
 				Local_params.AddParamResponse("messages", messages);
-				//io.print(Local_params);
+				// io.print(Local_params);
 				RespS.cj(this);
 
 			}
@@ -109,6 +109,9 @@ public class SListPosts extends Service {
 		} catch (LucasException e) {
 			// TODO Auto-generated catch block
 			RespS.c(this, Error.LucasException);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

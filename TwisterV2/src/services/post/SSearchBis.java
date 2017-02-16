@@ -3,6 +3,7 @@ package services.post;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
+import java.text.ParseException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -155,6 +156,9 @@ public class SSearchBis extends Service {
 			// TODO Auto-generated catch block
 			RespS.c(this, Error.JSONException);
 
+		}catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

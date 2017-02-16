@@ -9,6 +9,7 @@ import util.LucasException;
 import util.Parameters;
 import util.Usefull;
 //import util.io;
+import util.io;
 
 /**
  * Classe db_Post_helper pour les post
@@ -128,6 +129,7 @@ public class db_Post_Helper extends dbM {
 		p2 = p2.PS(text, id_user, date);
 
 		if (InsertMongoOK(p2)) {
+			//io.print(p2);
 			params.AddParam(p2, "id"); // pique le "id" de p2 et le met dans params
 			return true;
 		} else {

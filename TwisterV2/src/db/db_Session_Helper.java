@@ -1,11 +1,17 @@
 package db;
 
 import java.net.UnknownHostException;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import db.util.db;
+import util.Dico;
 import util.LucasException;
 import util.Parameters;
+import util.Usefull;
+import util.io;
 
 /**
  * Classe db_Session_Helper
@@ -40,10 +46,26 @@ public class db_Session_Helper extends db {
 	 * @return CheckIfExistWith(params.PS(session_key))
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ParseException 
+	 * @throws LucasException 
 	 */
 
-	public boolean Auth(Parameters params) throws ClassNotFoundException, SQLException {
-		return CheckIfExistWith(params.PS(session_key));
+	public boolean Auth(Parameters params) throws ClassNotFoundException, SQLException, ParseException, LucasException {
+		if(CheckIfExistWith(params.PS(session_key))){
+			Parameters date = SelectWith(params.PS("key"));
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.0");
+			//io.print(date.getValue("timestamp"));
+			java.util.Date d = (java.util.Date) formatter.parse(date.getValue("timestamp"));
+			if (Usefull.addMinutesToDate(Tables.expire, d).before(Usefull.currentDate())) {
+				return false;
+			}else{
+				 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			        String dateForMySql = sdf.format(Usefull.currentDate());
+				UpdateWithId(date.PS("id").AddParam("timestamp",dateForMySql));
+			}
+			return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -126,6 +148,11 @@ public class db_Session_Helper extends db {
 			throws ClassNotFoundException, SQLException, LucasException, UnknownHostException {
 		// TODO Auto-generated method stub
 		return this.SelectWithId(params);
+	}
+
+	public Parameters SelectWithKey(Parameters params) throws ClassNotFoundException, SQLException {
+		// TODO Auto-generated method stub
+		return SelectWith(params.PS("key"));
 	}
 
 }

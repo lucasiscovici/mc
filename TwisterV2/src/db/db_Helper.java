@@ -9,9 +9,12 @@ import java.util.List;
 import org.bson.types.ObjectId;
 
 import util.Dico;
+import util.Error;
 import util.LucasException;
 import util.Parameters;
+import util.RespS;
 //import util.io;
+import util.io;
 
 //import util.io;
 
@@ -26,6 +29,8 @@ import com.mongodb.Mongo;
 import com.mongodb.WriteResult;
 import com.mysql.jdbc.ResultSetMetaData;
 import com.mysql.jdbc.Statement;
+
+import services.utils.Service;
 
 /**
  * Classe db_Helper
@@ -142,6 +147,9 @@ public class db_Helper {
 	
 	public static String multipleAnd(Parameters dico) {
 		String query = "";
+		if (dico.parameters.size()==0) {
+			return "";
+		}
 		for (Dico dico2 : dico.parameters) {
 			if (dico2.is_dicd) {
 				query+=multipleAnd(dico2);
@@ -179,7 +187,7 @@ public class db_Helper {
 	 */
 	
 	public static String where(Parameters dico) {
-		if (dico==null) {
+		if (dico==null || dico.parameters.size()==0) {
 			return "";
 		}
 		return " WHERE "+multipleAnd(dico);
@@ -286,7 +294,15 @@ public class db_Helper {
 		query = query.substring(0, query.length() - 1);
 		return query;
 	}
-	
+
+	public static String PrepareVirgule2(Parameters param) {
+		String query = "";
+		 for (Dico dico: param.parameters) {
+			query += "`"+dico.getKey()+"`"+" = \""+dico.getValue()+"\",";
+		}
+		query = query.substring(0, query.length() - 1);
+		return query;
+	}
 	/**
 	 * 
 	 * @param param Un paramètre
@@ -317,9 +333,10 @@ public class db_Helper {
 		if (sets==null || sets.parameters.size()==0) {
 			throw new LucasException("db_Helper sets pb update");
 		}
-		query+="SET ";
-		query+=PrepareVirgule(sets);
+		query+=" SET ";
+		query+=PrepareVirgule2(sets);
 		query+=where(where);
+		//io.print(query);
 		Statement s = giveMeAnStatement();
 		return s.executeUpdate(query);
 
@@ -512,9 +529,10 @@ public class db_Helper {
 	 * @param d Un paramètre
 	 * @return selectMongo(table, d).parameters.size() > 0 true, false sinon
 	 * @throws UnknownHostException
+	 * @throws LucasException 
 	 */
 	
-	public static boolean selectMongoOK(String table,Parameters d) throws UnknownHostException {
+	public static boolean selectMongoOK(String table,Parameters d) throws UnknownHostException, LucasException {
 		return selectMongo(table, d).parameters.size() > 0;
 
 	}
@@ -625,9 +643,10 @@ public class db_Helper {
 	 * @param p Un paramètre
 	 * @return w.getError()==null true, false sinon
 	 * @throws UnknownHostException
+	 * @throws LucasException 
 	 */
 	
-	public static boolean deleteMongo(String table,Parameters p) throws UnknownHostException {
+	public static boolean deleteMongo(String table,Parameters p) throws UnknownHostException, LucasException {
 		BasicDBObject r= CreateRequest();
 		whereMongo(r, p);
 		 WriteResult w = getMyCollection(table).remove(r);
@@ -655,9 +674,10 @@ public class db_Helper {
 	 * @param p Un paramètre
 	 * @return deleteMongo(table,p)
 	 * @throws UnknownHostException
+	 * @throws LucasException 
 	 */
 	
-	public static boolean deleteMongoOK(String table,Parameters p) throws UnknownHostException {
+	public static boolean deleteMongoOK(String table,Parameters p) throws UnknownHostException, LucasException {
 		return deleteMongo(table,p);
 
 	}
@@ -666,15 +686,21 @@ public class db_Helper {
 	 * 
 	 * @param r Un BasicDBObject
 	 * @param p Un paramètre
+	 * @throws LucasException 
 	 */
 	
-	public static void whereMongo(BasicDBObject r, Parameters p) {
+	public static void whereMongo(BasicDBObject r, Parameters p) throws LucasException {
 		if (p==null) {
 			return;
 		}
 		for (Dico d : p.parameters) {
 			if (d.getKey().equals("_id")) {
+				try{
 				r.put(d.getKey(), new ObjectId(d.getValue()));
+				}catch (Exception e) {
+					RespS.c(Service.me, Error.ErrArgs.detail("mets un id_post valide !!"));
+					throw new LucasException("FALSE");
+				}
 				
 			}else{
 			r.put(d.getKey(), d.getValue());
@@ -688,9 +714,10 @@ public class db_Helper {
 	 * @param p Un paramètre
 	 * @return Un paramètre
 	 * @throws UnknownHostException
+	 * @throws LucasException 
 	 */
 	
-	public static Parameters selectMongo(String table, Parameters p) throws UnknownHostException {
+	public static Parameters selectMongo(String table, Parameters p) throws UnknownHostException, LucasException {
 		DBCollection dc = getMyCollection(table);
 		BasicDBObject r = CreateRequest();
 	
@@ -714,9 +741,10 @@ public class db_Helper {
 	 * @param p Un paramètre
 	 * @return Un paramètre
 	 * @throws UnknownHostException
+	 * @throws LucasException 
 	 */
 	
-	public static Parameters selectMongo(String select,String table, Parameters p) throws UnknownHostException {
+	public static Parameters selectMongo(String select,String table, Parameters p) throws UnknownHostException, LucasException {
 		DBCollection dc = getMyCollection(table);
 		BasicDBObject r = CreateRequest();
 		whereMongo(r, p);
@@ -742,9 +770,10 @@ public class db_Helper {
 	 * @param select Un ensemble de chaine de caractère
 	 * @return Un paramètre
 	 * @throws UnknownHostException
+	 * @throws LucasException 
 	 */
 	
-	public static Parameters selectMongo(String table, Parameters p,String...select) throws UnknownHostException {
+	public static Parameters selectMongo(String table, Parameters p,String...select) throws UnknownHostException, LucasException {
 		DBCollection dc = getMyCollection(table);
 		BasicDBObject r = CreateRequest();
 		whereMongo(r, p);

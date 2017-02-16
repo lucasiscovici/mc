@@ -143,6 +143,7 @@ public class Dico {
 	public Dico(String value) {
 		this.key = Usefull.uniqueID();
 		this.value = value;
+		this.false_key = true;
 	}
 	public int countD = 0;
 	

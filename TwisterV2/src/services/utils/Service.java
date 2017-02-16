@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONException;
 
+import db.Tables;
 import util.RespS;
 import util.IOLUCAS;
 import util.IParameters;
@@ -24,6 +25,7 @@ public abstract class Service implements IOLUCAS, IParameters, TOJSON, ServiceKo
 	/**
 	 * parametres du services Local (les parameters ou dicos dont la fonction to_json a besoin pour constuire la response JSON)
 	 */
+	public static Service me = null;
 	public Parameters Local_params = new Parameters(); 
 	public HttpServletResponse response = null; // FROM IOLUCAS
 	/**
@@ -84,7 +86,9 @@ public abstract class Service implements IOLUCAS, IParameters, TOJSON, ServiceKo
 		this.params = params;
 		
 		this.response = resp;
+		
 		getEntry = giveGetEntry();
+		this.me = this;
 		koko();
 	}
 	

@@ -1,6 +1,7 @@
 package util;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.Arrays;
 
 import db.db_Session_Helper;
@@ -17,9 +18,11 @@ public class TestError {
 	 * @return true si pas de pb, false si erreur
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ParseException 
+	 * @throws LucasException 
 	 */
 
-	public static boolean params_auth(Service th) throws ClassNotFoundException, SQLException {
+	public static boolean params_auth(Service th) throws ClassNotFoundException, SQLException, ParseException, LucasException {
 		if (!TestError.params(th) || !TestError.auth(th)) {
 			return false;
 		}		
@@ -50,8 +53,10 @@ public class TestError {
 	 * @return true si pas de pb, false si erreur
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ParseException 
+	 * @throws LucasException 
 	 */
-	public static boolean auth(Service th) throws ClassNotFoundException, SQLException {
+	public static boolean auth(Service th) throws ClassNotFoundException, SQLException, ParseException, LucasException {
 		Parameters params = th.params;
 		if (!db_Session_Helper.c().Auth(params)) {
 			RespS.c(th, Error.NAUTH);

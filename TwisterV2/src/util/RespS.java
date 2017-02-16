@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import services.utils.Service;
 
 public class RespS {
+	
 	public Service t = null;
 	public Error e = null;
 	public JSONObject j = null;

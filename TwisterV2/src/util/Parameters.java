@@ -695,6 +695,7 @@ public class Parameters {
 	 */
 	public Parameters responseID(Parameters params) {
 		// TODO Auto-generated method stub
+		//io.print(params);
 		Dico id = params.getDico("id");
 		this.response(id);
 		return this;
