@@ -29,6 +29,7 @@ public class SAddComment extends Service {
 
 	public SAddComment() throws NumberFormatException, ClassNotFoundException, IOException, SQLException, JSONException,
 			LucasException {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -75,16 +76,21 @@ public class SAddComment extends Service {
 			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
+			RespS.c(this, Error.JSONException);
 		} catch (LucasException e) {
-			return;
+			RespS.c(this, Error.LucasException);
 			// TODO Auto-generated catch block
 		} catch (ClassNotFoundException e) {
+			RespS.c(this, Error.ClassNotFoundException);
 			// TODO Auto-generated catch block
 		} catch (SQLException e) {
+			RespS.c(this, Error.SQLException);
 			// TODO Auto-generated catch block
 		} catch (ParseException e) {
+			RespS.c(this, Error.ParseException);
 			// TODO Auto-generated catch block
 		} catch (UnknownHostException e) {
+			RespS.c(this, Error.UnknownHostException);
 			// TODO Auto-generated catch block
 			
 		}

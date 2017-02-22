@@ -1,6 +1,7 @@
 package services.comment;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.text.ParseException;
 
@@ -9,8 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONException;
 
+import db.db_Comment_Helper;
 import services.utils.Service;
 import util.Dico;
+import util.Error;
 import util.LucasException;
 import util.Parameters;
 import util.TestError;
@@ -63,25 +66,37 @@ public class SRemoveComment extends Service {
 		try {
 			if (TestError.params_auth(this)) {
 				
+				if (!db_Comment_Helper.c().RemoveMongoWithId(params)) {
+					RespS.c(this, Error.SqlError.detail("PB delete comment check id"));
+					return;
+				}
+				
+				if (!db_Comment_Helper.c().RemoveMongoWith(params)) {
+					RespS.c(this, Error.SqlError.detail("PB delete comment"));
+					return;
+				}
 				
 				Local_params.AddParamRespOK();
 				RespS.cj(this);
 			}
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			RespS.c(this, Error.ClassNotFoundException);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			RespS.c(this, Error.SQLException);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			RespS.c(this, Error.ParseException);
 		} catch (LucasException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			RespS.c(this, Error.LucasException);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			RespS.c(this, Error.JSONException);
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			RespS.c(this, Error.UnknownHostException);
 		}
 	}
 

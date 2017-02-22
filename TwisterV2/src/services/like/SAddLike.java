@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONException;
 
+import db.db_Comment_Helper;
 import db.db_Like_Helper;
 import db.db_Post_Helper;
 import services.utils.Service;
@@ -19,10 +20,17 @@ import util.LucasException;
 import util.Parameters;
 import util.TestError;
 
+/**
+ * class SAddLike service d'ajout de like
+ *GET: KEY + ID_POST + ID
+ *OUT: RESPONSE:ID:X
+ */
+
 public class SAddLike extends Service {
 
 	public SAddLike() throws NumberFormatException, ClassNotFoundException,
 			IOException, SQLException, JSONException, LucasException {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -49,7 +57,7 @@ public class SAddLike extends Service {
 	@Override
 	public String[] giveGetEntry() {
 		// TODO Auto-generated method stub
-		return Dico.vs_ak("id_post");
+		return Dico.vs_ak("id_post", "id");
 	}
 
 	@Override
@@ -77,7 +85,6 @@ public class SAddLike extends Service {
 				RespS.cj(this);
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 	}
 

@@ -21,6 +21,7 @@ public class SRemoveLike extends Service {
 
 	public SRemoveLike() throws NumberFormatException, ClassNotFoundException,
 			IOException, SQLException, JSONException, LucasException {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 

@@ -28,7 +28,8 @@ public enum Error {
 	  JSONException(33, "JSONException Error"),
 	  LucasException(34, "LucasException Error"),
 	  IOException(35, "IOException Error"),
-	  NumberFormatException(36, "NumberFormatException Error");
+	  NumberFormatException(36, "NumberFormatException Error"),
+	  ParseException(37, "ParseException Error");
 
 
 	  private final int code;

@@ -12,6 +12,7 @@ import org.json.JSONException;
 import db.db_User_Helper;
 import services.utils.Service;
 import util.Dico;
+import util.Error;
 import util.LucasException;
 import util.Parameters;
 import util.TestError;
@@ -82,19 +83,19 @@ public class SListUsers extends Service {
 
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			RespS.c(this, Error.ClassNotFoundException);
 		} catch (SQLException e) {
+			RespS.c(this, Error.SQLException);
 			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (LucasException e) {
+			RespS.c(this, Error.LucasException);
 			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (JSONException e) {
+			RespS.c(this, Error.JSONException);
 			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}catch (ParseException e) {
+			RespS.c(this, Error.ParseException);
 			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 

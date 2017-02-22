@@ -12,14 +12,22 @@ import org.json.JSONException;
 import db.db_Like_Helper;
 import services.utils.Service;
 import util.Dico;
+import util.Error;
 import util.LucasException;
 import util.Parameters;
 import util.TestError;
+
+/**
+ * class SListLikes service qui liste les likes
+ *GET: ID
+ *OUT: RESPONSE:ID:X
+ */
 
 public class SListLikes extends Service {
 
 	public SListLikes() throws NumberFormatException, ClassNotFoundException,
 			IOException, SQLException, JSONException, LucasException {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -62,13 +70,11 @@ public class SListLikes extends Service {
 			if (TestError.params_auth(this)) {
 	
 				Parameters Likes = db_Like_Helper.c().ListLikesFromIdPost(params);
-				
 				Local_params.AddParamResponse("Likes",Likes);
 				RespS.cj(this);
 				
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 	}
 
