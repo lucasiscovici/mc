@@ -5,8 +5,10 @@ import java.sql.SQLException;
 
 import db.util.dbM;
 import util.Dico;
+import util.Error;
 import util.LucasException;
 import util.Parameters;
+import util.RespS;
 import util.Usefull;
 //import util.io;
 
@@ -83,5 +85,13 @@ public class db_Like_Helper extends dbM {
 		// TODO Auto-generated method stub
 		int IdWK = db_Session_Helper.c().getIdWithKey(params);
 		return RemoveMongoWithId(Dico.toP("id",IdWK));
+	}
+
+	public Parameters SelectMangoIdPost(Parameters params) throws ClassNotFoundException, UnknownHostException, SQLException, LucasException {
+		// TODO Auto-generated method stub
+		if (!db_Post_Helper.c().CheckIfExistWithId(params.copy().change("id_post", "id"))) {
+			throw RespS.cl(params.myService, Error.ErrArgs.detail("mauvais id_post"));
+		}
+		return SelectMongoWith(params.PS("id_post"));
 	}
 }

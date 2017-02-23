@@ -152,6 +152,7 @@ public class SLogin extends Service {
 				
 				// FOR RESP JSON
 				Parameters RepLogin = params.PS("id_user", "key", "login").kill("id").change("id_user", "id");
+				Usefull.setCookie(this.response, "key", this.Local_params.getValue("key"),3600);
 				Local_params.response(RepLogin);
 				RespS.cj(this);
 

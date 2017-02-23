@@ -33,6 +33,10 @@
 		<servlet-name>Presentation</servlet-name>
 		<servlet-class>servlet.Presentation</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>Matrix</servlet-name>
+		<servlet-class>servlet.matrix</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>Presentation</servlet-name>
 		<url-pattern>/</url-pattern>
@@ -67,5 +71,8 @@
 		<servlet-name>AddPost</servlet-name>
 		<url-pattern>/addpost</url-pattern>
 	</servlet-mapping>
-
+<servlet-mapping>
+		<servlet-name>Matrix</servlet-name>
+		<url-pattern>/matrix</url-pattern>
+	</servlet-mapping>
 </web-app>

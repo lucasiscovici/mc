@@ -28,6 +28,9 @@ public abstract class Service implements IOLUCAS, IParameters, TOJSON, ServiceKo
 	public static Service me = null;
 	public Parameters Local_params = new Parameters(); 
 	public HttpServletResponse response = null; // FROM IOLUCAS
+	public HttpServletRequest request = null; // FROM IOLUCAS
+
+	
 	/**
 	 * Entrées obligatoires pour le service
 	 */
@@ -105,7 +108,9 @@ public abstract class Service implements IOLUCAS, IParameters, TOJSON, ServiceKo
 	 */
 	
 	public Service(HttpServletRequest req,HttpServletResponse resp) throws NumberFormatException, ClassNotFoundException, IOException, SQLException, JSONException, LucasException {
+	
 		this(Parameters.req(req),resp);
+		this.request = req;
 	}
 	
 	/**

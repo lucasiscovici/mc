@@ -20,7 +20,7 @@ import util.TestError;
 
 /**
  * class SListLikes service qui liste les likes
- * GET: KEY | KEY + TYPE=ALL | KEY + ID 
+ * GET: KEY | KEY + TYPE=ALL | KEY + ID | KEY + ID_POST
  *OUT: RESPONSE:ID:X
  */
 
@@ -55,7 +55,7 @@ public class SListLikes extends Service {
 	@Override
 	public String[] giveGetEntry() {
 		// TODO Auto-generated method stub
-		return Dico.vs_ak("id_post");
+		return Dico.vs_ak();
 	}
 
 	@Override
@@ -73,11 +73,14 @@ public class SListLikes extends Service {
 				Parameters likes = null;
 				db_Like_Helper dUH = db_Like_Helper.c();
 
-				if (params.getDicosOK("id")) {
-					likes = dUH.SelectMongoWith(params);
-				} else if (params.getDicosOK("type") && params.getValue("type").equals("ALL")) {
+				if (params.getDicosOK("id")) { // KEY + ID -
+					likes = dUH.Select(params);
+				} else if (params.getDicosOK("type") && params.getValue("type").equals("ALL")) { //KEY + TYPE=ALL 
 					likes = dUH.SelectMongoWith(null);
-				} else {
+				} else if (params.getDicosOK("id_post")) {
+					likes = dUH.SelectMangoIdPost(params);
+				}
+				else { // KEY -
 					//likes = dUH.SelectMongoWithKey(params);
 				}
 

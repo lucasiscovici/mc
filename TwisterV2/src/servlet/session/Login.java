@@ -13,6 +13,7 @@ import org.json.JSONException;
 
 import services.session.SLogin;
 import util.LucasException;
+import util.Usefull;
 
 
 
@@ -32,7 +33,10 @@ public class Login extends HttpServlet  {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
-			new SLogin(req,resp).print();
+		
+			SLogin s = new SLogin(req,resp);
+			
+			s.print();
 			
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block

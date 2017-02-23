@@ -16,6 +16,7 @@ import util.Error;
 import util.LucasException;
 import util.Parameters;
 import util.TestError;
+import util.Usefull;
 
 /**
  * Classe du service déconnection (SESSION)
@@ -142,6 +143,7 @@ public class SLogout extends Service {
 						return;
 					}
 				}
+				Usefull.deleteCookie(this.response,"key");
 				Local_params.AddParamRespOK();
 				RespS.cj(this);
 			}

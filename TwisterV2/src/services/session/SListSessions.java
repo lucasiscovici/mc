@@ -64,6 +64,7 @@ public class SListSessions extends Service {
 	@Override
 	public void koko()  {
 		// TODO Auto-generated method stub
+		
 		try {
 			if (TestError.params_auth(this)) {
 				db_Session_Helper dSH = db_Session_Helper.c();
@@ -78,6 +79,7 @@ public class SListSessions extends Service {
 				Local_params.AddParamResponse("sessions", sessions);
 				RespS.cj(this);
 			}
+			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

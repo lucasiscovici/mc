@@ -18,7 +18,7 @@ import util.TestError;
 
 /**
  * Classe du service création utilisateur
- * GET: LOGIN + PRENOM + NOM + PASSWORD
+ * GET: LOGIN  + PASSWORD
  * OUT: RESPONSE:OK
  */
 

@@ -14,7 +14,7 @@ import util.LucasException;
 import util.Usefull;
 import util.io;
 
-public class Presentation extends HttpServlet {
+public class matrix extends HttpServlet {
 @Override
 protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	// TODO Auto-generated method stub
@@ -27,7 +27,7 @@ protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws Se
 			}
 			 this.getServletContext().getRequestDispatcher( "/login.jsp" ).forward( req, resp );
 		}else{
-			req.setAttribute("type", "home");
+			req.setAttribute("type", "matrix");
 			 this.getServletContext().getRequestDispatcher( "/home.jsp" ).forward( req, resp );
 		}
 	} catch (ClassNotFoundException e) {
