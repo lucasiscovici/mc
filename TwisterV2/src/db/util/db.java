@@ -3,8 +3,10 @@ package db.util;
 import java.sql.SQLException;
 
 import db.db_Helper;
+import util.Error;
 import util.LucasException;
 import util.Parameters;
+import util.RespS;
 
 /**
  * Classe db pour MySql
@@ -119,15 +121,23 @@ public abstract class db implements db_crud {
 	}
 	
 	/**
-	 * 
+	 * ID MUST BE INTEGER
 	 * @param params Un paramètre
 	 * @return db_Helper.selectAndWhere("id",_My_Table,params)
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws LucasException 
 	 */
 	
-	public Parameters SelectWithId(Parameters params) throws ClassNotFoundException, SQLException {
+	public Parameters SelectWithId(Parameters params) throws ClassNotFoundException, SQLException, LucasException {
 		// TODO Auto-generated method stub
+		try
+	    {
+	        Integer.parseInt(params.getValue("id"));
+	    } catch (NumberFormatException ex)
+	    {
+	        throw RespS.cl(params.myService, Error.NumberFormatException.detail("id not an int"));
+	    }
 		return db_Helper.selectAndWhereAll(_My_Table,params.PS("id"));
 	}
 	

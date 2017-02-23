@@ -16,4 +16,6 @@ public class LucasException extends Exception {
 		super(string);
 	}
 
+
+
 }

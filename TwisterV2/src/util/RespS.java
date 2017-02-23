@@ -20,6 +20,8 @@ public class RespS {
 	 */
 	
 	public RespS(Service t, Error e) {
+			
+		
 		this.t = t;
 		this.e = e;
 	}
@@ -57,7 +59,18 @@ public class RespS {
 	 */
 	
 	public static void c(Service t, Error e) {
+		if (t.RespS == null) {
+
 		t.RespS = new RespS(t, e);
+		}
+	}
+	public static LucasException cl(Service t, Error e) {
+		if (t.RespS == null) {
+			
+		
+		t.RespS = new RespS(t, e);
+		}
+		return  new LucasException("FALSE");
 	}
 	
 	/**

@@ -88,7 +88,7 @@ public abstract class Service implements IOLUCAS, IParameters, TOJSON, ServiceKo
 		this.response = resp;
 		
 		getEntry = giveGetEntry();
-		this.me = this;
+		params.myService = this.me = this;
 		koko();
 	}
 	

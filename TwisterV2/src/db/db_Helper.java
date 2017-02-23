@@ -261,6 +261,13 @@ public class db_Helper {
 	 */
 	
 	public static Integer selectAndWhereID(String table,Parameters dico) throws SQLException, ClassNotFoundException {
+	try
+	    {
+	        Integer.parseInt(dico.getValue("id"));
+	    } catch (NumberFormatException ex)
+	    {
+	       // return RespS.cl(dico.myService, Error.NumberFormatException.detail("id not an int"));
+	    }
 		String query = CreateSelectFrom(Dico.fv("id"), table);
 		return select(query, dico).getValueInt("id");
 	}
@@ -698,8 +705,7 @@ public class db_Helper {
 				try{
 				r.put(d.getKey(), new ObjectId(d.getValue()));
 				}catch (Exception e) {
-					RespS.c(Service.me, Error.ErrArgs.detail("mets un id_post valide !!"));
-					throw new LucasException("FALSE");
+					throw RespS.cl(p.myService, Error.ErrArgs.detail("mets un id_post valide !!"));
 				}
 				
 			}else{

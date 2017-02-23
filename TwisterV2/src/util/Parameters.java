@@ -10,12 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.mongodb.DBObject;
 
+import services.utils.Service;
+
 /**
  * Classe pour nos paramètres
  */
 
 public class Parameters {
 	public List<Dico> parameters;
+	public Service myService = null;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
@@ -111,7 +114,7 @@ public class Parameters {
 		for (Dico dico : parameters) {
 			d.add(dico.copy());
 		}
-		return Parameters.fromDico(d);
+		return Parameters.fromDico(d).setMyService(this);
 	}
 	
 	/**
@@ -643,9 +646,12 @@ public class Parameters {
 	 */
 	
 	public Parameters PS(String...strings) {
-		return fromDico(Dico.ps(this, strings));
+		return fromDico(Dico.ps(this, strings)).setMyService(this);
 	}
-	
+	public Parameters setMyService(Parameters myService) {
+		this.myService = myService.myService;
+		return this;
+	}
 	/**
 	 * 
 	 * @param strings Des chaines de caractères
