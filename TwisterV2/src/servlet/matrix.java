@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import db.db_Session_Helper;
+import db.db_User_Helper;
 import util.Dico;
 import util.LucasException;
 import util.Usefull;
@@ -25,9 +26,12 @@ protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws Se
 			if (key_exist != null) {
 				Usefull.deleteCookie(resp, "key");
 			}
+			req.setAttribute("request", req);
 			 this.getServletContext().getRequestDispatcher( "/login.jsp" ).forward( req, resp );
 		}else{
 			req.setAttribute("type", "matrix");
+			req.setAttribute("request", req);
+			req.setAttribute("qui", db_User_Helper.c().SelectWithKey(Dico.toP("key",Usefull.getCookieValue(req,"key"))).getValue("login"));
 			 this.getServletContext().getRequestDispatcher( "/home.jsp" ).forward( req, resp );
 		}
 	} catch (ClassNotFoundException e) {

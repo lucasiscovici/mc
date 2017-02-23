@@ -96,7 +96,7 @@ public class db_User_Helper extends db {
 	 */
 	@Override
 	public boolean Insert(Parameters params) throws ClassNotFoundException, SQLException {
-		Parameters p2 = params.PS( password, login);
+		Parameters p2 = params.PS( password, login,"email");
 		if (InsertOK(p2)) {
 			params.AddParam(p2, "id");
 			return true;

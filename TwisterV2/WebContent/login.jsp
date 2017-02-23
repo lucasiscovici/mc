@@ -63,21 +63,28 @@ $(function(){
 		e.preventDefault();
 		Login();
 	})
+	function conexion(login,password,callback){
+		$.getJSON("login",{
+			login:login,
+			password:password
+		}, function(d){
+			console.log(d);
+			callback(d);
+		});
+	}
 	function Login(){
 		submit = $("#submit");
 		if(submit.attr("name")=="login"){
-			$.getJSON("login",{
-				login:$("#login").val(),
-				password:$("#password").val()
-			}, function(d){
-				console.log(d);
+			conexion($("#login").val(),$("#password").val(),function(d){
 				if("response" in d){
-				 window.location.href=window.location.href ;
-					
-				}else{
-					alert("pb mdp");
-				}
-			});
+					 window.location.href=window.location.href;
+					 window.location.reload();
+					}else{
+						alert("pb mdp");
+					}
+			})
+		
+				
 		}else if(submit.attr("name")=="create"){
 			$.getJSON("createuser",{
 				login:$("#login").val(),
@@ -85,15 +92,31 @@ $(function(){
 				email:$("#email").val()
 			}, function(d){
 				console.log(d);
+				if("response" in d){
+					$("body").append("cOmpte créé !!! Connexion en Cours...");
+					setTimeout(function(){
+						conexion($("#login").val(),$("#password").val(),function(d){
+							if("response" in d){
+								window.location.href=window.location.href;
+								 window.location.reload();
+							}else{
+								alert(d.description);
+							}
+						});
+					}, 2000);
+					
+				}else{
+					alert(d.description);
+				}
 		
 			});
 		}
 	}
 		
 	$("#create_user").click(function(){
-		$("#submit").before("<div><input type='password' name='mdp2' placeholder='confirmation du mot de passe'/></div>");
+		$("#submit").before("<div><input type='password' name='mdp2' id='mdp2' placeholder='confirmation du mot de passe'/></div>");
 
-		$("#submit").before("<div><input type='text' name='email' placeholder='email...'/></div>");
+		$("#submit").before("<div><input type='text' name='email' id='email' placeholder='email...'/></div>");
 		$(this).remove();
 		$("#submit").attr("name","create").val("Créer son compte");
 	});

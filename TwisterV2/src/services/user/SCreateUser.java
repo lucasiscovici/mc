@@ -99,7 +99,7 @@ public class SCreateUser extends Service {
 	 */
 	@Override
 	public String[] giveGetEntry() {
-		return Dico.vs_a("prenom", "nom", "login", "password");
+		return Dico.vs_a("email","login", "password");
 	}
 
 	/**
@@ -142,7 +142,7 @@ public class SCreateUser extends Service {
 			RespS.c(this, Error.NumberFormatException);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			RespS.c(this, Error.SQLException);
+			RespS.c(this, Error.SQLException.detail(e.getMessage()));
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			RespS.c(this, Error.ClassNotFoundException);

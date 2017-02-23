@@ -31,12 +31,24 @@
 	</servlet>
 	<servlet>
 		<servlet-name>Presentation</servlet-name>
-		<servlet-class>servlet.Presentation</servlet-class>
+		<servlet-class>servlet.matrix</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>Matrix</servlet-name>
 		<servlet-class>servlet.matrix</servlet-class>
 	</servlet>
+<servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.css</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>/js/*</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>/img/*</url-pattern>
+</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Presentation</servlet-name>
 		<url-pattern>/</url-pattern>

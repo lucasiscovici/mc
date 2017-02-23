@@ -25,9 +25,12 @@ protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws Se
 			if (key_exist != null) {
 				Usefull.deleteCookie(resp, "key");
 			}
+			req.setAttribute("request", req);
+
 			 this.getServletContext().getRequestDispatcher( "/login.jsp" ).forward( req, resp );
 		}else{
 			req.setAttribute("type", "home");
+			req.setAttribute("request", req);
 			 this.getServletContext().getRequestDispatcher( "/home.jsp" ).forward( req, resp );
 		}
 	} catch (ClassNotFoundException e) {

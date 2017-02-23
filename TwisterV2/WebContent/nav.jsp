@@ -1,21 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<footer id="menu">
-	<div class="premier">
-		<a href="#">TwisterV2</a>
-	</div>
-	<div class="div">
-			<a href="matrix">The matrix</a>
-
-			<a href="#">Me</a>
-
-			<form action="" method="GET">
-				<input type="text" name="search" id="search" placeholder="Recherche..." />
-			</form>
-		
-			<a href="#" class="button">Logout</a>
-	</div>
-</footer>
+<%@ page pageEncoding="UTF-8" %>
 <style type="text/css">
 
 #search {
@@ -57,6 +40,7 @@
 }
 
 #menu {
+z-index:999;
 	width: 100vw;
 	height: 50px;
 	left: 0px;
@@ -69,6 +53,7 @@
 }
 
 a {
+cursor: pointer;
 	text-decoration: none;
 	color: white;
 }
@@ -97,3 +82,41 @@ form {
 	margin-left: 30px;
 }
 </style>
+<footer id="menu" >
+	<div class="premier">
+		<a href="#">TwisterV2</a>
+	</div>
+	<div class="div">
+			<a href="matrix">The matrix</a>
+
+			<a href="#">Me</a>
+
+			<form action="" method="GET">
+				<input type="text" name="search" id="search" placeholder="Recherche..." />
+			</form>
+		
+			<a href="#"  id="logout" class="button">Logout</a>
+	</div>
+</footer>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="/TwisterV2/js/jquery.cookie.js"></script>
+<script type="text/javascript">
+$(function(){
+	
+
+$("#logout").click(function(){
+	$.getJSON("logout",{
+		key:$.cookie("key")
+	}, function(d){
+		console.log(d);
+		if("response" in d){
+			window.location.href=window.location.href;
+			window.location.reload();
+		}else{
+			alert("pb logout");
+		}
+	});
+});
+});
+</script>
+
