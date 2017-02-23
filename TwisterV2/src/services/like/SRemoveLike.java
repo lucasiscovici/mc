@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 
 import db.db_Like_Helper;
+import db.db_User_Helper;
 import services.utils.Service;
 import util.Dico;
 import util.Error;
@@ -61,8 +62,34 @@ public class SRemoveLike extends Service {
 	public void koko() {
 		// TODO Auto-generated method stub
 		try {
-			
 			if (TestError.params_auth(this)) {
+				db_Like_Helper dUH= db_Like_Helper.c();
+				if (params.getDicosOK("id")) { // KEY + ID -
+					if (!dUH.RemoveMongoWithId(params)) {
+						RespS.c(this, Error.SqlError.detail("Erreur remove like with id"));
+						return;
+					}
+				}else if (params.getDicosOK("type") && params.getValue("type").equals("ALL")) { 
+					if (!dUH.RemoveMongoWith(null)) {
+						RespS.c(this, Error.SqlError.detail("Erreur remove like with id type=ALL"));
+						return;
+					}
+				}else{
+					if (!dUH.RemoveMongoWithKey(params)) { 
+						RespS.c(this, Error.SqlError.detail("remove w/key"));
+						return;
+					}
+				}
+				Local_params.AddParamRespOK();
+				RespS.cj(this);
+			}
+			
+			
+			
+			
+			
+			
+		/*	if (TestError.params_auth(this)) {
 				
 				if (!db_Like_Helper.c().Remove(params)) {
 					RespS.c(this, Error.MongoError);
@@ -70,7 +97,7 @@ public class SRemoveLike extends Service {
 				
 				Local_params.AddParamRespOK();
 				RespS.cj(this);
-			}
+			}*/
 			
 		} catch (Exception e) {
 			// TODO: handle exception

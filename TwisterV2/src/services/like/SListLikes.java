@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 
 import db.db_Like_Helper;
+import db.db_User_Helper;
 import services.utils.Service;
 import util.Dico;
 import util.Error;
@@ -19,7 +20,7 @@ import util.TestError;
 
 /**
  * class SListLikes service qui liste les likes
- *GET: ID
+ * GET: KEY | KEY + TYPE=ALL | KEY + ID 
  *OUT: RESPONSE:ID:X
  */
 
@@ -67,13 +68,24 @@ public class SListLikes extends Service {
 	public void koko() {
 		// TODO Auto-generated method stub
 		try {
+			
 			if (TestError.params_auth(this)) {
-	
-				Parameters Likes = db_Like_Helper.c().ListLikesFromIdPost(params);
-				Local_params.AddParamResponse("Likes",Likes);
+				Parameters likes = null;
+				db_Like_Helper dUH = db_Like_Helper.c();
+
+				if (params.getDicosOK("id")) {
+					likes = dUH.SelectMongoWith(params);
+				} else if (params.getDicosOK("type") && params.getValue("type").equals("ALL")) {
+					likes = dUH.SelectMongoWith(null);
+				} else {
+					//likes = dUH.SelectMongoWithKey(params);
+				}
+
+				Local_params.AddParamResponse("likes", likes);
 				RespS.cj(this);
-				
+
 			}
+			
 		} catch (Exception e) {
 		}
 	}

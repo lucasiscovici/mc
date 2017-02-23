@@ -4,6 +4,7 @@ import java.net.UnknownHostException;
 import java.sql.SQLException;
 
 import db.util.dbM;
+import util.Dico;
 import util.LucasException;
 import util.Parameters;
 import util.Usefull;
@@ -76,5 +77,11 @@ public class db_Like_Helper extends dbM {
 	public String GiveMyTable() {
 		// TODO Auto-generated method stub
 		return Tables.Like;
+	}
+	
+	public boolean RemoveMongoWithKey(Parameters params) throws ClassNotFoundException, SQLException, LucasException, UnknownHostException {
+		// TODO Auto-generated method stub
+		int IdWK = db_Session_Helper.c().getIdWithKey(params);
+		return RemoveMongoWithId(Dico.toP("id",IdWK));
 	}
 }

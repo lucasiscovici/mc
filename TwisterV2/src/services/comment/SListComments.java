@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 
 import db.db_Comment_Helper;
+import db.db_User_Helper;
 import services.utils.Service;
 import util.Dico;
 import util.Error;
@@ -20,7 +21,7 @@ import util.TestError;
 
 /**
  * class SListComments service qui listes les commentaires
- *GET: ID
+ * GET: KEY | KEY + TYPE=ALL | KEY + ID 
  *OUT: RESPONSE:ID:X
  */
 
@@ -66,12 +67,18 @@ public class SListComments extends Service {
 	public void koko() {
 		try {
 			if (TestError.params_auth(this)) {
-				Parameters comments;
+				Parameters comments = null;
 				db_Comment_Helper dUH = db_Comment_Helper.c();
 				if (params.getDicosOK("id")) {
+					
 					comments = dUH.SelectMongoWithId(params);
-				} else {
-					comments = dUH.SelectMongoWith(params);
+				 } else if (params.getDicosOK("type") && params.getValue("type").equals("ALL")) {
+					 comments = dUH.SelectMongoWith(null);
+				 } else {
+					 /*
+					  * pas de méthode SelectMongoWithKey
+					comments = dUH.SelectMongoWithKey(params);
+					*/
 				}
 				Local_params.AddParamResponse("comments", comments);
 				RespS.cj(this);
