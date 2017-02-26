@@ -117,7 +117,7 @@ public class SAddFriend extends Service {
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			RespS.c(this, Error.SQLException);
+			RespS.c(this, Error.SQLException.detail(e.getMessage()));
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			RespS.c(this, Error.ClassNotFoundException);

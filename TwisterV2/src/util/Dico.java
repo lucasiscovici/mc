@@ -19,7 +19,7 @@ public class Dico {
 	String key;
 	String value = null;
 	List<String> values = null;
-	public List<Dico> valuesd = null;
+	public List<Dico> valuesd = new ArrayList<Dico>();
 	public boolean false_key = false;
 	
 	/**
@@ -585,6 +585,9 @@ public class Dico {
 		}
 		return d;
 	}
+	public boolean isArray() {
+		return (is_dicd && this.valuesd.size() > 0 && this.valuesd.get(0).is_dicd);
+	}
 	
 	/**
 	 * 
@@ -627,7 +630,7 @@ public class Dico {
 			if (arr.length()>1) {
 				
 			
-			
+				
 			return arr;
 			}else{
 				if (arr.length() >0) {
@@ -637,6 +640,7 @@ public class Dico {
 				}else{
 					return k;
 				}
+				
 			}
 		}
 		else{

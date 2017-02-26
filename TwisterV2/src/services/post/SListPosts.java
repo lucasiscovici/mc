@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONException;
 
+import beans.util.Post;
 import db.db_Post_Helper;
 import services.utils.Service;
+import services.utils.ServiceList;
 import util.Dico;
 import util.Error;
 import util.LucasException;
@@ -24,7 +26,7 @@ import util.TestError;
  * | RESPONSE:MESSAGES:ID,DATE,TEXT,ID_USER
  */
 
-public class SListPosts extends Service {
+public class SListPosts extends ServiceList {
 
 	public SListPosts() throws NumberFormatException, ClassNotFoundException, IOException, SQLException, JSONException,
 			LucasException {
@@ -113,6 +115,12 @@ public class SListPosts extends Service {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public Class myClassBean() {
+		// TODO Auto-generated method stub
+		return Post.class;
 	}
 
 }

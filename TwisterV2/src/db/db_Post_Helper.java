@@ -2,6 +2,7 @@ package db;
 
 import java.net.UnknownHostException;
 import java.sql.SQLException;
+import java.util.List;
 
 import db.util.dbM;
 import util.Dico;
@@ -109,8 +110,14 @@ public class db_Post_Helper extends dbM {
 	public Parameters listPostFromIdFriends(Parameters params)
 			throws ClassNotFoundException, SQLException, UnknownHostException, LucasException {
 		//io.print(params);
+		if (params.getValue(friends).equals("-1")) {
+			List<String> friends_id = db_Friend_Helper.c().listFriendsFromIdUser(params).getDicos("to").change("to", id_friend).getValues(id_friend);
+			return db_Helper.selectMongoIn(My_Table, id_user, friends_id);
+ 
+		}else{
 		return db_Helper.selectMongoIn(My_Table, id_user, params.copy().change(friends, id_friend).getValues(id_friend));
-	}
+		}
+	}	
 	
 	/**
 	 * 

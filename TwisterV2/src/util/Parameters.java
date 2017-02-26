@@ -17,7 +17,7 @@ import services.utils.Service;
  */
 
 public class Parameters {
-	public List<Dico> parameters;
+	public List<Dico> parameters = new ArrayList<Dico>();
 	public Service myService = null;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -182,7 +182,7 @@ public class Parameters {
 		for (Dico dico : parameters) {
 			
 			if (dico.false_key==true &&  dico.is_dicd) {
-				p.AddParam(dico.toPa().getDicos(key));
+				p.AddParam(dico.valuesdP().getDicos(key));
 			}else{
 			if (dico.key.equals(key)) {
 				p.AddParam(dico);

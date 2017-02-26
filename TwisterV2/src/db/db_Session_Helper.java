@@ -155,4 +155,9 @@ public class db_Session_Helper extends db {
 		return SelectWith(params.PS("key"));
 	}
 
+	public boolean CheckIfExistWithAndValid(Parameters p) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

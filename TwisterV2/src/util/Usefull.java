@@ -13,7 +13,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 
 public class Usefull {
-	 public static String uniqueID(){
+	 public static boolean isLocale = false;
+	public static String uniqueID(){
 		 return UUID.randomUUID().toString();
 	 }
 	 

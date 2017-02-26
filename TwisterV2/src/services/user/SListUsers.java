@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONException;
 
+import beans.util.User;
 import db.db_User_Helper;
 import services.utils.Service;
+import services.utils.ServiceList;
 import util.Dico;
 import util.Error;
 import util.LucasException;
@@ -22,7 +24,7 @@ import util.TestError;
  * GET: KEY | KEY + TYPE=ALL | KEY + ID 
  * OUT: RESPONSE:USERS:ID,PRENOM,NOM,LOGIN,PASSWORD | RESPONSE:USERS:[ID,PRENOM,NOM,LOGIN,PASSWORD]
  */
-public class SListUsers extends Service {
+public class SListUsers extends ServiceList {
 
 	public SListUsers() throws NumberFormatException, ClassNotFoundException, IOException, SQLException, JSONException,
 			LucasException {
@@ -97,6 +99,12 @@ public class SListUsers extends Service {
 			RespS.c(this, Error.ParseException);
 			// TODO Auto-generated catch block
 		}
+	}
+
+	@Override
+	public Class myClassBean() {
+		// TODO Auto-generated method stub
+		return User.class;
 	}
 
 }
