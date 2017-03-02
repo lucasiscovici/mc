@@ -26,13 +26,13 @@ class test {
 	public static void main(String[] args) throws ClassNotFoundException, IOException, JSONException, LucasException, SQLException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		// "key","0d352077-ed92-4738-ba80-f389eed2d3ce"
 		//"6560627d-e674-4e97-8f0e-04761b9e58d7"
-	String key = "0ec7e936-90c9-4d52-b30b-ad473c14f7ca";
+	String key = "6077e82f-c054-4667-a334-d7606bca00a2";
 	Usefull.isLocale = true;
 		//new SAddComment(Dico.toP("text","dd","id_post","qfsqfsq","key","0d352077-ed92-4738-ba80-f389eed2d3ce")).print();
 		//io.print(new db_Session_Helper().SelectWith(null));
 		//new SCreateUser(Dico.toP("login","luluperets","password","password","email","lulu")).print(); //-> code 1, User already exist -> OK
 		//new SCreateUser(Dico.toP("prenom","","nom","isco","login","luluperet2","password","password")).print();
-		//new SLogin(Dico.toP("login","luluperet","password","popo")).print();
+	//new SLogin(Dico.toP("login","luluperet","password","popo")).print();
 		//new SLogout(Dico.toP("key","12689cff-7533-4b04-b0ba-139b3b230f3d")).print();
 		//SListUsers slu = 	new SListUsers(Dico.toP("key",key,"type","ALL"));
 		//slu.print();

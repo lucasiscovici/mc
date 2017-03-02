@@ -15,7 +15,7 @@ filter: grayscale(100%);
 <title>Twister</title>
 </head>
 <body style='background-color:#00FFFF'>
-<%@ include file="nav.jsp" %>
+
 
 <% if (request.getAttribute("type").equals("home") || request.getAttribute("type").equals("matrix")){%>
 	<%-- Copie le contenu du fichier ciblé dans la page actuelle --%>

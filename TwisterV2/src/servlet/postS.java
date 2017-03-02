@@ -23,7 +23,7 @@ import util.TestError;
 import util.Usefull;
 import util.io;
 
-public class matrix extends HttpServlet {
+public class postS extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -41,7 +41,7 @@ public class matrix extends HttpServlet {
 			} else {
 				req.setAttribute("type", "matrix");
 
-				SListPosts s = new SListPosts(Dico.toP("key", key_exist,"friends","-2"));
+				SListPosts s = new SListPosts(Dico.toP("key", key_exist));
 				List<Bean> posts = null;
 				if (!s.Local_params.getDicosOK("code")) {
 

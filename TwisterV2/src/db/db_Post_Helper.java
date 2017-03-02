@@ -114,8 +114,12 @@ public class db_Post_Helper extends dbM {
 			List<String> friends_id = db_Friend_Helper.c().listFriendsFromIdUser(params).getDicos("to").change("to", id_friend).getValues(id_friend);
 			return db_Helper.selectMongoIn(My_Table, id_user, friends_id);
  
+		}else if (params.getValue(friends).equals("-2")){
+			List<String> friends_id = db_Friend_Helper.c().listFriendsFromIdUser(params).getDicos("to").change("to", id_friend).AddParam(id_friend,db_Session_Helper.c().getIdWithKey(params)).getValues(id_friend);
+			return db_Helper.selectMongoIn(My_Table, id_user, friends_id);
 		}else{
-		return db_Helper.selectMongoIn(My_Table, id_user, params.copy().change(friends, id_friend).getValues(id_friend));
+			return db_Helper.selectMongoIn(My_Table, id_user, params.copy().change(friends, id_friend).getValues(id_friend));
+	
 		}
 	}	
 	

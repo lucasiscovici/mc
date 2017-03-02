@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 #t:hover {
 filter: grayscale(100%);
@@ -38,10 +39,9 @@ input:not(.sub) {
 <title>Twister</title>
 </head>
 <body style='background-color:darkred;'>
-<p style='position:relative;text-align:center;top:33vh;margin:0;color:white;font-size:130px;font-family:"Caveat Brush", cursive;'>Twister
-<span><a id='t' href='http://luluperet.github.io/doc' target='_blank' style='transition: all 2s;' ><img src='https://upload.wikimedia.org/wikipedia/fr/c/c8/Twitter_Bird.svg' width="120px" /></a></span></p>
-<div style="position:relative;margin-top:300px;text-align:center;">
-<form action="login_form" id="form_login" method="GET" >
+<div style='position:relative;text-align:center;top:50%;transform:translateY(50%);margin:0;color:white;font-size:130px;font-family:"Caveat Brush", cursive;'>Twister
+<span><a id='t' href='http://luluperet.github.io/doc' target='_blank' style='transition: all 2s;' ><img src='https://upload.wikimedia.org/wikipedia/fr/c/c8/Twitter_Bird.svg' width="120px" /></a></span>
+<form action="login_form" id="form_login" style="margin-top:20px;" method="GET" >
 <div>
 <input type="text" name="login" id="login" placeholder="Login..."/>
 </div>
