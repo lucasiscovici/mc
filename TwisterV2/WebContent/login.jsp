@@ -22,17 +22,18 @@ input:not(.sub) {
  ::-webkit-input-placeholder {
    color: white;
 }
-
 :-moz-placeholder { /* Firefox 18- */
    color: white;  
 }
-
 ::-moz-placeholder {  /* Firefox 19+ */
    color: white;  
 }
-
 :-ms-input-placeholder {  
    color: white;  
+}
+.terminal .terminal-output div span {
+	
+	float: left !important; 
 }
 </style>
 <link href="https://fonts.googleapis.com/css?family=Caveat+Brush" rel="stylesheet">
@@ -41,61 +42,68 @@ input:not(.sub) {
 <body style='background-color:darkred;'>
 <div style='position:relative;text-align:center;top:50%;transform:translateY(50%);margin:0;color:white;font-size:130px;font-family:"Caveat Brush", cursive;'>Twister
 <span><a id='t' href='http://luluperet.github.io/doc' target='_blank' style='transition: all 2s;' ><img src='https://upload.wikimedia.org/wikipedia/fr/c/c8/Twitter_Bird.svg' width="120px" /></a></span>
-<form action="login_form" id="form_login" style="margin-top:20px;" method="GET" >
-<div>
-<input type="text" name="login" id="login" placeholder="Login..."/>
-</div>
-<div>
-<input type="password" id="password" name="password" placeholder="mot de passe"/>
-</div>
-<div>
-<input type="submit" id="submit" class="sub" name="login" value="Login"/>
-<button id="create_user">Créer un compte</button>
-
-</div>
-
-</form>
+<div id="i"></div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.terminal/1.0.10/css/jquery.terminal.min.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.terminal/1.0.10/js/jquery.terminal.min.js"></script>
+
 <script type="text/javascript">
 $(function(){
-	$("#form_login").submit(function(e){
-		e.preventDefault();
-		Login();
-	})
-	function conexion(login,password,callback){
-		$.getJSON("login",{
-			login:login,
-			password:password
-		}, function(d){
-			console.log(d);
-			callback(d);
-		});
-	}
-	function Login(){
-		submit = $("#submit");
-		if(submit.attr("name")=="login"){
-			conexion($("#login").val(),$("#password").val(),function(d){
-				if("response" in d){
-					 window.location.href=window.location.href;
+jQuery(function($, undefined) {
+    text = "Connexion (c) ou Inscription (i)";
+    etape = 1;
+    mode="o";
+    c=[];
+    $('#i').terminal(function(command) {
+        if (command !== '') {
+            if (etape==1) {
+                if (command=="c") {
+                    this.set_prompt("Login: ");
+                    c.push(command);
+                    etape+=1;  
+                }else if (command=="i") {
+                    this.set_prompt("Login: ");
+                    etape+=1;
+                }else{
+                    this.set_prompt(text+": ");
+                }
+
+
+            }
+            if (mode=="c") {
+                if (etape==2) {
+                    this.set_prompt("Password: ");
+                    c.push(command);
+                }else if (etape==3) {
+                   // CONNEXION AJAX 
+                   conexion(c[0],c[1],function(d){
+                       	if ("code" in d) {
+                       		alert("errir");
+                       	}else{
+                       		window.location.href=window.location.href;
 					 window.location.reload();
-					}else{
-						alert("pb mdp");
-					}
-			})
-		
-				
-		}else if(submit.attr("name")=="create"){
-			$.getJSON("createuser",{
-				login:$("#login").val(),
-				password:$("#password").val(),
-				email:$("#email").val()
-			}, function(d){
-				console.log(d);
-				if("response" in d){
+                       	}
+                       });
+
+
+                }
+                  etape+=1;
+            }else if (mode=="i") {
+				if (etape==2) {
+                    this.set_prompt("Password: ");
+                    c.push(command);
+                }else if (etape==3){
+                	  this.set_prompt("Email: ");
+                    c.push(command);
+                }
+                else if (etape==4) {
+                   // CONNEXION AJAX 
+                   create(c[0],c[1],c[2],function(d){
+                       	if("response" in d){
 					$("body").append("cOmpte créé !!! Connexion en Cours...");
 					setTimeout(function(){
-						conexion($("#login").val(),$("#password").val(),function(d){
+						conexion(c[0],c[1],function(d){
 							if("response" in d){
 								window.location.href=window.location.href;
 								 window.location.reload();
@@ -108,18 +116,57 @@ $(function(){
 				}else{
 					alert(d.description);
 				}
-		
-			});
-		}
-	}
-		
-	$("#create_user").click(function(){
-		$("#submit").before("<div><input type='password' name='mdp2' id='mdp2' placeholder='confirmation du mot de passe'/></div>");
+                       });
 
-		$("#submit").before("<div><input type='text' name='email' id='email' placeholder='email...'/></div>");
-		$(this).remove();
-		$("#submit").attr("name","create").val("Créer son compte");
-	});
+                }
+  etape+=1;
+            }
+            // try {
+            //     // var result = window.eval(command);
+            //     // if (result !== undefined) {
+            //     //     this.echo(new String(result));
+            //     // }
+            // } catch(e) {
+            //     this.error(new String(e));
+            // }
+        } else {
+           this.echo('');
+        }
+    }, {
+        greetings: 'Twister',
+        name: 'js_demo',
+        height: 200,
+        prompt: text+": "
+    });
+});
+	function conexion(login,password,callback){
+		$.getJSON("login",{
+			login:login,
+			password:password
+		}, function(d){
+			console.log(d);
+			callback(d);
+		});
+	}
+	function create(login,password,email,callback) {
+		// body...
+	
+	
+	$.getJSON("createuser",{
+				login:$("#login").val(),
+				password:$("#password").val(),
+				email:$("#email").val()
+			}, function(d){
+				console.log(d);
+							callback(d);
+
+			})
+}
+				
+		
+	
+		
+
 });
 </script>
 </body>
