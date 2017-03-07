@@ -87,11 +87,12 @@ jQuery(function($, undefined) {
                        		
                        		$this.set_prompt("Password: ");
                        		$this.echo("error");
+                       		c.pop();
                        		etape-=1;
                        	}else{
                        		$this.echo("Connexion en cours...");
 
-                       		$this.set_prompt();
+                       		$this.set_prompt("c");
                        		window.location.href=window.location.href;
 					 window.location.reload();
                        	}
