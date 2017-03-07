@@ -60,16 +60,19 @@ jQuery(function($, undefined) {
             if (etape==1) {
                 if (command=="c") {
                     this.set_prompt("Login: ");
-                    c.push(command);
+                    //c.push(command);
+                    mode="c";
                     etape+=1;  
                 }else if (command=="i") {
                     this.set_prompt("Login: ");
+                    mode="i";
+
                     etape+=1;
                 }else{
                     this.set_prompt(text+": ");
                 }
 
-
+				return;
             }
             if (mode=="c") {
                 if (etape==2) {
@@ -77,10 +80,18 @@ jQuery(function($, undefined) {
                     c.push(command);
                 }else if (etape==3) {
                    // CONNEXION AJAX 
+                    c.push(command);
+                   $this = this;
                    conexion(c[0],c[1],function(d){
                        	if ("code" in d) {
-                       		alert("errir");
+                       		
+                       		$this.set_prompt("Password: ");
+                       		$this.echo("error");
+                       		etape-=1;
                        	}else{
+                       		$this.echo("Connexion en cours...");
+
+                       		$this.set_prompt();
                        		window.location.href=window.location.href;
 					 window.location.reload();
                        	}
@@ -93,11 +104,15 @@ jQuery(function($, undefined) {
 				if (etape==2) {
                     this.set_prompt("Password: ");
                     c.push(command);
+                    etape+=1;
                 }else if (etape==3){
                 	  this.set_prompt("Email: ");
                     c.push(command);
+                    etape+=1;
                 }
                 else if (etape==4) {
+                	
+                	 c.push(command);
                    // CONNEXION AJAX 
                    create(c[0],c[1],c[2],function(d){
                        	if("response" in d){
@@ -119,7 +134,7 @@ jQuery(function($, undefined) {
                        });
 
                 }
-  etape+=1;
+ 
             }
             // try {
             //     // var result = window.eval(command);
