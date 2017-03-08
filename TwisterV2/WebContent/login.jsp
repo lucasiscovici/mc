@@ -61,15 +61,18 @@ jQuery(function($, undefined) {
                 if (command=="c") {
                     this.set_prompt("Login: ");
                     c.push(command);
+                    mode="c";
                     etape+=1;  
                 }else if (command=="i") {
                     this.set_prompt("Login: ");
+                    mode="i";
+
                     etape+=1;
                 }else{
                     this.set_prompt(text+": ");
                 }
 
-
+                return;
             }
             if (mode=="c") {
                 if (etape==2) {
@@ -79,7 +82,8 @@ jQuery(function($, undefined) {
                    // CONNEXION AJAX 
                    conexion(c[0],c[1],function(d){
                        	if ("code" in d) {
-                       		alert("errir");
+                       		alert("error");
+                          etape=1;
                        	}else{
                        		window.location.href=window.location.href;
 					 window.location.reload();
