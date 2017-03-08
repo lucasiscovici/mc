@@ -39,10 +39,11 @@ input:not(.sub) {
 <link href="https://fonts.googleapis.com/css?family=Caveat+Brush" rel="stylesheet">
 <title>Twister</title>
 </head>
-<body style='background-color:darkred;'>
-<div style='position:relative;text-align:center;top:50%;transform:translateY(50%);margin:0;color:white;font-size:130px;font-family:"Caveat Brush", cursive;'>Twister
-<span><a id='t' href='http://luluperet.github.io/doc' target='_blank' style='transition: all 2s;' ><img src='https://upload.wikimedia.org/wikipedia/fr/c/c8/Twitter_Bird.svg' width="120px" /></a></span>
-<div id="i"></div>
+<body style='background-color:black; margin: 0; height: 100%;'>
+<div style='height: 100%;' align="center">
+<div id="i" style="padding: 0; width: 100%; height: 100%;">
+<img width="300px" src="http://li328.lip6.fr:8280/TwisterV2/img/logo.png" />
+</div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.terminal/1.0.10/css/jquery.terminal.min.css" rel="stylesheet"/>
@@ -59,14 +60,12 @@ jQuery(function($, undefined) {
         if (command !== '') {
             if (etape==1) {
                 if (command=="c") {
-                    this.set_prompt("Login: ");
-                    c.push(command);
+                    this.set_prompt("[[;GREEN;]Login > ]");
                     mode="c";
                     etape+=1;  
                 }else if (command=="i") {
-                    this.set_prompt("Login: ");
+                    this.set_prompt("[[;GREEN;]Login > ]");
                     mode="i";
-
                     etape+=1;
                 }else{
                     this.set_prompt(text+": ");
@@ -76,17 +75,21 @@ jQuery(function($, undefined) {
             }
             if (mode=="c") {
                 if (etape==2) {
-                    this.set_prompt("Password: ");
+                    this.set_prompt("[[;GREEN;]Password > ]");
                     c.push(command);
                 }else if (etape==3) {
                    // CONNEXION AJAX 
+                   c.push(command);
                    conexion(c[0],c[1],function(d){
                        	if ("code" in d) {
                        		alert("error");
-                          etape=1;
+                       		etape=1
+                       		c=[];
                        	}else{
+                       	$("body").append("Connecté !!! Connexion en Cours...");
+                       		
                        		window.location.href=window.location.href;
-					 window.location.reload();
+					 		window.location.reload();
                        	}
                        });
 
@@ -95,17 +98,18 @@ jQuery(function($, undefined) {
                   etape+=1;
             }else if (mode=="i") {
 				if (etape==2) {
-                    this.set_prompt("Password: ");
+                    this.set_prompt("[[;GREEN;]Password > ]");
                     c.push(command);
                 }else if (etape==3){
-                	  this.set_prompt("Email: ");
+                	  this.set_prompt("[[;GREEN;]Email > ]");
                     c.push(command);
                 }
                 else if (etape==4) {
                    // CONNEXION AJAX 
+                   c.push(command);
                    create(c[0],c[1],c[2],function(d){
                        	if("response" in d){
-					$("body").append("cOmpte créé !!! Connexion en Cours...");
+					$("body").append("Compte créé !!! Connexion en Cours...");
 					setTimeout(function(){
 						conexion(c[0],c[1],function(d){
 							if("response" in d){
@@ -139,7 +143,6 @@ jQuery(function($, undefined) {
     }, {
         greetings: 'Twister',
         name: 'js_demo',
-        height: 200,
         prompt: text+": "
     });
 });
