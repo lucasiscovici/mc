@@ -15,7 +15,7 @@ editor.setTheme("ace/theme/iplastic");
 editor.getSession().setMode("ace/mode/java");
 editor.$blockScrolling = Infinity;
 $("#logout").click(function(){
-	$.get("logout",{key:"${key}"},function(f){console.log(f);window.location.href=window.location.href;});
+	$.get("logout",{key:"${key}"},function(f){console.log(f);window.location.href=window.location.href;window.location.reload();});
 
 });
 $("#post").click(function(){

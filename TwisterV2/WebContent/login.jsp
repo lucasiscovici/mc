@@ -60,7 +60,7 @@ jQuery(function($, undefined) {
             if (etape==1) {
                 if (command=="c") {
                     this.set_prompt("Login: ");
-                    c.push(command);
+  
                     mode="c";
                     etape+=1;  
                 }else if (command=="i") {
@@ -80,11 +80,21 @@ jQuery(function($, undefined) {
                     c.push(command);
                 }else if (etape==3) {
                    // CONNEXION AJAX 
+                   console.log(c);
+                   c.push(command);
+                   $this =this;
+                   this.set_prompt("En cours...");
+                   this.pause(false);
                    conexion(c[0],c[1],function(d){
+                	   console.log(d);
                        	if ("code" in d) {
+                       		c=[];
                        		alert("error");
-                          etape=1;
+                          etape=0;
+                          $this.resume();
                        	}else{
+                       		$this.set_prompt("En cours...");
+                       		$this.resume();
                        		window.location.href=window.location.href;
 					 window.location.reload();
                        	}
@@ -125,14 +135,7 @@ jQuery(function($, undefined) {
                 }
   etape+=1;
             }
-            // try {
-            //     // var result = window.eval(command);
-            //     // if (result !== undefined) {
-            //     //     this.echo(new String(result));
-            //     // }
-            // } catch(e) {
-            //     this.error(new String(e));
-            // }
+
         } else {
            this.echo('');
         }
