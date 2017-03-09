@@ -51,13 +51,17 @@ input:not(.sub) {
 
 <script type="text/javascript">
 $(function(){
-jQuery(function($, undefined) {
+	
     text = "Connexion (c) ou Inscription (i)";
     etape = 1;
     mode="o";
     c=[];
-    $('#i').terminal(function(command) {
+  
+    g = $('#i').terminal(function(command) {
+    	console.log("lala "+command+" "+etape);
         if (command !== '') {
+        	
+        	
             if (etape==1) {
                 if (command=="c") {
                     this.set_prompt("[[;GREEN;]Login > ]");
@@ -68,7 +72,7 @@ jQuery(function($, undefined) {
                     mode="i";
                     etape+=1;
                 }else{
-                    this.set_prompt(text+": ");
+                    this.set_prompt("[[;GREEN;]"+text+": ]");
                 }
 
                 return;
@@ -80,14 +84,18 @@ jQuery(function($, undefined) {
                 }else if (etape==3) {
                    // CONNEXION AJAX 
                    c.push(command);
+                   this.pause(false);
+                   $this=this;
                    conexion(c[0],c[1],function(d){
                        	if ("code" in d) {
-                       		alert("error");
-                       		etape=1
-                       		c=[];
+                       		$this.echo("[[;RED;] Erreur ...]")
+                       	 $this.resume();
+                       	etape=1;
+                       	c=[];
+                       	$this.set_prompt("[[;GREEN;]"+text+": ]");
+                       	console.log(etape);
                        	}else{
-                       	$("body").append("Connecté !!! Connexion en Cours...");
-                       		
+                       		$this.echo("[[;BLUE;]Chargement en cours .... ]");
                        		window.location.href=window.location.href;
 					 		window.location.reload();
                        	}
@@ -95,6 +103,7 @@ jQuery(function($, undefined) {
 
 
                 }
+            	console.log("ici");
                   etape+=1;
             }else if (mode=="i") {
 				if (etape==2) {
@@ -141,11 +150,46 @@ jQuery(function($, undefined) {
            this.echo('');
         }
     }, {
-        greetings: 'Twister',
+        greetings: 'ctrl+c pour annuler',
         name: 'js_demo',
-        prompt: text+": "
+        prompt: "[[;GREEN;]"+text+": ]"
     });
+        function isCommandPressed(event) {
+      return event.metaKey || event.ctrlKey;
+    }
+  $(window).bind('keypress', function(event) {
+    console.log(event);
+  if(event.which==3 && isCommandPressed(event)) {
+	    etape = 1;
+	    mode="o";
+	    c=[];
+	    g.set_prompt("[[;GREEN;]"+text+": ]");
+    g.reset();
+    
+    return false;
+  }
+  
+
+  
 });
+  $(".clipboard").bind('keypress', function(event) {
+	    console.log(event);
+	  if(event.which==3 && isCommandPressed(event)) {
+		  text = "Connexion (c) ou Inscription (i)";
+		    etape = 1;
+		    mode="o";
+		    c=[];
+		    g.set_prompt("[[;GREEN;]"+text+": ]");
+	    g.reset();
+	    
+	    
+	    return false;
+	  }
+	  
+
+	  
+	});
+  
 	function conexion(login,password,callback){
 		$.getJSON("login",{
 			login:login,
@@ -170,11 +214,10 @@ jQuery(function($, undefined) {
 			})
 }
 				
-		
+		});
 	
 		
 
-});
 </script>
 </body>
 </html>
