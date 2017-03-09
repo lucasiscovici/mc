@@ -88,14 +88,14 @@ $(function(){
                    $this=this;
                    conexion(c[0],c[1],function(d){
                        	if ("code" in d) {
-                       		$this.echo("[[;RED;] Erreur ...]")
+                       		$this.echo("[[;RED;] Erreur, identifiant non valide ...]")
                        	 $this.resume();
                        	etape=1;
                        	c=[];
                        	$this.set_prompt("[[;GREEN;]"+text+": ]");
                        	console.log(etape);
                        	}else{
-                       		$this.echo("[[;BLUE;]Chargement en cours .... ]");
+                       		$this.echo("[[;BLUE;]Chargement en cours ... ]");
                        		window.location.href=window.location.href;
 					 		window.location.reload();
                        	}
@@ -116,22 +116,39 @@ $(function(){
                 else if (etape==4) {
                    // CONNEXION AJAX 
                    c.push(command);
+                   this.pause(false);
+                   $this=this;
                    create(c[0],c[1],c[2],function(d){
                        	if("response" in d){
-					$("body").append("Compte créé !!! Connexion en Cours...");
+					$this.echo("[[;BLUE;]Compte crée... ]");
+					etape+=1000;
 					setTimeout(function(){
 						conexion(c[0],c[1],function(d){
 							if("response" in d){
+							$this.echo("[[;BLUE;]Chargement en cours ... ]");
 								window.location.href=window.location.href;
 								 window.location.reload();
 							}else{
+								etape=1;
+                       			c=[];
 								alert(d.description);
+								$this.resume();
+								etape=1;
+                    			c=[];
+								$this.set_prompt("[[;GREEN;]"+text+": ]");
+                    		   	console.log(etape);
 							}
 						});
 					}, 2000);
 					
 				}else{
+				
 					alert(d.description);
+					$this.resume();
+					etape=1;
+                    c=[];
+					$this.set_prompt("[[;GREEN;]"+text+": ]");
+                       	console.log(etape);
 				}
                        });
 
@@ -204,9 +221,9 @@ $(function(){
 	
 	
 	$.getJSON("createuser",{
-				login:$("#login").val(),
-				password:$("#password").val(),
-				email:$("#email").val()
+				login:login,
+				password:password,
+				email:email
 			}, function(d){
 				console.log(d);
 							callback(d);
