@@ -126,6 +126,7 @@ public class Parameters {
 	 */
 	
 	public Parameters change(String key1, final String nk) throws LucasException {
+
 		for (Dico dico : parameters) {
 			if (dico.key==nk) {
 				throw new LucasException("Parameters: change(String key1,String nk) ->  nk deja present danns les parameters");
@@ -145,6 +146,7 @@ public class Parameters {
 			}
 			}
 		}
+		
 		return this;
 	}
 	

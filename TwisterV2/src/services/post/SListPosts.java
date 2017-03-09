@@ -22,7 +22,8 @@ import util.TestError;
 
 /**
  * Classe du service recherche GET: KEY | KEY + TYPE=ALL | KEY + ID | KEY +
- * FRIENDS(IDS) | KEY + TYPE=MY OUT: RESPONSE:MESSAGES:[ID,DATE,TEXT,ID_USER]
+ * FRIENDS(IDS) | KEY + TYPE=MY | KEY + TYPE=TOTAL
+ * OUT: RESPONSE:MESSAGES:[ID,DATE,TEXT,ID_USER]
  * | RESPONSE:MESSAGES:ID,DATE,TEXT,ID_USER
  */
 
@@ -81,7 +82,11 @@ public class SListPosts extends ServiceList {
 						messages = dPH.listPostFromFriends(params);
 					} else if (Vtype.equals("ALL")) { // TYPE=ALL -
 						messages = dPH.SelectMongoWith();
-					} else {
+					} else if (Vtype.equals("TOTAL")) {
+						messages = dPH.total(params);
+
+					} 
+					else {
 						RespS.c(this, Error.ErrArgs);
 						return;
 					}

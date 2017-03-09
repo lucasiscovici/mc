@@ -61,6 +61,10 @@
     <servlet-name>default</servlet-name>
     <url-pattern>/img/*</url-pattern>
 </servlet-mapping>
+<servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>/vue/*</url-pattern>
+</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Presentation</servlet-name>
 		<url-pattern>/</url-pattern>

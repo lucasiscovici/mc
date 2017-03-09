@@ -96,6 +96,8 @@ z-index: 999;
 <c:import url="modalpost.jsp"/>
 
 <c:import url="importjs.jsp"/>
+		<script src="/TwisterV2/js/jquery.cookie.js"></script>
+
 <script>
 o=0;
 $("#editor").click(function(){
@@ -112,6 +114,9 @@ $("#editor").click(function(){
 		}
 		o+=1;
 	},1000);
+});
+$.getJSON("listposts", {key:$.cookie('key'),type:"ALL"},function(e){
+	console.log(e);
 });
 $(".overlay").click(function(){
 	console.log($(this));

@@ -93,8 +93,8 @@ public class db_Post_Helper extends dbM {
 	public Parameters listPostFromFriends(Parameters params)
 			throws ClassNotFoundException, SQLException, UnknownHostException, LucasException {
 		Parameters p2 = db_Friend_Helper.c().listFriendsFromKey(params);
-		p2.getDicos("to").change("to", "id_friend");
-		return db_Helper.selectMongoIn(My_Table, id_user, p2.getValues(id_friend));
+
+		return db_Helper.selectMongoIn(My_Table, id_user, p2.getDicos("to").change("to", "id_friend").getValues("id_friend"));
 	}
 	
 	/**
@@ -251,6 +251,15 @@ public class db_Post_Helper extends dbM {
 	public String GiveMyTable() {
 		// TODO Auto-generated method stub
 		return Tables.Post;
+	}
+
+	public Parameters total(Parameters params) throws ClassNotFoundException, UnknownHostException, SQLException, LucasException {
+		// TODO Auto-generated method stub
+		Parameters messages = listPostFromFriends(params);
+		for (Dico d : messages.parameters) {
+			d.addD("login",db_User_Helper.c().getXWithX("login", d.toPa().getDico("id_user").valuesdP().change("id_user", "id")).getValue("login"));
+		}
+		return messages;
 	}
 
 }
