@@ -2,7 +2,12 @@ package db;
 
 import java.net.UnknownHostException;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import db.util.dbM;
 import util.Dico;
@@ -93,8 +98,8 @@ public class db_Post_Helper extends dbM {
 	public Parameters listPostFromFriends(Parameters params)
 			throws ClassNotFoundException, SQLException, UnknownHostException, LucasException {
 		Parameters p2 = db_Friend_Helper.c().listFriendsFromKey(params);
-		p2.getDicos("to").change("to", "id_friend");
-		return db_Helper.selectMongoIn(My_Table, id_user, p2.getValues(id_friend));
+		
+		return db_Helper.selectMongoIn(My_Table, id_user, p2.getDicos("to").change("to", "id_friend").getValues(id_friend),params.getDico("p2").valuesdP());
 	}
 	
 	/**
@@ -251,6 +256,41 @@ public class db_Post_Helper extends dbM {
 	public String GiveMyTable() {
 		// TODO Auto-generated method stub
 		return Tables.Post;
+	}
+
+	public Parameters total(Parameters params) throws ClassNotFoundException, UnknownHostException, SQLException, LucasException {
+		// TODO Auto-generated method stub
+		Parameters p2 =  new Parameters();
+		if (params.getDicosOK("date_min")) {
+//			  SimpleDateFormat parser = new SimpleDateFormat("EEE MMM d HH:mm:ss zzz yyyy",Locale.ENGLISH);
+//		        Date date = null;
+//				try {
+//					date = parser.parse(params.getValue("date"));
+//				} catch (ParseException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+				p2.AddParam("$gt", params.getValue("date_min"));
+		}
+		if (params.getDicosOK("limit")) {
+			p2.AddParam("limit",params.getValue("limit"));
+		}else{
+			p2.AddParam("limit",10);
+		}
+		params.AddParam("p2", p2);
+		Parameters messages = listPostFromFriends(params);
+		for (Dico d : messages.parameters) {
+				Parameters dicop = d.toPa();
+				String id_user = dicop.getValue("id_user");
+				String login = db_User_Helper.c().getXWithX("login",Dico.toP("id",id_user)).getValue("login");
+				int nb_likes = db_Like_Helper.c().ListLikesFromIdPost(dicop.getDico("id").toPa().change("id", "id_post")).parameters.size();
+				int nb_coms = db_Comment_Helper.c().ListPostsFromIdPost(dicop.getDico("id").toPa().change("id", "id_post")).parameters.size();
+				d.addD("nb_likes", nb_likes);
+				d.addD("nb_coms", nb_coms);
+				d.addD("login", login);
+		}
+		
+		return messages;
 	}
 
 }

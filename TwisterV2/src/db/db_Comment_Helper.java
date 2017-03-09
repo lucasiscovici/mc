@@ -24,7 +24,9 @@ public class db_Comment_Helper extends dbM {
 	public static db_Comment_Helper c() {
 		return new db_Comment_Helper();
 	}
-
+	public Parameters ListPostsFromIdPost(Parameters params) throws ClassNotFoundException, UnknownHostException, SQLException, LucasException {
+		return SelectMongoWith("id_post", params);
+	}
 	@Override
 	public boolean Insert(Parameters params)
 			throws ClassNotFoundException, SQLException, LucasException, UnknownHostException {

@@ -708,7 +708,8 @@ public class db_Helper {
 					throw RespS.cl(p.myService, Error.ErrArgs.detail("mets un id_post valide !!"));
 				}
 				
-			}else{
+			}
+			else{
 			r.put(d.getKey(), d.getValue());
 			}
 		}
@@ -823,6 +824,41 @@ public class db_Helper {
          DBObject r = new BasicDBObject(quoi, inClause);
 		DBCursor dcu = dc.find(r);
 		
+		Parameters pn = new Parameters();
+		int c = 0;
+		while (dcu.hasNext()) {
+			DBObject dbObject = (DBObject) dcu.next();
+			//io.print(dbObject);
+			pn.co=c++;
+			pn.AddParam(dbObject);
+			
+		}
+		return pn;
+	}
+	public static Parameters selectMongoIn(String table,String quoi, @SuppressWarnings("rawtypes") List p,Parameters params) throws UnknownHostException, LucasException {
+		DBCollection dc = getMyCollection(table);
+		Integer limit=null;
+		if (params.getDicosOK("limit")) {
+			limit = params.getValueInt("limit");
+			params = params.PSN("limit");
+		}
+		if (params.getDicosOK("$gt")) {
+			
+		}
+		//BasicDBObject r = CreateRequest();
+		
+		//io.print(p);
+		 BasicDBList docIds = new BasicDBList();
+		 docIds.addAll(p);
+		 DBObject inClause = new BasicDBObject("$in", docIds);
+		 BasicDBObject r = new BasicDBObject(quoi, inClause);
+		 whereMongo(r, params);
+		 io.print(r);
+		DBCursor dcu = dc.find(r);
+		if (limit != null) {
+			dcu = dcu.limit(limit);
+		}
+	
 		Parameters pn = new Parameters();
 		int c = 0;
 		while (dcu.hasNext()) {

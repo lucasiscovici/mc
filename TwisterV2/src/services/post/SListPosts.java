@@ -22,7 +22,8 @@ import util.TestError;
 
 /**
  * Classe du service recherche GET: KEY | KEY + TYPE=ALL | KEY + ID | KEY +
- * FRIENDS(IDS) | KEY + TYPE=MY OUT: RESPONSE:MESSAGES:[ID,DATE,TEXT,ID_USER]
+ * FRIENDS(IDS) | KEY + TYPE=MY  | KEY + TYPE=TOTAL + ID_MIN , NB(10)
+ * OUT: RESPONSE:MESSAGES:[ID,DATE,TEXT,ID_USER]
  * | RESPONSE:MESSAGES:ID,DATE,TEXT,ID_USER
  */
 
@@ -49,7 +50,7 @@ public class SListPosts extends ServiceList {
 	public SListPosts(Parameters params) throws NumberFormatException, ClassNotFoundException, IOException,
 			SQLException, JSONException, LucasException {
 		super(params);
-		// TODO Auto-generated constructor stub
+		// TODO Auto-generated cxonstructor stub
 	}
 
 	@Override
@@ -81,6 +82,8 @@ public class SListPosts extends ServiceList {
 						messages = dPH.listPostFromFriends(params);
 					} else if (Vtype.equals("ALL")) { // TYPE=ALL -
 						messages = dPH.SelectMongoWith();
+					}else if (Vtype.equals("TOTAL")) { // TYPE=ALL -
+						messages = dPH.total(params);
 					} else {
 						RespS.c(this, Error.ErrArgs);
 						return;

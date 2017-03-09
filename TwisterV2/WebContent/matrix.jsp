@@ -96,6 +96,7 @@ z-index: 999;
 <c:import url="modalpost.jsp"/>
 
 <c:import url="importjs.jsp"/>
+<script type="text/javascript" href="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 <script>
 o=0;
 $("#editor").click(function(){

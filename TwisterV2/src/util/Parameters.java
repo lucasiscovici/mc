@@ -339,7 +339,10 @@ public class Parameters {
 	public Parameters(Dico... values){
 		this.parameters = new ArrayList<Dico>();
 		for (int i = 0; i < values.length; i++) {
+			if (!values[i].is_null()) {
+			
 			this.AddParam(values[i]);
+			}
 		}
 	}
 	

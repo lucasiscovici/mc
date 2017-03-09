@@ -168,6 +168,20 @@ public class Dico {
 		this.is_dicd = true;
 		return this;
 	}
+	public Dico addD(String s,Object g) {
+		
+		this.is_dicd = true;
+		if (this.valuesd==null) {
+			this.valuesd = new ArrayList<Dico>();
+			this.false_key = true;
+			this.setKey(countD);
+			
+		}
+		this.false_key = true;
+		this.valuesd.add(Dico.kv(s, g.toString()));
+		this.is_dicd = true;
+		return this;
+	}
 	
 	/**
 	 * 
@@ -359,6 +373,9 @@ public class Dico {
 	 */
 	
 	public static Dico kv(String key, String value) {
+		return new Dico(key,value);
+	}
+	public static Dico kv(String key, Object value) {
 		return new Dico(key,value);
 	}
 	
