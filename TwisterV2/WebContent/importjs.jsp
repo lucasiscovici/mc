@@ -9,8 +9,7 @@
 		<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/default.min.css">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
 
-		<script src="/TwisterV2/js/highlightjs-line-numbers.js"></script>
-<script>hljs.initHighlightingOnLoad();hljs.initLineNumbersOnLoad();</script>
+<script>hljs.initHighlightingOnLoad();</script>
 
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js"></script>
 
@@ -33,7 +32,7 @@ $("#logout").click(function(){
 });
 $("#post").click(function(){
 	
-	$.post($("#form_post").attr("action"),{key:$("#key").val(),text:editor.getValue()},function(f){console.log(f);window.location.href=window.location.href;});
+	$.post($("#form_post").attr("action"),{key:$("#key").val(),text:_.escape(editor.getValue())},function(f){console.log(f);window.location.href=window.location.href;});
 });
 $('.grid').masonry({
 	 

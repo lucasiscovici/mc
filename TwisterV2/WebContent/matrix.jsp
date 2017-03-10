@@ -100,7 +100,7 @@ function init(){
     	   $items=a.HTML()
 		$(".grid").append($items).masonry( 'appended', $items ).masonry();
 		setTimeout(function(){
-			$('pre code').each(function(i, e) {hljs.highlightBlock(e); setTimeout(function(){hljs.lineNumbersBlock(e);},1000); }); 
+			$('pre code').each(function(i, e) {hljs.highlightBlock(e);}); 
 		},1000);
 		
   }
