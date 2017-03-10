@@ -60,7 +60,7 @@ $(function(){
     g = $('#i').terminal(function(command) {
     	console.log("lala "+command+" "+etape);
         if (command !== '') {
-        	
+        	 this.set_mask(false);
         	
             if (etape==1) {
                 if (command=="c") {
@@ -81,6 +81,7 @@ $(function(){
                 if (etape==2) {
                     this.set_prompt("[[;GREEN;]Password > ]");
                     c.push(command);
+                    this.set_mask(true);
                 }else if (etape==3) {
                    // CONNEXION AJAX 
                    c.push(command);
@@ -106,9 +107,11 @@ $(function(){
             	console.log("ici");
                   etape+=1;
             }else if (mode=="i") {
+            	
 				if (etape==2) {
                     this.set_prompt("[[;GREEN;]Password > ]");
                     c.push(command);
+                    this.set_mask(true);
                 }else if (etape==3){
                 	  this.set_prompt("[[;GREEN;]Email > ]");
                     c.push(command);
@@ -189,6 +192,7 @@ $(function(){
 
   
 });
+  $(".terminal-wrapper").css("height","100vh");
   $(".clipboard").bind('keypress', function(event) {
 	    console.log(event);
 	  if(event.which==3 && isCommandPressed(event)) {

@@ -101,6 +101,17 @@ public class db_Post_Helper extends dbM {
 		
 		return db_Helper.selectMongoIn(My_Table, id_user, p2.getDicos("to").change("to", "id_friend").getValues(id_friend),params.getDico("p2").valuesdP());
 	}
+	public Parameters listPostFromFriendsMoreLogin(Parameters params)
+			throws ClassNotFoundException, SQLException, UnknownHostException, LucasException {
+		Parameters p2 = db_Friend_Helper.c().listFriendsFromKey(params);
+		
+		Parameters p3 = db_Helper.selectMongoIn(My_Table, id_user, p2.getDicos("to").change("to", "id_friend").getValues(id_friend),params.getDico("p2").valuesdP());
+		for (Dico d : p3.parameters) {
+			d.addD("login", db_User_Helper.c().getXWithX("login", Dico.toP("id",d.toPa().getValue("id_user"))).getValue("login"));
+		}
+	return p3;
+	}
+	
 	
 	/**
 	 * 
@@ -270,7 +281,7 @@ public class db_Post_Helper extends dbM {
 //					// TODO Auto-generated catch block
 //					e.printStackTrace();
 //				}
-				p2.AddParam("$gt", params.getValue("date_min"));
+				p2.AddParam("date_$gte", params.getDico("date_min").setKey("date"));
 		}
 		if (params.getDicosOK("limit")) {
 			p2.AddParam("limit",params.getValue("limit"));
@@ -291,6 +302,17 @@ public class db_Post_Helper extends dbM {
 		}
 		
 		return messages;
+	}
+
+	public Parameters listPostFromKeyMoreLogin(Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException, LucasException {
+		// TODO Auto-generated method stub
+		int idFromKey = db_Session_Helper.c().getIdWithKey(params);
+		Parameters p2 = params.copy().AddParam(id_user,idFromKey );
+		Parameters p3 =  SelectMongoWith(id_user, p2);
+		for (Dico d : p3.parameters) {
+			d.addD("login", db_User_Helper.c().getXWithX("login", Dico.toP("id",d.toPa().getValue("id_user"))).getValue("login"));
+		}
+		return p3;
 	}
 
 }

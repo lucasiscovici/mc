@@ -1,6 +1,7 @@
 package util;
 
-import java.util.Arrays;  
+import java.util.Arrays;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Iterator;
@@ -390,7 +391,13 @@ public class Parameters {
 			if (key.charAt(0)=='_') {
 				keyo = key.substring(1, key.length());
 			}
+			io.print( db.get(key).getClass());
+			if ( db.get(key) instanceof Date) {
+				d.addD(keyo, ((Date) db.get(key)).getTime());
+
+			}else{
 			d.addD(keyo, db.get(key).toString());
+			}
 			
 			
 		}

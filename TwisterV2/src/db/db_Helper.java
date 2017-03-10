@@ -3,8 +3,12 @@ package db;
 import java.net.UnknownHostException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.bson.types.ObjectId;
 
@@ -635,7 +639,19 @@ public class db_Helper {
 	public static boolean insertMongo(String table,Parameters p) throws UnknownHostException {
 		BasicDBObject r= CreateRequest();
 		for (Dico d : p.parameters) {
-			r.put(d.getKey(), d.getValue());
+			if (d.getKey().indexOf("date")!=-1) {
+				  SimpleDateFormat parser = new SimpleDateFormat("EEE MMM d HH:mm:ss zzz yyyy",Locale.ENGLISH);
+				  try {
+					Date date = parser.parse(d.getValue());
+					r.put(d.getKey(), date);
+
+				  }catch (Exception e) {
+					// TODO: handle exception
+				}
+
+			}else{
+				r.put(d.getKey(), d.getValue());
+			}
 		}
 		 WriteResult w =  getMyCollection(table).insert(r);
 		 String id = r.get( "_id" ).toString();
@@ -708,6 +724,11 @@ public class db_Helper {
 					throw RespS.cl(p.myService, Error.ErrArgs.detail("mets un id_post valide !!"));
 				}
 				
+			}else if (d.getKey().indexOf("date_") != -1) {
+					Date date = new java.util.Date(Long.parseLong(d.valuesd.get(0).getValue()));
+					r.put(d.valuesd.get(0).getKey(), new BasicDBObject(d.getKey().replace("date_", ""), date));
+				
+				  
 			}
 			else{
 			r.put(d.getKey(), d.getValue());
@@ -853,17 +874,18 @@ public class db_Helper {
 		 DBObject inClause = new BasicDBObject("$in", docIds);
 		 BasicDBObject r = new BasicDBObject(quoi, inClause);
 		 whereMongo(r, params);
-		 io.print(r);
-		DBCursor dcu = dc.find(r);
+		 //io.print(r);
+		DBCursor dcu = dc.find(r).sort(new BasicDBObject("date",-1));
+		io.print(dcu);
 		if (limit != null) {
 			dcu = dcu.limit(limit);
 		}
-	
+		
 		Parameters pn = new Parameters();
 		int c = 0;
 		while (dcu.hasNext()) {
 			DBObject dbObject = (DBObject) dcu.next();
-			//io.print(dbObject);
+			io.print(dbObject);
 			pn.co=c++;
 			pn.AddParam(dbObject);
 			

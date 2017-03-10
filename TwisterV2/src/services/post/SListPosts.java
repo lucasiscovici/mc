@@ -79,7 +79,7 @@ public class SListPosts extends ServiceList {
 				} else if (params.getDicosOK("type")) { // KEY + TYPE
 					String Vtype = params.getValue("type");
 					if (Vtype.equals("MY")) { // TYPE=MY -
-						messages = dPH.listPostFromFriends(params);
+						messages = dPH.listPostFromFriendsMoreLogin(params);
 					} else if (Vtype.equals("ALL")) { // TYPE=ALL -
 						messages = dPH.SelectMongoWith();
 					}else if (Vtype.equals("TOTAL")) { // TYPE=ALL -
@@ -89,7 +89,7 @@ public class SListPosts extends ServiceList {
 						return;
 					}
 				} else { // KEY -
-					messages = dPH.listPostFromKey(params);
+					messages = dPH.listPostFromKeyMoreLogin(params);
 				}
 
 				Local_params.AddParamResponse("messages", messages);

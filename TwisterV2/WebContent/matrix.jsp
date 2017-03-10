@@ -27,7 +27,7 @@
                 <div class="padding" style="margin-top:50px;">
                     <div class="grid">
                       
-                      	<div class="grid-item well col-xs-12 col-lg-6 col-lg-offset-3 col-md-offset-3 col-md-6" style="padding:0;">
+                      	<div class="grid-item well col-xs-offset-1 col-xs-10 col-lg-8 col-lg-offset-2 col-md-offset-2 col-md-8" style="padding:0;">
                           
                      <style>
                      .hh{
@@ -45,43 +45,17 @@ z-index: 999;
                                    <form id="form_post" class="form-horizontal" role="form" action="addpost" method="GET" >
                                     <h4>Publier un code</h4>
                                      <div class="form-group" style="padding:14px;">
-                                      <div id="editor" class="">En java ...</div>
+                                      <div id="editor" class="" placeholder="En java ..."></div>
                                     <input type="hidden" id="key" value="${key}" name="key"/>
                                     </div>
+                                      <div class="form-group">
+                                    
                                     <button class="btn btn-primary pull-right" type="button" id="post">Post</button>
+                                 </div>
                                   </form>
                            
                        </div>
-                     <c:forEach var="pays" items="${posts}"> 
- <%
-   pageContext.setAttribute("name",db_User_Helper.c().getXWithX("login",Dico.toP("id",((Post)pageContext.getAttribute("pays")).id_user) ).getValue("login")); 
-
- %>
-                          <div class="grid-item col-md-offset-3 col-md-6 col-lg-6 col-lg-offset-3">
-                       
-                               <div class="panel panel-default">
-                                 <div class="panel-heading"><h4>${name}</h4></div>
-                                  <div class="panel-body">
-                                    <div class="clearfix"></div>
-                                    
-                                    <pre><code class="java">${pays.text}</code></pre>
-                                    
-                                    <form>
-                                    <div class="input-group">
-                                      <div class="input-group-btn">
-                                      <button class="btn btn-default">like</button>
-                                      </div>
-                                      <input type="text" class="form-control" placeholder="Add a comment..">
-                                    </div>
-                                    </form>
-                                    
-                                  </div>
-                               </div>
-
-                        
-                          </div>
-                          </c:forEach>
-
+                    
                        </div>
                     
                       
@@ -93,35 +67,71 @@ z-index: 999;
         </div>
 </div>
 
+<div class="hidden" data-template="message">
+<c:import url="vue/message.html" />
+</div>
 <c:import url="modalpost.jsp"/>
 
 <c:import url="importjs.jsp"/>
-<script type="text/javascript" href="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-<script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+<script type="text/javascript">
+
+
+$(function(){
+	
 o=0;
-$("#editor").click(function(){
-	$(this).addClass("hh");
-
-	$(".overlay").removeClass("hidden");
-	setTimeout(function(){
-		$(".grid").masonry();
+fd="${que}";
+function init(){
+	d ={};
+	if(fd=="posts") {
+		d={key:$.cookie("key")}
+	}else{
+		d= {
+				key:$.cookie("key"),
+				type:"TOTAL"
+			};
+	}
+	$.get("listposts",d,function(d){
+		console.log(d);
+    if ("response" in d) {
+    	a=new Messages(d);
+    	console.log(a);
+    	    // add and lay out newly prepended items
+    	   $items=a.HTML()
+		$(".grid").append($items).masonry( 'appended', $items ).masonry();
+		setTimeout(function(){
+			$('pre code').each(function(i, e) {hljs.highlightBlock(e); setTimeout(function(){hljs.lineNumbersBlock(e);},1000); }); 
+		},1000);
 		
-	},500);
-	setTimeout(function(){
-		if(o==0) {
-			window.dispatchEvent(new Event('resize'))
-		}
-		o+=1;
-	},1000);
-});
-$(".overlay").click(function(){
-	console.log($(this));
-	$("#editor").removeClass("hh");
-	$(this).addClass("hidden");
-	setTimeout(function(){
-		$(".grid").masonry();
+  }
+	});
+}
+init();
+// $("#editor").click(function(){
+// 	$(this).addClass("hh");
 
-	},500);
+// 	$(".overlay").removeClass("hidden");
+// 	setTimeout(function(){
+// 		$(".grid").masonry();
+		
+// 	},500);
+// 	setTimeout(function(){
+// 		if(o==0) {
+// 			window.dispatchEvent(new Event('resize'))
+// 		}
+// 		o+=1;
+// 	},1000);
+// });
+// $(".overlay").click(function(){
+// 	console.log($(this));
+// 	$("#editor").removeClass("hh");
+// 	$(this).addClass("hidden");
+// 	setTimeout(function(){
+// 		$(".grid").masonry();
 
-});
+// 	},500);
+
+// });
+
+})
 </script>

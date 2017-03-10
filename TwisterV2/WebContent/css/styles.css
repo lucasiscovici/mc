@@ -176,7 +176,8 @@ h1,h2,h3 {
 {
    resize: none;
 }
-  
+  .well {
+  position:relative !important;}
 .badge{
    color:#3B5999;
    background-color:#fff;

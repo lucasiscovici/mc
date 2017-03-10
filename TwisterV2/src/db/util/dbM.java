@@ -129,6 +129,9 @@ public abstract class dbM implements db_crud {
 	
 	public boolean RemoveMongoWith(Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException, LucasException {
 		// TODO Auto-generated method stub
+		if (params==null) {
+			params=new Parameters();
+		}
 		return db_Helper.deleteMongoOK(_My_Table, params.copy().change("id", "_id"));
 	}
 	
