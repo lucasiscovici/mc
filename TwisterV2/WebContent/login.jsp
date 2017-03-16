@@ -185,6 +185,7 @@ $(function(){
 	    c=[];
 	    g.set_prompt("[[;GREEN;]"+text+": ]");
     g.reset();
+    g.set_mask(false);
     
     return false;
   }
@@ -202,7 +203,8 @@ $(function(){
 		    c=[];
 		    g.set_prompt("[[;GREEN;]"+text+": ]");
 	    g.reset();
-	    
+	    g.set_mask(false);
+
 	    
 	    return false;
 	  }

@@ -21,7 +21,7 @@ import util.io;
 
 /**
  * Classe du service Ajouter Post
- * GET: KEY + TEXT 
+ * GET: KEY + TEXT + TITLE + LG + (DESCRIPTION)
  * OUT: RESPONSE:ID=X
  */
 
@@ -103,7 +103,7 @@ public class SAddPost extends Service {
 	@Override
 	public String[] giveGetEntry() {
 		// TODO Auto-generated method stub
-		return Dico.vs_ak("text");
+		return Dico.vs_ak("text", "title", "lg");
 	}
 	
 	/**

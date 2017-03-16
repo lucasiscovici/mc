@@ -19,7 +19,7 @@
                     </form>
                     <ul class="nav navbar-nav">
                       <li>
-                        <a href="posts" id="home"><i class="glyphicon glyphicon-home"></i> Home</a>
+                        <a href="posts" id="home"><i class="glyphicon glyphicon-home"></i> ${qui}</a>
                       </li>
                       <li>
                         <a href="matrix" id="wall"><i class="glyphicon glyphicon-home"></i> Wall</a>
@@ -29,10 +29,6 @@
                       </li>
                       <li>
                         <a href="#" id="logout"> Logout</a>
-                      </li>
-                      <li style="float:right;"> 
-                      HELLO ${qui}
-                      
                       </li>
                     </ul>
                   	</nav>

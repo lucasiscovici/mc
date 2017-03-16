@@ -26,6 +26,8 @@ public class db_Post_Helper extends dbM {
 
 	public static String date = "date";
 	public static String text = "text";
+	public static String title = "title";
+	public static String lg = "lg";
 	public static String id_user = "id_user";
 	
 	public static String id_friend = "id_friend";
@@ -153,7 +155,7 @@ public class db_Post_Helper extends dbM {
 		p2.AddParam(date, Usefull.currentDate());
 		p2.AddParam(id_user, db_Session_Helper.c().getIdWithKey(params));
 
-		p2 = p2.PS(text, id_user, date);
+		p2 = p2.PS(text, id_user, date, title, lg);
 
 		if (InsertMongoOK(p2)) {
 			//io.print(p2);

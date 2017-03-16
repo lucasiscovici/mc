@@ -41,16 +41,42 @@ z-index: 999;
     z-index: 999;
     
     }
+    .langageSelect {
+		margin-left: 30px;
+	    background-color: #3B5999;
+	    color: #ffffff;
+	    height: 35px;
+	}
+	.inputTitle {
+		border: 0;
+	    color: #000000;
+	    left: 50%;
+	    width: 100%;
+	    text-align: center;
+	    height: 30px;
+	    vertical-align: middle;
+	    background-color: rgb(229, 229, 229);
+	}
 </style>
                                    <form id="form_post" class="form-horizontal" role="form" action="addpost" method="GET" >
-                                    <h4>Publier un code</h4>
+                                    <h4><input class="inputTitle" type="text" id="form_title" placeholder="Post's Title" name="title" /></h4>
+                                    <textarea id="form_description" name="description"></textarea>
                                      <div class="form-group" style="padding:14px;">
-                                      <div id="editor" class="" placeholder="En java ..."></div>
+<!--                                       <div id="editor" class="">Java...</div> -->
                                     <input type="hidden" id="key" value="${key}" name="key"/>
                                     </div>
                                       <div class="form-group">
-                                    
-                                    <button class="btn btn-primary pull-right" type="button" id="post">Post</button>
+                                    <div style="float: left;">
+	                                    <select name="lg" id="form_lg" class="langageSelect">
+	                                    	<option value="rien">Quel Language ?</option>
+	                                    	<option value="java">Java</option>
+	                                    	<option value="javascript">Javascript</option>
+	                                    	<option value="c">C</option>
+	                                    	<option value="php">Php</option>
+	                                    	<option value="bash">Bash</option>
+	                                    </select>
+                                    </div>
+                                    <button style="margin-right: 30px; width: 80px;" class="btn btn-primary pull-right" type="button" id="post">Post</button>
                                  </div>
                                   </form>
                            
@@ -76,7 +102,7 @@ z-index: 999;
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 <script type="text/javascript">
 
-
+messages_list=null;
 $(function(){
 	
 o=0;
@@ -95,6 +121,7 @@ function init(){
 		console.log(d);
     if ("response" in d) {
     	a=new Messages(d);
+    	messages_list=a;
     	console.log(a);
     	    // add and lay out newly prepended items
     	   $items=a.HTML()

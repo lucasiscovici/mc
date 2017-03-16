@@ -26,8 +26,8 @@ import util.io;
 class test {
 	public static void main(String[] args) throws ClassNotFoundException, IOException, JSONException, LucasException, SQLException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		// "key","0d352077-ed92-4738-ba80-f389eed2d3ce"
-		String key = "881dd223-ded7-4aa9-9572-c6514c4bc9f5";
-	Usefull.isLocale = true;
+		String key = "1d9bd066-146c-4e62-bf94-2291784e45c5";
+	//Usefull.isLocale = true;
 		//new SAddComment(Dico.toP("text","dd","id_post","qfsqfsq","key","0d352077-ed92-4738-ba80-f389eed2d3ce")).print();
 		//io.print(new db_Session_Helper().SeectWith(null));
 		//new SCreateUser(Dico.toP("login","lulupefffrets","password","password","email","luluzfvxc")).print(); //-> code 1, User already exist -> OK
@@ -41,7 +41,7 @@ class test {
 		//new SAddFriend(Dico.toP("key",key,"id_friend","7")).print();
 	//new SListFriends(Dico.toP("key",key)).print();
 		//new SRemoveFriend(Dico.toP("key","14945d4d-d77f-4c18-94f6-69839b297a77","id_friend","1")).print();
-	 new SListPosts(Dico.toP("key",key,"type","ALL","date_min","1489093833000")).print();
+	// new SListPosts(Dico.toP("key",key,"type","ALL","date_min","1489093833000")).print();
 //slp.print(); 
 		//io.print(slp.to_bean());
 		//new SAddPost(Dico.toP("key",key,"text","test")).print(); //58a4c12b77c879b41828823e

@@ -8,6 +8,8 @@
       <div class="modal-body">
           <form class="form center-block">
             <div class="form-group">
+              <textarea style="border-bottom: ;" class="form-control input-lg" autofocus="" placeholder="Title's post"></textarea>
+              <div style="height: 10px; background-color: #DCDCDC;"></div>
               <textarea class="form-control input-lg" autofocus="" placeholder="What do you want to share?"></textarea>
             </div>
           </form>
