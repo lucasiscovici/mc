@@ -65,7 +65,7 @@ z-index: 999;
                 
               	<c:import url="nav.jsp"/>
               	<div style="margin-top: 70px; top: 0; position: fixed;"> 
-              <div class=" bare bleu" onclick="$('#postModal').toggleClass('hidden');"><span class="centerH"><i class="glyphicon glyphicon-plus"></i></span></div>
+              <div class=" bare bleu" onclick="$('#postModal').toggleClass('hidden');openModalPost();"><span class="centerH"><i class="glyphicon glyphicon-plus"></i></span></div>
 </div>
                 <div class="padding" style="margin-top:50px;">
                     <div class="grid">
@@ -95,6 +95,11 @@ z-index: 999;
 <script type="text/javascript">
 
 messages_list=null;
+function openModalPost(){
+	$("#form_title").val()='';
+	$("#editor").val()='';
+	$("#form_description").val()='';
+}
 $(function(){
 	
 o=0;
