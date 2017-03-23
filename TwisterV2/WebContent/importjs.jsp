@@ -48,7 +48,7 @@ $("#post").click(function(){
 	}
 
 	//text:_.escape(editor.getValue())}
-	$.post($("#form_post").attr("action"),{text:" ",key:$("#key").val(),lg:$("#form_lg").val(),title:$("#form_title").val()},function(f){console.log(f);window.location.href=window.location.href;window.location.reload();});
+	$.post($("#form_post").attr("action"),{text:_.escape(editor.getValue()),key:$("#key").val(),lg:$("#form_lg").val(),title:$("#form_title").val(),description:$("#form_description").val()},function(f){console.log(f);window.location.href=window.location.href;window.location.reload();});
 });
 	
 

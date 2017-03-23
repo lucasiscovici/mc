@@ -155,7 +155,7 @@ public class db_Post_Helper extends dbM {
 		p2.AddParam(date, Usefull.currentDate());
 		p2.AddParam(id_user, db_Session_Helper.c().getIdWithKey(params));
 
-		p2 = p2.PS(text, id_user, date, title, lg);
+		p2 = p2.PS(text, id_user, date, title, lg,"description");
 
 		if (InsertMongoOK(p2)) {
 			//io.print(p2);
@@ -312,7 +312,12 @@ public class db_Post_Helper extends dbM {
 		Parameters p2 = params.copy().AddParam(id_user,idFromKey );
 		Parameters p3 =  SelectMongoWith(id_user, p2);
 		for (Dico d : p3.parameters) {
+			Parameters dicop = d.toPa();
 			d.addD("login", db_User_Helper.c().getXWithX("login", Dico.toP("id",d.toPa().getValue("id_user"))).getValue("login"));
+			int nb_likes = db_Like_Helper.c().ListLikesFromIdPost(dicop.getDico("id").toPa().change("id", "id_post")).parameters.size();
+			int nb_coms = db_Comment_Helper.c().ListPostsFromIdPost(dicop.getDico("id").toPa().change("id", "id_post")).parameters.size();
+			d.addD("nb_likes", nb_likes);
+			d.addD("nb_coms", nb_coms);
 		}
 		return p3;
 	}

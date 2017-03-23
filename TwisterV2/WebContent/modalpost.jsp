@@ -1,4 +1,4 @@
-<div id="postModal" class="hidden" style="position:fixed;width:100vw;height:100vh;top:0px;left:0px;background-color: #161616;z-index: 277;">
+<div id="postModal" class="hidden" style="position:fixed;width:100vw;height:100vh;top:0px;left:0px;background-color: #161616;z-index: 27777;">
 
           <form id="form_post" class="form-horizontal" role="form" action="addpost" method="GET" >
           	<span onclick="$('#postModal').toggleClass('hidden');openModalPost();" style="cursor:pointer"><img style="position: absolute; top: 0; right: 0; margin-top: 10px;" width="30px" src="http://li328.lip6.fr:8280/TwisterV2/img/fermer.png" /></span>

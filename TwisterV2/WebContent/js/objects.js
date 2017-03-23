@@ -40,6 +40,9 @@
 	    arr.title = that.title;
 	    arr.lg = that.language;
 	    arr.index=that.pos;
+	    arr.nb_likes=that.nb_like;
+	    arr.nb_coms=that.nb_comments;
+	    arr.cl = arr.desc == null ? "hidden" : "" ;
 	  return template(arr,"message");
   }
 
@@ -64,7 +67,7 @@
    //if (typeof(this.m)=="object")
     for (var i = 0; i < this.m.length; i++) {
     	this.m[i].pos=i;
-  	  this.mess.push(new Message(this.m[i]));
+  	  this.mess.unshift(new Message(this.m[i]));
     }
     }
     } 

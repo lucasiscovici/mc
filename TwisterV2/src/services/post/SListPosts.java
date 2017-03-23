@@ -82,7 +82,7 @@ public class SListPosts extends ServiceList {
 						messages = dPH.listPostFromFriendsMoreLogin(params);
 					} else if (Vtype.equals("ALL")) { // TYPE=ALL -
 						messages = dPH.SelectMongoWith();
-					}else if (Vtype.equals("TOTAL")) { // TYPE=ALL -
+					}else if (Vtype.equals("TOTAL")) { // TYPE=TOTAL -
 						messages = dPH.total(params);
 					} else {
 						RespS.c(this, Error.ErrArgs);

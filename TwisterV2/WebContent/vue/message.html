@@ -1,10 +1,12 @@
-<div class="grid-item col-xs-offset-1 col-xs-10 col-lg-4 col-lg-offset-4 col-md-offset-2 col-md-8" style="background-color: ghostwhite; border-radius: 2%;" data-index="{{index}}">
+<div class="grid-item col-xs-offset-1 col-xs-10 col-lg-4 col-lg-offset-4 col-md-offset-2 col-md-8" style="background-color: ghostwhite; border-radius: 2%; margin-bottom:10px;" data-index="{{index}}">
                        <div style="text-align: center;">
                          <h3>{{name}}</h3>
-<h3>{{title}}</h3>
+<h4>{{title}}</h4>
 
-<p>{{desc}}</p>
-                         
+<p class="{{cl}}" style="white-space: pre-wrap;">{{desc}}</p>
+                
+               <p><span>{{nb_likes}}<i class="glyphicon glyphicon-heart
+               "></i></span><span>{{nb_coms}}<i class="glyphicon glyphicon-comment"></i></span></p>         
                          
   </div>
                                

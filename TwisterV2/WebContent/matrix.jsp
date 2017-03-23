@@ -5,7 +5,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<link href="/TwisterV2/css/bootstrap.min.css" rel="stylesheet">
+<link href="/TwisterV2/css/bootstrap.css" rel="stylesheet">
 <link href="/TwisterV2/css/styles.css" rel="stylesheet">
 
  <style>
@@ -54,20 +54,20 @@ z-index: 999;
 	}
 </style>							
                         
-<div class="wrapper">
+<div class="container-fluid" style="padding: 0;">
 <div class="overlay hidden" style="position:fixed;width:100%;height:100%;z-index:99;"></div>
-    <div class="box">
-        <div class="row row-offcanvas row-offcanvas-left">
+
                       
           
-            <div class="column col-sm-12 col-xs-12" id="main">
                 
               	<c:import url="nav.jsp"/>
-              	<div style="margin-top: 70px; top: 0; position: fixed;"> 
+              	     
+              	
+              	<div style="margin-top: 70px;z-index: 88; top: 0; position: fixed;"> 
               <div class=" bare bleu" onclick="$('#postModal').toggleClass('hidden');"><span class="centerH"><i class="glyphicon glyphicon-plus"></i></span></div>
 </div>
-                <div class="padding" style="margin-top:50px;">
-                    <div class="grid">
+                <div class="row">
+                    <div class="grid" style="margin-top:140px">
                       
                           
                                
@@ -77,11 +77,7 @@ z-index: 999;
                     
                       
                     </div>
-                </div>
-            </div>
-            
-          
-        </div>
+
 </div>
 
 <div class="hidden" data-template="message">
