@@ -34,9 +34,12 @@
   function getHTML(that) {
 	  html ="";
 	  arr={};
-    arr.text = that.text;
-    arr.name = that.login;
-    arr.index=that.pos;
+	  arr.text = that.text;
+	    arr.name = that.login;
+	    arr.desc = that.description;
+	    arr.title = that.title;
+	    arr.lg = that.language;
+	    arr.index=that.pos;
 	  return template(arr,"message");
   }
 

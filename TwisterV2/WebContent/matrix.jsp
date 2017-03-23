@@ -24,8 +24,7 @@
 }
 .bare:hover{
 cursor:pointer;}
-</style>
- <style>
+
                      .hh{
                      height:90vh !important;
                      }
@@ -88,9 +87,12 @@ z-index: 999;
 <div class="hidden" data-template="message">
 <c:import url="vue/message.html" />
 </div>
-<c:import url="modalpost.jsp"/>
 
+
+<c:import url="modalpost.jsp"/>
 <c:import url="importjs.jsp"/>
+
+
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 <script type="text/javascript">
 
@@ -99,6 +101,7 @@ $(function(){
 	
 o=0;
 fd="${que}";
+
 function init(){
 	d ={};
 	if(fd=="posts") {
@@ -109,13 +112,13 @@ function init(){
 				type:"TOTAL"
 			};
 	}
+	
 	$.get("listposts",d,function(d){
 		console.log(d);
     if ("response" in d) {
     	a=new Messages(d);
     	messages_list=a;
-    	console.log(a);
-    	    // add and lay out newly prepended items
+
     	   $items=a.HTML()
 		$(".grid").append($items).masonry( 'appended', $items ).masonry();
 		setTimeout(function(){
