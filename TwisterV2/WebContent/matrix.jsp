@@ -25,25 +25,7 @@
 .bare:hover{
 cursor:pointer;}
 </style>
-
-<div class="wrapper">
-<div class="overlay hidden" style="position:fixed;width:100%;height:100%;z-index:99;"></div>
-    <div class="box">
-        <div class="row row-offcanvas row-offcanvas-left">
-                      
-          
-            <div class="column col-sm-12 col-xs-12" id="main">
-                
-              	<c:import url="nav.jsp"/>
-              	<div style="margin-top: 70px; top: 0; position: fixed;"> 
-              <div class=" bare bleu" onclick="$('#postModal').toggleClass('hidden');"><span class="centerH"><i class="glyphicon glyphicon-plus"></i></span></div>
-</div>
-                <div class="padding" style="margin-top:50px;">
-                    <div class="grid">
-                      
-                      	<div class="grid-item well col-xs-offset-1 col-xs-10 col-lg-8 col-lg-offset-2 col-md-offset-2 col-md-8" style="padding:0;">
-                          
-                     <style>
+ <style>
                      .hh{
                      height:90vh !important;
                      }
@@ -72,10 +54,25 @@ z-index: 999;
 	    background-color: rgb(229, 229, 229);
 	}
 </style>							
-									<div style="height: 15px;"></div>
-                                   
+                        
+<div class="wrapper">
+<div class="overlay hidden" style="position:fixed;width:100%;height:100%;z-index:99;"></div>
+    <div class="box">
+        <div class="row row-offcanvas row-offcanvas-left">
+                      
+          
+            <div class="column col-sm-12 col-xs-12" id="main">
+                
+              	<c:import url="nav.jsp"/>
+              	<div style="margin-top: 70px; top: 0; position: fixed;"> 
+              <div class=" bare bleu" onclick="$('#postModal').toggleClass('hidden');"><span class="centerH"><i class="glyphicon glyphicon-plus"></i></span></div>
+</div>
+                <div class="padding" style="margin-top:50px;">
+                    <div class="grid">
+                      
+                          
+                               
                            
-                       </div>
                     
                        </div>
                     

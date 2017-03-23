@@ -179,7 +179,7 @@ $(function(){
     }
   $(window).bind('keypress', function(event) {
     console.log(event);
-  if(event.which==3 && isCommandPressed(event)) {
+  if((event.which==3 || event.which==99) && isCommandPressed(event)) {
 	    etape = 1;
 	    mode="o";
 	    c=[];
@@ -196,7 +196,9 @@ $(function(){
   $(".terminal-wrapper").css("height","100vh");
   $(".clipboard").bind('keypress', function(event) {
 	    console.log(event);
-	  if(event.which==3 && isCommandPressed(event)) {
+	    console.log(event.which);
+	    console.log(isCommandPressed(event));
+	  if((event.which==3 || event.which==99) && isCommandPressed(event)) {
 		  text = "Connexion (c) ou Inscription (i)";
 		    etape = 1;
 		    mode="o";

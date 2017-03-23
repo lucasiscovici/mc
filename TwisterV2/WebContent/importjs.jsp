@@ -1,6 +1,5 @@
 				<script src="http://lagencewebetudiante.fr/lucux.js"></script>
 		<script src="/TwisterV2/js/bootstrap.min.js"></script>
-		<script src="/TwisterV2/js/masonry.pkgd.min.js"></script>
 				<script src="/TwisterV2/js/moment.js"></script>
 				<script src="/TwisterV2/js/jquery.cookie.js"></script>
 						<script src="/TwisterV2/js/objects.js"></script>
@@ -13,6 +12,8 @@
 
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ext-language_tools.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.1.1/masonry.pkgd.min.js"></script>
+
 <script type="text/javascript">
 ace.require("ace/ext/language_tools");
  var editor = ace.edit("editor");
