@@ -12,6 +12,16 @@
 .glyphicon:empty {
     height: 20px;
 }
+.bleu{
+	background-color: #3b5999 !important;
+	width: 100%;
+	text-align: center;
+	color: #FFFFFF;
+	position: fixed;
+	height: 35px;
+	z-index: 9;
+	vertical-align: center;
+}
 </style>
 
 <div class="wrapper">
@@ -23,7 +33,9 @@
             <div class="column col-sm-12 col-xs-12" id="main">
                 
               	<c:import url="nav.jsp"/>
-              
+              	<div style="margin-top: 70px; top: 0; position: fixed;"> 
+              <div class="bleu"><span class="centerH"><a href="#postModal" style="color: #ffffff;" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i></a></span></div>
+</div>
                 <div class="padding" style="margin-top:50px;">
                     <div class="grid">
                       
@@ -35,7 +47,7 @@
                      }
 #editor{
 z-index: 999;
-    height: 15px;
+    height: 150px;
     }
     #form_post{
     z-index: 999;
@@ -57,11 +69,12 @@ z-index: 999;
 	    vertical-align: middle;
 	    background-color: rgb(229, 229, 229);
 	}
-</style>
+</style>							
+									<div style="height: 15px;"></div>
                                    <form id="form_post" class="form-horizontal" role="form" action="addpost" method="GET" >
                                     <h4><input class="inputTitle" type="text" id="form_title" placeholder="Post's Title" name="title" /></h4>
-                                    <textarea id="form_description" name="description"></textarea>
-                                     <div class="form-group" style="padding:14px;">
+                                   <div id="editor" style="width:100%;"></div>
+                                     <div class="form-group" style="padding:1px;">
 <!--                                       <div id="editor" class="">Java...</div> -->
                                     <input type="hidden" id="key" value="${key}" name="key"/>
                                     </div>
@@ -76,6 +89,7 @@ z-index: 999;
 	                                    	<option value="bash">Bash</option>
 	                                    </select>
                                     </div>
+                                    <div style="width: 100%; height: 35px;"><input type="text" name="description" placeholder="Description...." /></div>
                                     <button style="margin-right: 30px; width: 80px;" class="btn btn-primary pull-right" type="button" id="post">Post</button>
                                  </div>
                                   </form>

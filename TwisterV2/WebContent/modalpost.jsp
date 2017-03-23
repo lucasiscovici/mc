@@ -1,18 +1,32 @@
 <div id="postModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog">
-  <div class="modal-content">
+  <div class="modal-dialog" style="width: 100%; height: 100%;">
+  <div class="modal-content" style="width: 100%; height: 100%;">
       <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 			Update Status
       </div>
       <div class="modal-body">
-          <form class="form center-block">
-            <div class="form-group">
-              <textarea style="border-bottom: ;" class="form-control input-lg" autofocus="" placeholder="Title's post"></textarea>
-              <div style="height: 10px; background-color: #DCDCDC;"></div>
-              <textarea class="form-control input-lg" autofocus="" placeholder="What do you want to share?"></textarea>
-            </div>
-          </form>
+          <form id="form_post" class="form-horizontal" role="form" action="addpost" method="GET" >
+                                    <h4><input class="inputTitle" type="text" id="form_title" placeholder="Post's Title" name="title" /></h4>
+                                   <div id="editor" style="width:100%;"></div>
+                                     <div class="form-group" style="padding:1px;">
+                                    <input type="hidden" id="key" value="${key}" name="key"/>
+                                    </div>
+                                      <div class="form-group">
+                                    <div style="float: left;">
+	                                    <select name="lg" id="form_lg" class="langageSelect">
+	                                    	<option value="rien">Quel Language ?</option>
+	                                    	<option value="java">Java</option>
+	                                    	<option value="javascript">Javascript</option>
+	                                    	<option value="c">C</option>
+	                                    	<option value="php">Php</option>
+	                                    	<option value="bash">Bash</option>
+	                                    </select>
+                                    </div>
+                                    
+                                    <button style="margin-right: 30px; width: 80px;" class="btn btn-primary pull-right" type="button" id="post">Post</button>
+                                 </div>
+                                  </form>
       </div>
       <div class="modal-footer">
           <div>
@@ -23,3 +37,33 @@
   </div>
   </div>
 </div>
+
+
+ <style>
+	.hh{
+		height:90vh !important;
+	}
+	#editor{
+		z-index: 999;
+		height: 150px;
+	}
+	#form_post{
+		z-index: 999;
+	}
+	.langageSelect {
+		margin-left: 30px;
+		background-color: #3B5999;
+		color: #ffffff;
+		height: 35px;
+	}
+	.inputTitle {
+		border: 0;
+		color: #000000;
+		left: 50%;
+		width: 100%;
+		text-align: center;
+		height: 30px;
+		vertical-align: middle;
+		background-color: rgb(229, 229, 229);
+	}
+</style>

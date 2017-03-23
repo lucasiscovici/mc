@@ -52,8 +52,9 @@
     this.mess=[];
     if (typeof(this.m)=="string"){
     	this.m = [];
-    }
-    if (typeof(this.m)=="object"){
+    }else{
+    	console.log(typeof(this.m));
+    if (typeof(this.m)=="object" && !$.isArray(this.m)){
     	this.m.pos=0;
     	this.mess.push(new Message(this.m));
     }else{
@@ -63,6 +64,7 @@
   	  this.mess.push(new Message(this.m[i]));
     }
     }
+    } 
   }
 	Messages.prototype.HTML = function() {
 		return getHTML(this);
