@@ -1,7 +1,9 @@
 <div id="postModal" class="hidden" style="position:fixed;width:100vw;height:100vh;top:0px;left:0px;background-color: #161616;z-index: 277;">
           <form id="form_post" class="form-horizontal" role="form" action="addpost" method="GET" >
+          	<a href="/TwisterV2"><img style="position: absolute; top: 0; right: 0; margin-top: 10px;" width="30px" src="http://li328.lip6.fr:8280/TwisterV2/img/fermer.png" /></a>
                                     <h4><input class="inputTitle" type="text" id="form_title" placeholder="Post's Title" name="title" /></h4>
-                                   <div id="editor" style="width:100%;height:80vh"></div>
+                                    <h4><input class="inputTitle" type="text" id="form_description" placeholder="#Description..." name="description" /></h4>
+                                   <div id="editor" style="width:100%;height:78vh; margin-top: 5px;"></div>
                                      <div class="form-group" style="padding:1px;">
                                     <input type="hidden" id="key" value="${key}" name="key"/>
                                     </div>
@@ -49,6 +51,6 @@
 		text-align: center;
 		height: 30px;
 		vertical-align: middle;
-		background-color: rgb(229, 229, 229);
+		background-color: white;
 	}
 </style>

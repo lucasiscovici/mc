@@ -36,7 +36,7 @@ cursor:pointer;}
                 
               	<c:import url="nav.jsp"/>
               	<div style="margin-top: 70px; top: 0; position: fixed;"> 
-              <div class=" bare bleu" onclick="$('#postModal').toggleClass('hidden');"><span class="centerH"><a href="#postModal" style="color: #ffffff;" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i></a></span></div>
+              <div class=" bare bleu" onclick="$('#postModal').toggleClass('hidden');"><span class="centerH"><i class="glyphicon glyphicon-plus"></i></span></div>
 </div>
                 <div class="padding" style="margin-top:50px;">
                     <div class="grid">
