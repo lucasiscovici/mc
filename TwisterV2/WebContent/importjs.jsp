@@ -12,13 +12,23 @@
 <script>hljs.initHighlightingOnLoad();</script>
 
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ext-language_tools.js"></script>
 <script type="text/javascript">
+ace.require("ace/ext/language_tools");
  var editor = ace.edit("editor");
-editor.setTheme("ace/theme/iplastic");
-editor.getSession().setMode("ace/mode/java");
+editor.setTheme("ace/theme/chaos");
 var editorDiv = document.getElementById("editor");     // its container
 var doc = editor.getSession().getDocument();  // a reference to the doc
+var sess = editor.getSession();
+function setSessionMode(lg){
+	sess.setMode("ace/mode/"+lg);
+}
+editor.setOptions({
+    enableBasicAutocompletion: true,
+    enableSnippets: true,
+    enableLiveAutocompletion: false
+});
+setSessionMode("java");
 
 // editor.on("change", function() {
 //     var lineHeight = 16;                 // assuming a 16px line height

@@ -14,7 +14,7 @@ filter: grayscale(100%);
 <link href="https://fonts.googleapis.com/css?family=Caveat+Brush" rel="stylesheet">
 <title>Twister</title>
 </head>
-<body style='background-color:#00FFFF'>
+<body style='background-color:white'>
 
 
 <% if (request.getAttribute("type").equals("home") || request.getAttribute("type").equals("matrix")){%>

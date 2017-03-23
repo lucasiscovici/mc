@@ -1,4 +1,4 @@
-<div class="navbar navbar-blue navbar-static-top">  
+<div class="navbar navbar-blue navbar-static-top" style="z-index:99;">  
                     <div class="navbar-header">
                       <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="sr-only">Toggle</span>

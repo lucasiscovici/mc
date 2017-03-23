@@ -22,6 +22,8 @@
 	z-index: 9;
 	vertical-align: center;
 }
+.bare:hover{
+cursor:pointer;}
 </style>
 
 <div class="wrapper">
@@ -34,7 +36,7 @@
                 
               	<c:import url="nav.jsp"/>
               	<div style="margin-top: 70px; top: 0; position: fixed;"> 
-              <div class="bleu"><span class="centerH"><a href="#postModal" style="color: #ffffff;" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i></a></span></div>
+              <div class=" bare bleu" onclick="$('#postModal').toggleClass('hidden');"><span class="centerH"><a href="#postModal" style="color: #ffffff;" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i></a></span></div>
 </div>
                 <div class="padding" style="margin-top:50px;">
                     <div class="grid">
@@ -71,28 +73,7 @@ z-index: 999;
 	}
 </style>							
 									<div style="height: 15px;"></div>
-                                   <form id="form_post" class="form-horizontal" role="form" action="addpost" method="GET" >
-                                    <h4><input class="inputTitle" type="text" id="form_title" placeholder="Post's Title" name="title" /></h4>
-                                   <div id="editor" style="width:100%;"></div>
-                                     <div class="form-group" style="padding:1px;">
-<!--                                       <div id="editor" class="">Java...</div> -->
-                                    <input type="hidden" id="key" value="${key}" name="key"/>
-                                    </div>
-                                      <div class="form-group">
-                                    <div style="float: left;">
-	                                    <select name="lg" id="form_lg" class="langageSelect">
-	                                    	<option value="rien">Quel Language ?</option>
-	                                    	<option value="java">Java</option>
-	                                    	<option value="javascript">Javascript</option>
-	                                    	<option value="c">C</option>
-	                                    	<option value="php">Php</option>
-	                                    	<option value="bash">Bash</option>
-	                                    </select>
-                                    </div>
-                                    <div style="width: 100%; height: 35px;"><input type="text" name="description" placeholder="Description...." /></div>
-                                    <button style="margin-right: 30px; width: 80px;" class="btn btn-primary pull-right" type="button" id="post">Post</button>
-                                 </div>
-                                  </form>
+                                   
                            
                        </div>
                     
