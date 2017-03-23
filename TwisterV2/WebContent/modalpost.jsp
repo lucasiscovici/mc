@@ -60,8 +60,11 @@
 
 function openModalPost(){
 	$("#form_title").val('');
-	editor.setValue("");
 	$("#form_description").val('');
+	
+	setTimeout(function(){
+		editor.setValue("");
+	},1000);
 }
 
 </script>
