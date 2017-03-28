@@ -23,35 +23,35 @@
 	vertical-align: center;
 }
 .bare:hover{
-cursor:pointer;}
+	cursor:pointer;
+}
 
-                     .hh{
-                     height:90vh !important;
-                     }
+.hh{
+	height:90vh !important;
+}
 #editor{
-z-index: 999;
+	z-index: 999;
     height: 150px;
-    }
-    #form_post{
-    z-index: 999;
-    
-    }
-    .langageSelect {
-		margin-left: 30px;
-	    background-color: #3B5999;
-	    color: #ffffff;
-	    height: 35px;
-	}
-	.inputTitle {
-		border: 0;
-	    color: #000000;
-	    left: 50%;
-	    width: 100%;
-	    text-align: center;
-	    height: 30px;
-	    vertical-align: middle;
-	    background-color: rgb(229, 229, 229);
-	}
+}
+#form_post{
+	z-index: 999;
+}
+.langageSelect {
+	margin-left: 30px;
+	background-color: #3B5999;
+	color: #ffffff;
+	height: 35px;
+}
+.inputTitle {
+	border: 0;
+	color: #000000;
+	left: 50%;
+	width: 100%;
+	text-align: center;
+	height: 30px;
+	vertical-align: middle;
+	background-color: rgb(229, 229, 229);
+}
 </style>							
                         
 <div class="container-fluid" style="padding: 0;">
@@ -64,7 +64,7 @@ z-index: 999;
               	     
               	
               	<div style="margin-top: 70px;z-index: 88; top: 0; position: fixed;"> 
-              <div class=" bare bleu" onclick="$('#postModal').toggleClass('hidden');"><span class="centerH"><i class="glyphicon glyphicon-plus"></i></span></div>
+              <div class="bare bleu" onclick="$('#postModal').toggleClass('hidden');"><span class="centerH"><i class="glyphicon glyphicon-plus"></i></span></div>
 </div>
                 <div class="row">
                     <div class="grid" style="margin-top:140px">
@@ -82,10 +82,12 @@ z-index: 999;
 
 <div class="hidden" data-template="message">
 <c:import url="vue/message.html" />
+<c:import url="modalpostLecture.jsp"/>
 </div>
 
 
 <c:import url="modalpost.jsp"/>
+
 <c:import url="importjs.jsp"/>
 
 
