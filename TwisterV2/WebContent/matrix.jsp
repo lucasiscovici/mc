@@ -5,7 +5,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<link href="/TwisterV2/css/bootstrap.css" rel="stylesheet">
+<link href="/TwisterV2/css/bootstrap.min.css" rel="stylesheet">
 <link href="/TwisterV2/css/styles.css" rel="stylesheet">
 
  <style>
@@ -82,11 +82,11 @@
 
 <div class="hidden" data-template="message">
 <c:import url="vue/message.html" />
-<c:import url="modalpostLecture.jsp"/>
 </div>
 
 
 <c:import url="modalpost.jsp"/>
+<c:import url="modalpostLecture.jsp"/>
 
 <c:import url="importjs.jsp"/>
 
@@ -115,18 +115,35 @@ function init(){
 		console.log(d);
     if ("response" in d) {
     	a=new Messages(d);
-    	messages_list=a;
+    	messages_list=a.mess;
 
     	   $items=a.HTML()
 		$(".grid").append($items).masonry( 'appended', $items ).masonry();
 		setTimeout(function(){
 			$('pre code').each(function(i, e) {hljs.highlightBlock(e);}); 
+			$(".title_mess").click(function(){
+				id=$(this).attr('data-index');
+				console.log(id);
+				console.log(messages_list)
+				console.log(messages_list[id])
+				$("#postModalLecture").toggleClass("hidden");
+				lg=messages_list[id].language;
+				if(lg=="c") {
+					lg="c_cpp";
+				}
+				setSessionMode2(lg);
+				editor2.setValue(messages_list[id].text);
+				$("#modal_title").html(messages_list[id].title);
+				$("#modal_desc").html(messages_list[id].description);
+				editor2.clearSelection();
+			});
 		},1000);
 		
   }
 	});
 }
 init();
+
 // $("#editor").click(function(){
 // 	$(this).addClass("hh");
 

@@ -1,7 +1,7 @@
 <div class="grid-item col-xs-offset-1 col-xs-10 col-lg-4 col-lg-offset-4 col-md-offset-2 col-md-8" style="background-color: ghostwhite; border-radius: 2%; margin-bottom:10px;" data-index="{{index}}">
 	<div style="text-align: center;">
 		<h3>{{name}}</h3>
-		<h4><a onclick="$('#postModalLecture{{index}}').toggleClass('hidden');">{{title}}</a></h4>
+		<h4 class="title_mess" data-index="{{index}}">{{title}}</h4>
 		<p class="{{cl}}" style="white-space: pre-wrap;">{{desc}}</p>
         <p>
         	<span>{{nb_likes}}<i class="glyphicon glyphicon-heart"></i>
