@@ -93,10 +93,20 @@
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 <script type="text/javascript">
-
+env={};
+me=null;
 messages_list=null;
+env.messages_list=messages_list;
+env.me=me;
 $(function(){
-	
+	$.getJSON("listusers",{
+		key:$.cookie("key"),
+	}, function(d){
+		console.log(d);
+		a=new Mes(d);
+		me=a.users;
+		env.me=me;
+	})
 o=0;
 fd="${que}";
 
@@ -116,7 +126,7 @@ function init(){
     if ("response" in d) {
     	a=new Messages(d);
     	messages_list=a.mess;
-
+		env.messages_list=messages_list;
     	   $items=a.HTML()
 		$(".grid").append($items).masonry( 'appended', $items ).masonry();
 		setTimeout(function(){
@@ -132,9 +142,17 @@ function init(){
 					lg="c_cpp";
 				}
 				setSessionMode2(lg);
-				editor2.setValue(messages_list[id].text);
-				$("#modal_title").html(messages_list[id].title);
+				editor2.setValue(_.unescape(messages_list[id].text),-1);
 				$("#modal_desc").html(messages_list[id].description);
+				$("#modal_title").html(messages_list[id].title);
+				$("#modal_user").html(messages_list[id].login);
+				$("#likes").replace_motif("nb_likes",messages_list[id].nb_like);
+				$("#commentaire").replace_motif("nb_coms",messages_list[id].nb_comments);
+				messages_list[id].getLikes();
+				if (env.me.id in  messages_list[id].getLikes()) {
+					$("#likes").css("background-color","blue");
+				}
+				
 				editor2.clearSelection();
 			});
 		},1000);

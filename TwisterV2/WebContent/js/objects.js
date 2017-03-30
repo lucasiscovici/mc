@@ -1,11 +1,26 @@
-
+(function($){
+	$.fn.replace_motif = function(key,d){
+    	var e = $(this).html();
+    	$(this).html(replace_motif2(key,d,e));
+	};
+	function replace_motif2(key,d,ou){
+		var find = "{{"+key+"}}";
+    	var re = new RegExp(find, 'g');
+    	return ou.replace(re,d);
+    	
+	}
+})(jQuery);
 (function() {
+	function replace_motif(key,d,ou){
+		var find = "{{"+key+"}}";
+    	var re = new RegExp(find, 'g');
+    	return ou.replace(re,d);
+    	
+	}
 	function template(arr,name){
     html = $("[data-template='"+name+"']").html();
     for(key in arr){
-    	var find = "{{"+key+"}}";
-    	var re = new RegExp(find, 'g');
-       html = html.replace(re,arr[key]);
+       html = replace_motif(key,arr[key],html);
     }
     return html;
 	}
@@ -45,9 +60,51 @@
 	    arr.cl = arr.desc == null ? "hidden" : "" ;
 	  return template(arr,"message");
   }
+  
+  Message.prototype.getLikes = function(){
+	  return getLikes(this);
+  }
+  function getLikes(that){
+	  $.getJSON("listlikes",{
+		  key:$.cookie("key"),
+		  id_post:that.id
+	  },function(d){
+		  console.log(d);
+		  a=new Likes(d);
+		  that.likes=a.likes;
+	  });
+  }
 
   }());
+(function() {
 
+    if (typeof Me !== "undefined") {
+    return;
+  	}
+
+	this.Me = function(m) {
+		obj = m;
+    this.id=obj["id"];
+    this.prenom=obj["prenom"];
+    this.nom = obj["nom"];
+    this.login = obj["login"];
+     }
+
+
+  }());
+(function() {
+
+    if (typeof Like !== "undefined") {
+    return;
+  	}
+
+	this.Like = function(m) {
+		obj = m;
+    this.id=obj["id"];
+     }
+
+
+  }());
 (function() {
     if (typeof Messages !== "undefined") {
     return;
@@ -84,4 +141,56 @@
   }
 
   }(jQuery));
+(function() {
+    if (typeof Mes !== "undefined") {
+    return;
+  	}
+ var m = [];
+	this.Mes = function(m) {
+    this.m=m["response"]["users"];
+    this.users=[];
+    if (typeof(this.m)=="string"){
+    	this.m = [];
+    }else{
+    	console.log(typeof(this.m));
+    if (typeof(this.m)=="object" && !$.isArray(this.m)){
+    	this.m.pos=0;
+    	this.users.push(new Me(this.m));
+    }else{
+   //if (typeof(this.m)=="object")
+    for (var i = 0; i < this.m.length; i++) {
+    	this.m[i].pos=i;
+  	  this.users.unshift(new Me(this.m[i]));
+    }
+    }
+    } 
+  }
 
+  }(jQuery));
+
+(function() {
+    if (typeof Likes !== "undefined") {
+    return;
+  	}
+ var m = [];
+	this.Likes = function(m) {
+    this.m=m["response"]["likes"];
+    this.likes=[];
+    if (typeof(this.m)=="string"){
+    	this.m = [];
+    }else{
+    	console.log(typeof(this.m));
+    if (typeof(this.m)=="object" && !$.isArray(this.m)){
+    	this.m.pos=0;
+    	this.likes.push(new Like(this.m));
+    }else{
+   //if (typeof(this.m)=="object")
+    for (var i = 0; i < this.m.length; i++) {
+    	this.m[i].pos=i;
+  	  this.likes.unshift(new Like(this.m[i]));
+    }
+    }
+    } 
+  }
+
+  }(jQuery));

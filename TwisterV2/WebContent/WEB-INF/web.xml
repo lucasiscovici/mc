@@ -14,6 +14,10 @@
 		<servlet-class>servlet.user.CreateUser</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>ListUsers</servlet-name>
+		<servlet-class>servlet.user.ListUsers</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>AddFriend</servlet-name>
 		<servlet-class>servlet.friend.AddFriend</servlet-class>
 	</servlet>
@@ -85,6 +89,10 @@
 	<servlet-mapping>
 		<servlet-name>CreateUser</servlet-name>
 		<url-pattern>/createuser</url-pattern>
+	</servlet-mapping>
+		<servlet-mapping>
+		<servlet-name>ListUsers</servlet-name>
+		<url-pattern>/listusers</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>AddFriend</servlet-name>
