@@ -162,6 +162,9 @@ public abstract class dbM implements db_crud {
 	
 	public Parameters SelectMongoWith(Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException, LucasException {
 		// TODO Auto-generated method stub
+		if (params==null) {
+			return SelectMongoWith();
+		}
 		return db_Helper.selectMongo(_My_Table, params.copy().change("id", "_id"));
 
 	}

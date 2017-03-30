@@ -30,8 +30,20 @@
 		<servlet-class>servlet.post.ListPosts</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>ListLikes</servlet-name>
+		<servlet-class>servlet.like.ListLikes</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>AddPost</servlet-name>
 		<servlet-class>servlet.post.AddPost</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>AddLike</servlet-name>
+		<servlet-class>servlet.like.AddLike</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>RemoveLike</servlet-name>
+		<servlet-class>servlet.like.RemoveLike</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>Presentation</servlet-name>
@@ -108,8 +120,20 @@
 		<url-pattern>/listposts</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
+		<servlet-name>ListLikes</servlet-name>
+		<url-pattern>/listlikes</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>AddPost</servlet-name>
 		<url-pattern>/addpost</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AddLike</servlet-name>
+		<url-pattern>/addlike</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>RemoveLike</servlet-name>
+		<url-pattern>/removelike</url-pattern>
 	</servlet-mapping>
 <servlet-mapping>
 		<servlet-name>Matrix</servlet-name>

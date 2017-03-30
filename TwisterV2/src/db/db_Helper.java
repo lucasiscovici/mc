@@ -750,6 +750,7 @@ public class db_Helper {
 		BasicDBObject r = CreateRequest();
 	
 		whereMongo(r, p);
+		io.print(r);
 		DBCursor dcu = dc.find(r);
 		Parameters pn = new Parameters();
 		int c = 0;

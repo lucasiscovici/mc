@@ -22,7 +22,7 @@ import util.TestError;
 
 /**
  * class SAddLike service d'ajout de like
- *GET: KEY + ID_POST + ID
+ *GET: KEY + ID_POST
  *OUT: RESPONSE:ID:X
  */
 
@@ -57,7 +57,7 @@ public class SAddLike extends Service {
 	@Override
 	public String[] giveGetEntry() {
 		// TODO Auto-generated method stub
-		return Dico.vs_ak("id_post", "id");
+		return Dico.vs_ak("id_post");
 	}
 
 	@Override

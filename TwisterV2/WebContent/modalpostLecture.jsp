@@ -6,9 +6,9 @@
                                    <div id="editor2" style="width:100%;height:74vh; margin-top: 5px;"></div>
 
                                       <div class="form-group">  
-                                       <button style="margin-left: 30px;background-color:black;color:white;" class="btn btn-primary pull-right" type="button" id="commentaire"><span>{{nb_coms}}<i class="glyphicon glyphicon-heart"></i></button>
+                                       <button style="margin-left: 30px;background-color:black;color:white;" class="btn btn-primary pull-right" type="button" id="commentaire"><span class="comsp">{{nb_coms}}<i class="glyphicon glyphicon-comment"></i></button>
                                                  <button style="margin-right: 30px;background-color:black;color:white; " class="btn btn-primary" type="button" id="cl" onclick="editor2.selectAll()">Select All</button>
-                                    <button style="margin-right: 30px;background-color:black;color:white; " class="btn btn-primary pull-left" type="button" id="likes">        	<span>{{nb_likes}}<i class="glyphicon glyphicon-comment"></i></button>
+                                    <button style="margin-right: 30px;background-color:black;color:white; " class="btn btn-primary pull-left" type="button" id="likes">        	<span><span id="likep">{{nb_likes}}</span><i class="glyphicon glyphicon-heart"></i></button>
                                  </div>
     
 </div>

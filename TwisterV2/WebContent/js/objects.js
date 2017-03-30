@@ -61,10 +61,12 @@
 	  return template(arr,"message");
   }
   
-  Message.prototype.getLikes = function(){
-	  return getLikes(this);
+  Message.prototype.getLikes = function(env,pos,callback){
+ getLikes(this,env,pos,function(g){
+	 callback(g);
+ });
   }
-  function getLikes(that){
+  function getLikes(that,env,pos,callback){
 	  $.getJSON("listlikes",{
 		  key:$.cookie("key"),
 		  id_post:that.id
@@ -72,7 +74,10 @@
 		  console.log(d);
 		  a=new Likes(d);
 		  that.likes=a.likes;
+		  env.messages_list[pos].likes=a.likes;
+		  callback(a.likes);
 	  });
+
   }
 
   }());

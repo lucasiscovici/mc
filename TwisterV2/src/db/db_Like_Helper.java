@@ -94,4 +94,11 @@ public class db_Like_Helper extends dbM {
 		}
 		return SelectMongoWith(params.PS("id_post"));
 	}
+
+	//KEY -> ID , Id-POST ->>ID_LIKE
+	public boolean RemoveWithIdPost(Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException, LucasException {
+		// TODO Auto-generated method stub
+		int IdWK = db_Session_Helper.c().getIdWithKey(params);
+		return RemoveMongoWith(Dico.toP("id_user",IdWK,params.PS("id_post")));
+	}
 }

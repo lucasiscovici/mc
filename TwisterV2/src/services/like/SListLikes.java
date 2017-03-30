@@ -2,7 +2,9 @@
 package services.like;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.sql.SQLException;
+import java.text.ParseException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -67,30 +69,48 @@ public class SListLikes extends Service {
 	@Override
 	public void koko() {
 		// TODO Auto-generated method stub
-		try {
 			
-			if (TestError.params_auth(this)) {
-				Parameters likes = null;
-				db_Like_Helper dUH = db_Like_Helper.c();
+			try {
+				if (TestError.params_auth(this)) {
+					Parameters likes = null;
+					db_Like_Helper dUH = db_Like_Helper.c();
 
-				if (params.getDicosOK("id")) { // KEY + ID -
-					likes = dUH.Select(params);
-				} else if (params.getDicosOK("type") && params.getValue("type").equals("ALL")) { //KEY + TYPE=ALL 
-					likes = dUH.SelectMongoWith(null);
-				} else if (params.getDicosOK("id_post")) {
-					likes = dUH.SelectMangoIdPost(params);
+					if (params.getDicosOK("id")) { // KEY + ID -
+						likes = dUH.Select(params);
+					} else if (params.getDicosOK("type") && params.getValue("type").equals("ALL")) { //KEY + TYPE=ALL 
+						likes = dUH.SelectMongoWith(null);
+					} else if (params.getDicosOK("id_post")) {
+						likes = dUH.SelectMangoIdPost(params);
+					}
+					else { // KEY -
+						//likes = dUH.SelectMongoWithKey(params);
+					}
+
+					Local_params.AddParamResponse("likes", likes);
+					RespS.cj(this);
+
 				}
-				else { // KEY -
-					//likes = dUH.SelectMongoWithKey(params);
-				}
-
-				Local_params.AddParamResponse("likes", likes);
-				RespS.cj(this);
-
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (UnknownHostException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (LucasException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			
-		} catch (Exception e) {
-		}
+		
 	}
 
 }

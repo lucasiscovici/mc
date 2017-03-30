@@ -109,7 +109,43 @@ $(function(){
 	})
 o=0;
 fd="${que}";
+$("#likes").click(function(){
+	selected= $(this).attr("selectedf");
+	if(selected != null && selected=="true") {
+		$.getJSON("removelike",{
+			key:$.cookie("key"),
+			id_post:env.messages_list[$("#postModalLecture").attr("data-index")].id
+		},function(d){
+			console.log(d);
+			if ("response" in d) {
 
+			sd = $("#likep").val();
+			df=parseInt(sd,10);
+			
+			$("#likes").css("background-color","black");
+			$("#likep").val(df-1);
+			}
+		});
+	}else{
+		$.getJSON("addlike",{
+			key:$.cookie("key"),
+			id_post:env.messages_list[$("#postModalLecture").attr("data-index")].id
+		},function(d){
+			console.log(d);
+
+			if ("response" in d) {
+				sd = $("#likep").val();
+				df=parseInt(sd,10);
+			
+				$("#likes").css("background-color","blue");
+				$("#likep").val(df+1);
+				
+			}
+		})
+		}
+	
+	
+});
 function init(){
 	d ={};
 	if(fd=="posts") {
@@ -131,11 +167,13 @@ function init(){
 		$(".grid").append($items).masonry( 'appended', $items ).masonry();
 		setTimeout(function(){
 			$('pre code').each(function(i, e) {hljs.highlightBlock(e);}); 
+			
 			$(".title_mess").click(function(){
 				id=$(this).attr('data-index');
 				console.log(id);
 				console.log(messages_list)
 				console.log(messages_list[id])
+				$("#postModalLecture").attr("data-index",id);
 				$("#postModalLecture").toggleClass("hidden");
 				lg=messages_list[id].language;
 				if(lg=="c") {
@@ -148,10 +186,14 @@ function init(){
 				$("#modal_user").html(messages_list[id].login);
 				$("#likes").replace_motif("nb_likes",messages_list[id].nb_like);
 				$("#commentaire").replace_motif("nb_coms",messages_list[id].nb_comments);
-				messages_list[id].getLikes();
-				if (env.me.id in  messages_list[id].getLikes()) {
-					$("#likes").css("background-color","blue");
-				}
+				$("#likes").attr('selectedf',"false");
+				env.messages_list[id].getLikes(env,id,function(j){
+					if ( env.me[0].id in j) {
+						$("#likes").css("background-color","blue");
+						$("#likes").attr('selectedf',"true");
+					}
+				});
+				
 				
 				editor2.clearSelection();
 			});

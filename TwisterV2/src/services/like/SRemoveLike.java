@@ -74,7 +74,13 @@ public class SRemoveLike extends Service {
 						RespS.c(this, Error.SqlError.detail("Erreur remove like with id type=ALL"));
 						return;
 					}
-				}else{
+				}else if (params.getDicosOK("id_post")){
+					if (!dUH.RemoveWithIdPost(params)) {
+						RespS.c(this, Error.SqlError.detail("Erreur remove like with idPost"));
+						return;
+					}
+				}
+				else{
 					if (!dUH.RemoveMongoWithKey(params)) { 
 						RespS.c(this, Error.SqlError.detail("remove w/key"));
 						return;
