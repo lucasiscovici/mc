@@ -25,7 +25,6 @@
 .bare:hover{
 	cursor:pointer;
 }
-
 .hh{
 	height:90vh !important;
 }
@@ -55,33 +54,22 @@
 </style>							
                         
 <div class="container-fluid" style="padding: 0;">
-<div class="overlay hidden" style="position:fixed;width:100%;height:100%;z-index:99;"></div>
-
-                      
-          
-                
-              	<c:import url="nav.jsp"/>
-              	     
-              	
-              	<div style="margin-top: 70px;z-index: 88; top: 0; position: fixed;"> 
-              <div class="bare bleu" onclick="$('#postModal').toggleClass('hidden');"><span class="centerH"><i class="glyphicon glyphicon-plus"></i></span></div>
-</div>
-                <div class="row">
-                    <div class="grid" style="margin-top:140px">
-                      
-                          
-                               
-                           
-                    
-                       </div>
-                    
-                      
-                    </div>
+	<div class="overlay hidden" style="position:fixed;width:100%;height:100%;z-index:99;">
+	</div>
+	<c:import url="nav.jsp"/>
+    <div style="margin-top: 70px;z-index: 88; top: 0; position: fixed;"> 
+    	<div class="bare bleu" onclick="$('#postModal').toggleClass('hidden');"><span class="centerH"><i class="glyphicon glyphicon-plus"></i></span>
+    	</div>
+	</div>
+    <div class="row">
+    	<div class="grid" style="margin-top:140px">
+        </div>
+    </div>
 
 </div>
 
 <div class="hidden" data-template="message">
-<c:import url="vue/message.html" />
+	<c:import url="vue/message.html" />
 </div>
 
 
@@ -142,10 +130,85 @@ $("#likes").click(function(){
 				
 			}
 		})
-		}
-	
-	
+	}
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$("#commentaire").click(function(){
+	$.getJSON("addcomment",{
+		key:$.cookie("key"),
+		text:"rrr",
+		id_post:env.messages_list[$("#postModalLecture").attr("data-index")].id
+	},function(d){
+		console.log(d);
+		if ("response" in d) {
+			sd = $("#comsp").val();
+			df=parseInt(sd,10);
+			$("#commentaire").css("background-color","blue");
+			$("#comsp").val(df+1);
+		}
+	})
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function init(){
 	d ={};
 	if(fd=="posts") {

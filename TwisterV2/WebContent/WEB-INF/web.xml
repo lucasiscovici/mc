@@ -42,6 +42,10 @@
 		<servlet-class>servlet.like.AddLike</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>AddComment</servlet-name>
+		<servlet-class>servlet.comment.AddComment</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>RemoveLike</servlet-name>
 		<servlet-class>servlet.like.RemoveLike</servlet-class>
 	</servlet>
@@ -130,6 +134,10 @@
 	<servlet-mapping>
 		<servlet-name>AddLike</servlet-name>
 		<url-pattern>/addlike</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AddComment</servlet-name>
+		<url-pattern>/addcomment</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>RemoveLike</servlet-name>
