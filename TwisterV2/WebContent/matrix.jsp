@@ -167,6 +167,7 @@ $("#likes").click(function(){
 
 
 $("#commentaire").click(function(){
+	if($('#newCommentaire').val().length > 0){
 	$.getJSON("addcomment",{
 		key:$.cookie("key"),
 		text:"rrr",
@@ -180,6 +181,7 @@ $("#commentaire").click(function(){
 			$("#comsp").val(df+1);
 		}
 	})
+	}
 });
 
 function init(){

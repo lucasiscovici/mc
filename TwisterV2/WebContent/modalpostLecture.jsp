@@ -9,7 +9,8 @@
 	</div>
 	<div class="form-group">
 		<input type="text" id="newCommentaire" placeholder="Commentaire..." style="margin-top: 7px;width: 40vw; vertical-align: middle;margin-right: 60px;right: 0;position: absolute;">
-		<button style="margin-left: 30px;background-color:black;color:white;" class="btn btn-primary pull-right" type="button" id="commentaire"><span class="comsp">{{nb_coms}}</span><i class="glyphicon glyphicon-comment"></i></button>
+		<button style="margin-left: 30px;background-color:black;color:white;" class="btn btn-primary pull-right" type="button" id="commentaire" >comments</button>
+		<button style="margin-left: 30px;background-color:black;color:white;" class="btn btn-primary pull-right" type="button"><span class="comsp">{{nb_coms}}</span><i class="glyphicon glyphicon-comment"></i></button>
 		<button style="margin-right: 30px;background-color:black;color:white; " class="btn btn-primary" type="button" id="cl" onclick="editor2.selectAll()">Select All</button>
 		<button style="margin-right: 30px;background-color:black;color:white; " class="btn btn-primary pull-left" type="button" id="likes"><span id="likep">{{nb_likes}}</span><i class="glyphicon glyphicon-heart"></i></button>
 	</div>   
