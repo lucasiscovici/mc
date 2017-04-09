@@ -29,6 +29,7 @@ public class SListUsers extends ServiceList {
 	public SListUsers() throws NumberFormatException, ClassNotFoundException, IOException, SQLException, JSONException,
 			LucasException {
 		// TODO Auto-generated constructor stub
+		super();
 	}
 
 	public SListUsers(Parameters params) throws NumberFormatException, ClassNotFoundException, IOException,

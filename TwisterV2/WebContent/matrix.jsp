@@ -80,6 +80,7 @@
 
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+
 <script type="text/javascript">
 env={};
 me=null;
@@ -181,34 +182,6 @@ $("#commentaire").click(function(){
 	})
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function init(){
 	d ={};
 	if(fd=="posts") {
@@ -267,31 +240,6 @@ function init(){
 }
 init();
 
-// $("#editor").click(function(){
-// 	$(this).addClass("hh");
-
-// 	$(".overlay").removeClass("hidden");
-// 	setTimeout(function(){
-// 		$(".grid").masonry();
-		
-// 	},500);
-// 	setTimeout(function(){
-// 		if(o==0) {
-// 			window.dispatchEvent(new Event('resize'))
-// 		}
-// 		o+=1;
-// 	},1000);
-// });
-// $(".overlay").click(function(){
-// 	console.log($(this));
-// 	$("#editor").removeClass("hh");
-// 	$(this).addClass("hidden");
-// 	setTimeout(function(){
-// 		$(".grid").masonry();
-
-// 	},500);
-
-// });
 
 })
 </script>

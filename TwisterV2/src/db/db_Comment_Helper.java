@@ -11,7 +11,7 @@ import util.Usefull;
 
 public class db_Comment_Helper extends dbM {
 	
-	public String MyTable=Tables.Comment;
+	public String MyTable = Tables.Comment;
 	public String text = "text";
 	public String date = "date";
 	public String id_post = "id_post";
@@ -73,5 +73,6 @@ public class db_Comment_Helper extends dbM {
 		// TODO Auto-generated method stub
 		return Tables.Comment;
 	}
+
 
 }

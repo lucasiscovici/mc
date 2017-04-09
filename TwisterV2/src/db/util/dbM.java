@@ -12,7 +12,7 @@ import util.Parameters;
  */
 
 public abstract class dbM implements db_crud {
-	public static String _My_Table = "";
+	public String _My_Table = "";
 	
 	public dbM() {
 		_My_Table = GiveMyTable();

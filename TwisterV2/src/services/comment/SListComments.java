@@ -54,7 +54,7 @@ public class SListComments extends Service {
 	@Override
 	public String[] giveGetEntry() {
 		// TODO Auto-generated method stub
-		return Dico.vs_ak("id");
+		return Dico.vs_ak();
 	}
 
 	@Override
@@ -75,10 +75,10 @@ public class SListComments extends Service {
 				 } else if (params.getDicosOK("type") && params.getValue("type").equals("ALL")) {
 					 comments = dUH.SelectMongoWith(null);
 				 } else {
-					 /*
-					  * pas de méthode SelectMongoWithKey
-					comments = dUH.SelectMongoWithKey(params);
-					*/
+				
+					RespS.c(this, Error.ErrArgs);
+					return;
+					
 				}
 				Local_params.AddParamResponse("comments", comments);
 				RespS.cj(this);
