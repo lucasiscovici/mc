@@ -83,6 +83,13 @@
 
 <script type="text/javascript">
 env={};
+function inObjToArr(obj,mo){
+	g=[];
+	for(i=0;i<obj.length;i++){
+		g.push(obj[i][mo]);
+	}
+	return g;
+}
 me=null;
 messages_list=null;
 env.messages_list=messages_list;
@@ -170,19 +177,20 @@ $("#commentaire").click(function(){
 	if($('#newCommentaire').val().length > 0){
 	$.getJSON("addcomment",{
 		key:$.cookie("key"),
-		text:"rrr",
+		text:$('#newCommentaire').val(),
 		id_post:env.messages_list[$("#postModalLecture").attr("data-index")].id
 	},function(d){
 		console.log(d);
 		if ("response" in d) {
 			sd = $("#comsp").val();
 			df=parseInt(sd,10);
-			$("#commentaire").css("background-color","blue");
 			$("#comsp").val(df+1);
+			$('#newCommentaire').val("");
 		}
 	})
 	}
 });
+
 
 function init(){
 	d ={};
@@ -223,10 +231,11 @@ function init(){
 				$("#modal_title").html(messages_list[id].title);
 				$("#modal_user").html(messages_list[id].login);
 				$("#likes").replace_motif("nb_likes",messages_list[id].nb_like);
-				$("#commentaire").replace_motif("nb_coms",messages_list[id].nb_comments);
+				$("#commentaire2").replace_motif("nb_coms",messages_list[id].nb_comments);
 				$("#likes").attr('selectedf',"false");
 				env.messages_list[id].getLikes(env,id,function(j){
-					if ( env.me[0].id in j) {
+					console
+					if ( $.inArray(env.me[0].id,inObjToArr(j,"id_user")) != -1 ) {
 						$("#likes").css("background-color","blue");
 						$("#likes").attr('selectedf',"true");
 					}

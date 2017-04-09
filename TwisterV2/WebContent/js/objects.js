@@ -106,6 +106,7 @@
 	this.Like = function(m) {
 		obj = m;
     this.id=obj["id"];
+    this.id_user=obj["id_user"];
      }
 
 
