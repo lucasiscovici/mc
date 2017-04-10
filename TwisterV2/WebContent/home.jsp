@@ -4,7 +4,7 @@
 <%@page import="util.Usefull" %>
 <%
 	String base = "/TwisterV2/";
-	String baseCSS = base.concat("css/");
+	String baseCSS = base+"css/";
 	String baseVue = base.concat("vue/");
 	String baseTemplates = base.concat("templates/");
 	String baseCSSLib = baseCSS.concat("lib/");
@@ -37,10 +37,10 @@
 <%
 	request.setAttribute("importJSGlobal", Usefull.ListFromStringA(
 			"http://lagencewebetudiante.fr/lucux.js",
-			"${baseJSLib}bootstrap.min.js",
-			"${baseJS}global.js",
-			"${baseJS}func_tools.js",
-			"${baseJSLib}moment.js",
+			 baseJSLib+"bootstrap.min.js",
+			baseJS + "global.js",
+			baseJS+"func_tools.js",
+			baseJSLib+"moment.js",
 			"https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js",
 			"nav.js"
 			));
