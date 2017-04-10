@@ -7,6 +7,16 @@ Base.fromRequest(request);
 %>
 <!-- JAVA CLASS TO IMPORT -->
 
+<%
+	request.setAttribute("importJSP", Usefull.ListFromStringA(
+			"util.Dico",
+			"beans.util.Post",
+			"db.db_User_Helper"
+			));
+%>
+<c:forEach items="${importJSP}" var="importJSPItem">
+<jsp:include page="${importJSPItem}" flush="true" />
+</c:forEach>
 
 
 <!-- CSS TO IMPORT -->
@@ -66,4 +76,29 @@ Base.fromRequest(request);
 </c:forEach>
 
 
+<!-- JS TO IMPORT -->
+<!-- JS GLOBAL TO IMPORT -->
+<c:forEach items="${importJSGlobal}" var="importJSGlobalItem">
+	<script type="text/javascript" src="${importJSGlobalItem}"></script>	
+</c:forEach>
+<%
+	request.setAttribute("importJS", Usefull.ListFromStringA(
+			Base.baseJSLib+"jquery.cookie.js",
+			Base.baseJSClasses+"objects.js",
+			"http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js",
+			Base.baseJSConfigLib+"config_highlighth.js",
+			"http://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js",
+			"https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ext-language_tools.js",
+			Base.baseJSConfigLib+"config_ace.js",
+			"https://cdnjs.cloudflare.com/ajax/libs/masonry/4.1.1/masonry.pkgd.min.js",
+			Base.baseJSConfigLib+"config_masonry.js",
+			Base.baseJSClasses+"like.js",
+			Base.baseJSClasses+"user.js",
+			Base.baseJS+"matrix.js"
+			));
+%>
+
+<c:forEach items="${importJS}" var="importJSItem">
+	<script type="text/javascript" src="${importJSItem}"></script>	
+</c:forEach>
 

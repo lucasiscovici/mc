@@ -2,7 +2,7 @@ package Web;
 import javax.servlet.http.HttpServletRequest;
 
 public class Base {
-	public static String  base = "/TwisterV2/";
+	public static String  base = "/TwisterV3/";
 	public static String  baseCSS = base+"css/";
 	public static String  baseVue = base.concat("vue/");
 	public static String  baseTemplates = base.concat("templates/");
