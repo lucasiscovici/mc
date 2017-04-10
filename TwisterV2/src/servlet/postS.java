@@ -40,20 +40,7 @@ public class postS extends HttpServlet {
 				this.getServletContext().getRequestDispatcher("/login.jsp").forward(req, resp);
 			} else {
 				req.setAttribute("type", "matrix");
-
-//				SListPosts s = new SListPosts(Dico.toP("key", key_exist));
-//				List<Bean> posts = null;
-//				if (!s.Local_params.getDicosOK("code")) {
-//
-//					posts = s.to_bean();
-//					req.setAttribute("posts", posts);
-//					io.print_text(resp, posts);
-//
-//
-//				} else {
-//					posts = null;
-//					req.setAttribute("erreurs","");
-//				}
+				req.setAttribute("jsp_file", "matrix");
 				req.setAttribute("que", "posts");
 				req.setAttribute("request", req);
 				req.setAttribute("key", key_exist);

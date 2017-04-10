@@ -36,24 +36,12 @@ public class matrix extends HttpServlet {
 				if (key_exist != null) {
 					Usefull.deleteCookie(resp, "key");
 				}
+
 				req.setAttribute("request", req);
 				this.getServletContext().getRequestDispatcher("/login.jsp").forward(req, resp);
 			} else {
 				req.setAttribute("type", "matrix");
-
-//				SListPosts s = new SListPosts(Dico.toP("key", key_exist,"friends","-2"));
-//				List<Bean> posts = null;
-//				if (!s.Local_params.getDicosOK("code")) {
-//
-//					posts = s.to_bean();
-//					req.setAttribute("posts", posts);
-//					io.print_text(resp, posts);
-//
-//
-//				} else {
-//					posts = null;
-//					req.setAttribute("erreurs","");
-//				}			
+				req.setAttribute("jsp_file", "matrix");
 				req.setAttribute("que", "matrix");
 
 				req.setAttribute("request", req);

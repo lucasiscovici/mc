@@ -1,5 +1,6 @@
 package util;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.UUID;
@@ -61,4 +62,13 @@ public class Usefull {
 	    public static void deleteCookie( HttpServletResponse response, String nom) {
 	    	setCookie(response,nom,"",0);
 	    }
+	   public static ArrayList<String> ListFromStringA(String...values) {
+		   ArrayList<String> a = new ArrayList<String>();
+		   for (String string : values) {
+			a.add(string);
+		   }
+		   return a;	
+	}
+
+	    
 }

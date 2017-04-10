@@ -29,6 +29,7 @@ protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws Se
 
 			 this.getServletContext().getRequestDispatcher( "/login.jsp" ).forward( req, resp );
 		}else{
+			req.setAttribute("jsp_file", "matrix");
 			req.setAttribute("type", "home");
 			req.setAttribute("request", req);
 			 this.getServletContext().getRequestDispatcher( "/home.jsp" ).forward( req, resp );
