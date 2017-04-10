@@ -1,4 +1,3 @@
-$(function(){
 
 	function conexion(login,password,callback){
 		env.session.login({
@@ -21,5 +20,4 @@ $(function(){
 			})
 }
 				
-		});
 	

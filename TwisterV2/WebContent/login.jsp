@@ -1,6 +1,13 @@
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.Enumeration"%>
+<%@page import="util.io"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page import="util.Usefull"%>
-
+<%@page import="Web.Base" %>
+<%
+Base.fromRequest(request);
+%>
 <link rel="stylesheet" href="${baseCSS}login.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.terminal/1.0.10/css/jquery.terminal.min.css" rel="stylesheet"/>
 
@@ -20,13 +27,13 @@
 </c:forEach>
 <%
 	request.setAttribute("importJS", Usefull.ListFromStringA(
-			"${baseJSLib}polyfill.js",
-			"${baseJSConfigLib}config_polyfill.js",
+			Base.baseJSLib+"polyfill.js",
+			Base.baseJSConfigLib+"config_polyfill.js",
 			"https://cdnjs.cloudflare.com/ajax/libs/jquery.terminal/1.0.10/js/jquery.terminal.min.js",
-			"${baseJSConfigLib}config_terminal.js",
-			"${baseJSClasses}session.js",
-			"${baseJSClasses}user.js",
-			"${baseJS}login.js"
+			Base.baseJS+"login.js",
+			Base.baseJSConfigLib+"config_terminal.js",
+			Base.baseJSClasses+"session.js",
+			Base.baseJSClasses+"user.js"
 			));
 %>
 

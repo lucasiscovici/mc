@@ -21,6 +21,7 @@ protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws Se
     String key_exist = Usefull.getCookieValue( req, "key");
     /* Si le cookie existe, alors calcul de la durée */
     try {
+    	req.setAttribute("response", resp);
 		if ( key_exist == null ||  (key_exist != null && !db_Session_Helper.c().CheckIfExistWith(Dico.toP("key",key_exist)))) {
 			if (key_exist != null) {
 				Usefull.deleteCookie(resp, "key");

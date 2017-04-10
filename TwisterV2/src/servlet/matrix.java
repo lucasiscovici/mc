@@ -31,14 +31,18 @@ public class matrix extends HttpServlet {
 
 		/* Si le cookie existe, alors calcul de la durée */
 		try {
+			req.setAttribute("response", resp);
+
 			if (key_exist == null
 					|| (key_exist != null && !db_Session_Helper.c().Auth(Dico.toP("key", key_exist)))) {
 				if (key_exist != null) {
 					Usefull.deleteCookie(resp, "key");
 				}
+				req.setAttribute("jsp_file", "login");
+				req.setAttribute("type", "login");
 
 				req.setAttribute("request", req);
-				this.getServletContext().getRequestDispatcher("/login.jsp").forward(req, resp);
+				this.getServletContext().getRequestDispatcher("/home.jsp").forward(req, resp);
 			} else {
 				req.setAttribute("type", "matrix");
 				req.setAttribute("jsp_file", "matrix");

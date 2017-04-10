@@ -1,33 +1,27 @@
+<%@page import="util.io"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page import="util.Usefull"%>
-<!-- JSP TO IMPORT -->
-
+<%@page import="Web.Base" %>
 <%
-	request.setAttribute("importJSP", Usefull.ListFromStringA(
-			"util.Dico",
-			"beans.util.Post",
-			"db.db_User_Helper"
-			));
+Base.fromRequest(request);
 %>
-<c:forEach items="${importJSP}" var="importItem">
-<%@page import="${importItem}.jsp"%>
-</c:forEach>
+<!-- JAVA CLASS TO IMPORT -->
+
 
 
 <!-- CSS TO IMPORT -->
 <%
 	
     request.setAttribute("importCSS", Usefull.ListFromStringA(
-    		"bootstrap.min",
-    		"styles",
+    		Base.baseCSSLib+"bootstrap.min.css",
+    		Base.baseCSS+"styles.css",
     		"http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/default.min.css",
-    		"matrix"
+    		Base.baseCSS+"matrix.css"
     		));
 %>
 
-
 <c:forEach items="${importCSS}" var="importItem">
-<link href="${baseCSS} }${importItem}" rel="stylesheet">
+<link href="${importItem}" rel="stylesheet">
 </c:forEach>
 </head>
 <body style='background-color:black'>
@@ -72,29 +66,4 @@
 </c:forEach>
 
 
-<!-- JS TO IMPORT -->
-<!-- JS GLOBAL TO IMPORT -->
-<c:forEach items="${importJSGlobal}" var="importJSGlobalItem">
-	<script type="text/javascript" src="${importJSGlobalItem}"></script>	
-</c:forEach>
-<%
-	request.setAttribute("importJS", Usefull.ListFromStringA(
-			"${baseJSLib}jquery.cookie.js",
-			"${baseJSClasses}objects.js",
-			"http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js",
-			"${baseJSConfigLib}config_highlighth.js",
-			"http://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js",
-			"https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ext-language_tools.js",
-			"${baseJSConfigLib}config_ace.js",
-			"https://cdnjs.cloudflare.com/ajax/libs/masonry/4.1.1/masonry.pkgd.min.js",
-			"${baseJSConfigLib}config_masonry.js",
-			"${baseJSClasses}like.js",
-			"${baseJSClasses}user.js",
-			"${baseJS}matrix.js"
-			));
-%>
-
-<c:forEach items="${importJS}" var="importJSItem">
-	<script type="text/javascript" src="${importJSItem}"></script>	
-</c:forEach>
 
