@@ -86,7 +86,7 @@ Base.fromRequest(request);
 			Base.baseJSLib+"jquery.cookie.js",
 			Base.baseJSClasses+"objects.js",
 			"http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js",
-			Base.baseJSConfigLib+"config_highlighth.js",
+			Base.baseJSConfigLib+"config_highlight.js",
 			"http://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js",
 			"https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ext-language_tools.js",
 			Base.baseJSConfigLib+"config_ace.js",
