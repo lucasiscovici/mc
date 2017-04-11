@@ -64,7 +64,7 @@ public class SListPosts extends ServiceList {
 	}
 
 	@Override
-	public void koko() {
+	public void koko() throws IOException {
 		try {
 
 			if (TestError.params_auth(this)) {

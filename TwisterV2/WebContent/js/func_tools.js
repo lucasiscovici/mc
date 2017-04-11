@@ -25,11 +25,11 @@ $(function(){
     	
 	}
 })(jQuery);
-
+env.func_tools._reload = function(){
+	window.location.href=window.location.href;
+	window.location.reload();
+}
 env.func_tools.reload = function(d){
 	console.log(d);
-	env.func_tools._reload = function(){
-		window.location.href=window.location.href;
-		window.location.reload();
-	}
+	_reload();
 }

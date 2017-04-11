@@ -1,5 +1,6 @@
 package db;
 
+import java.io.IOException;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -271,7 +272,7 @@ public class db_Post_Helper extends dbM {
 		return Tables.Post;
 	}
 
-	public Parameters total(Parameters params) throws ClassNotFoundException, UnknownHostException, SQLException, LucasException {
+	public Parameters total(Parameters params) throws ClassNotFoundException, SQLException, LucasException, IOException {
 		// TODO Auto-generated method stub
 		Parameters p2 =  new Parameters();
 		if (params.getDicosOK("date_min")) {

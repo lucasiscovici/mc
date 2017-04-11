@@ -24,9 +24,7 @@
                       <li>
                         <a href="matrix" id="wall"><i class="glyphicon glyphicon-home"></i> Wall</a>
                       </li>
-                      <li>
-                        <a href="#postModal" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i> Posts</a>
-                      </li>
+                    
                       <li>
                         <a href="#" id="logout"> Logout</a>
                       </li>

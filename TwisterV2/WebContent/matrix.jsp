@@ -5,18 +5,6 @@
 <%
 Base.fromRequest(request);
 %>
-<!-- JAVA CLASS TO IMPORT -->
-
-<%
-	request.setAttribute("importJSP", Usefull.ListFromStringA(
-			"util.Dico",
-			"beans.util.Post",
-			"db.db_User_Helper"
-			));
-%>
-<c:forEach items="${importJSP}" var="importJSPItem">
-<jsp:include page="${importJSPItem}" flush="true" />
-</c:forEach>
 
 
 <!-- CSS TO IMPORT -->
@@ -34,7 +22,8 @@ Base.fromRequest(request);
 <link href="${importItem}" rel="stylesheet">
 </c:forEach>
 </head>
-<body style='background-color:black'>
+
+<body style='background-color:white'>
 						
 <!-- HTML -->             
 <div class="container-fluid" style="padding: 0;">
@@ -60,7 +49,7 @@ Base.fromRequest(request);
 %>
 <c:forEach items="${importTemplates}" var="importTemplatesItem">
 	<div class="hidden" data-template="${importTemplatesItem}">
-		<c:import url="${baseTemplates}${importTemplatesItem}.html" />
+		<c:import url="${baseTemplates2}${importTemplatesItem}.html" />
 	</div>
 </c:forEach>
 
@@ -72,11 +61,14 @@ Base.fromRequest(request);
 			));
 %>
 <c:forEach items="${importHTML}" var="importHTMLItem">
-	<c:import url="${baseVue}${importHTMLItem}.html" />
+	<c:import url="${baseVue2}${importHTMLItem}.html" />
 </c:forEach>
 
 
 <!-- JS TO IMPORT -->
+<script type="text/javascript">
+fd="${que}";
+</script>
 <!-- JS GLOBAL TO IMPORT -->
 <c:forEach items="${importJSGlobal}" var="importJSGlobalItem">
 	<script type="text/javascript" src="${importJSGlobalItem}"></script>	
@@ -94,7 +86,11 @@ Base.fromRequest(request);
 			Base.baseJSConfigLib+"config_masonry.js",
 			Base.baseJSClasses+"like.js",
 			Base.baseJSClasses+"user.js",
-			Base.baseJS+"matrix.js"
+			Base.baseJSClasses+"post.js",
+			Base.baseJS+"matrix.js",
+			Base.baseJS+"modalpost.js",
+			Base.baseJS+"modalpostLecture.js"
+
 			));
 %>
 

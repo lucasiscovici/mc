@@ -13,7 +13,7 @@ $(function(){
 	});
 
 o=0;	
-fd="${que}";
+
 function init(){
 	dd ={};
 	if(fd=="posts") {
@@ -62,7 +62,7 @@ function init(){
 				
 				env.messages_list[id].getLikes(env,id,function(j){
 			
-					if ( env.func_tools.inArray(env.me[0].id, inObjToArr(j,"id_user"))) {
+					if ( env.func_tools.inArray(env.me[0].id, env.func_tools.inObjToArr(j,"id_user"))) {
 						$("#likes").css("background-color","blue");
 						$("#likes").attr('selectedf',"true");
 					}

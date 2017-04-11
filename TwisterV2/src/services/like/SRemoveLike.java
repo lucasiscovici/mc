@@ -49,7 +49,7 @@ public class SRemoveLike extends Service {
 	@Override
 	public String[] giveGetEntry() {
 		// TODO Auto-generated method stub
-		return Dico.vs_ak("id");
+		return Dico.vs_ak();
 	}
 
 	@Override
