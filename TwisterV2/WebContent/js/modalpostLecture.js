@@ -75,6 +75,7 @@ $(function() {
 			
 
 		}
+		$(".grid-item[data-index="+idPost+"]").find(".nb_likes_grid_item").html($("#likep").html());
 		}
 	});
 
