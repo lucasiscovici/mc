@@ -58,15 +58,19 @@ $(function() {
 		if (selected != null && selected == "true") {
 
 			isSelected(function(){
+				setTimeout(function(){
 				k=true;
+				},1000);
 			});
 			
 
 		} else {
 
 			isNotSelected(function(){
-				k=true;
-			});
+				setTimeout(function(){
+					k=true;
+					},1000);
+				});
 			
 
 		}
