@@ -44,13 +44,14 @@ $(function() {
 	}
 	k=true;
 	$("#likes").click(function() {
+		idPost = $("#postModalLecture").attr("data-index");
+
 		env.post.reloadPost(idPost, function(f) {
 			console.log(f);
 		})
 		if(k==true){
 		k=false;
 		selected = $(this).attr("selectedf");
-		idPost = $("#postModalLecture").attr("data-index");
 
 		
 
