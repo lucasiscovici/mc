@@ -10,27 +10,27 @@ $("#likes").click(function(){
 			console.log(d);
 			if ("response" in d) {
 
-			sd = $("#likep").val();
+			sd = $("#likep").html();
 			df=parseInt(sd,10);
 			
 			$("#likes").css("background-color","black");
-			$("#likep").val(df-1);
+			$("#likep").html(df-1);
 			}
 		});
 		
 	}else{
 		$.getJSON("addlike",{
-			key:$.cookie("key"),
+			key:env.getKey(),
 			id_post:env.messages_list[$("#postModalLecture").attr("data-index")].id
 		},function(d){
 			console.log(d);
 
 			if ("response" in d) {
-				sd = $("#likep").val();
+				sd = $("#likep").html();
 				df=parseInt(sd,10);
 			
 				$("#likes").css("background-color","blue");
-				$("#likep").val(df+1);
+				$("#likep").html(df+1);
 				
 			}
 		})

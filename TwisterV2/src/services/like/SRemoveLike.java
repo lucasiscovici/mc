@@ -106,7 +106,8 @@ public class SRemoveLike extends Service {
 			}*/
 			
 		} catch (Exception e) {
-			// TODO: handle exception
+			RespS.c(this, Error.JavaError.detail(e.getMessage()));
+
 		}
 	}
 
