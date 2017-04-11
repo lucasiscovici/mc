@@ -16,7 +16,7 @@ $(function() {
 		$("#likep").html(df + 1);
 	}
 	
-	function isSelected() {
+	function isSelected(c) {
 		minus();
 		env.like.removelike({
 			id_post : env.messages_list[idPost].id
@@ -24,23 +24,26 @@ $(function() {
 			console.log(d);
 			if (!("response" in d)) {
 				maxus();
+				c();
 			}
 		});
 
 	}
-	function isNotSelected() {
+	function isNotSelected(c) {
 		maxus();
 		env.like.addlike({
 			id_post : messages_list[idPost].id
 		}, function(d) {
 			if (!("response" in d)) {
 				minus();
+				c()
 			}
 		})
 	}
-
+	k=true;
 	$("#likes").click(function() {
-
+		if(k==true){
+		k=false;
 		selected = $(this).attr("selectedf");
 		idPost = $("#postModalLecture").attr("data-index");
 
@@ -50,14 +53,20 @@ $(function() {
 
 		if (selected != null && selected == "true") {
 
-			isSelected();
+			isSelected(function(){
+				k=true;
+			});
+			
 
 		} else {
 
-			isNotSelected();
+			isNotSelected(function(){
+				k=true;
+			});
+			
 
 		}
-
+		}
 	});
 
 	$("#commentaire").click(
