@@ -3,6 +3,14 @@ messages_list=null;
 env.messages_list=messages_list;
 env.me=me;
 
+function suppressionPost(idp){
+	env.post.removepost({id:idp},
+			function(d){
+				if("response" in d){
+					env.reload(d);
+				}
+	})
+}
 $(function(){
 	
 	env.user.listusers({},function(d){
@@ -60,10 +68,11 @@ function init(){
 				}else{
 				$("#modal_desc").html(messages_list[id].description);
 				}
+				
 				$("#modal_title").html(messages_list[id].title);
 				$("#modal_user").html(messages_list[id].login);
-				$("#likes").replace_motif("nb_likes",messages_list[id].nb_like);
-				$("#commentaire2").replace_motif("nb_coms",messages_list[id].nb_comments);
+				$("#likes").replace_motif("nb_likes",env.messages_list[id].nb_like);
+				$("#commentaire2").replace_motif("nb_coms",env.messages_list[id].nb_comments);
 				$("#likes").attr('selectedf',"false");
 				
 				env.messages_list[id].getLikes(env,id,function(j){
