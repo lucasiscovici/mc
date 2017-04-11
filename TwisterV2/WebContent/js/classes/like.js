@@ -1,10 +1,14 @@
 env.like = {}
 $(function(){
 	env.like.removelike = function(tab,callback){
-		tab["key"]=env.getKey();
-		$.getJSON("removelike",tab,function(d){
+		env.getJSONK("removelike",tab,function(d){
 			callback(d);
-	})
+		})
+	}
+	env.like.addlike = function(tab,callback){
+		env.getJSONK("addlike",tab,function(d){
+			callback(d);
+		})
 }
 });
 

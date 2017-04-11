@@ -6,7 +6,7 @@
           				<span class="icon-bar"></span>
           				<span class="icon-bar"></span>
                       </button>
-                      <a href="/TwisterV2" class="navbar-brand">TwisterV2</a>
+                      <a href="${base}" class="navbar-brand">TwisterV2</a>
                   	</div>
                   	<nav class="collapse navbar-collapse" role="navigation">
                     <form class="navbar-form navbar-left">

@@ -1,15 +1,33 @@
 env.post = {}
 $(function(){
 	env.post.listposts = function(tab,callback){
-		tab["key"]= env.getKey();
-		$.getJSON("listposts",tab,function(d){
+		env.getJSONK("listposts",tab,function(d){
 			callback(d);
 		})
 	}
 	env.post.addpost = function(tab,callback){
+		env.tabKey(tab);
 		$.post("addpost",tab,function(d){
 			callback(d);
 		})
+	}
+	env.post.reloadPost = function(pos,call){
+		p=env.messages_list[pos];
+		env.post.listposts({ id:p.id },function(d){
+			a=new Messages(d);
+			console.log(a);
+			if(a.mess[0]==null){
+				console.log("mess supprimer");
+			}else{
+			if(p.date > a.mess[0].date){
+				console.log("date vieille");
+				call(false,null);
+			}else{
+				console.log("date jeune");
+				call(true,a.mess[0]);
+			}
+			}
+		});
 	}
 	
 });
@@ -81,19 +99,21 @@ $(function(){
  var m = [];
 	this.Messages = function(m) {
     this.m=m["response"]["messages"];
-    this.mess=[];
+    this.mess={};
     if (typeof(this.m)=="string"){
     	this.m = [];
     }else{
     	console.log(typeof(this.m));
     if (typeof(this.m)=="object" && !$.isArray(this.m)){
     	this.m.pos=0;
-    	this.mess.push(new Message(this.m));
+    	this.mess[0]=new Message(this.m);
     }else{
    //if (typeof(this.m)=="object")
     for (var i = 0; i < this.m.length; i++) {
-    	this.m[i].pos=this.m.length-i-1;
-  	  this.mess.unshift(new Message(this.m[i]));
+    	
+    l=this.m.length-i-1;
+    	this.m[i].pos=l;
+  	  this.mess[l]=new Message(this.m[i]);
     }
     }
     } 
@@ -103,7 +123,7 @@ $(function(){
   	}
   function getHTML(that) {
       html = "";
-      for (var i = 0; i < that.mess.length; i++) {
+      for (i in that.mess) {
     	  html+=(that.mess[i].HTML());
       }
       return html;

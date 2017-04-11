@@ -36,9 +36,14 @@ public class postS extends HttpServlet {
 				if (key_exist != null) {
 					Usefull.deleteCookie(resp, "key");
 				}
+				req.setAttribute("jsp_file", "login");
+				req.setAttribute("type", "login");
+
 				req.setAttribute("request", req);
-				this.getServletContext().getRequestDispatcher("/login.jsp").forward(req, resp);
+				this.getServletContext().getRequestDispatcher("/home.jsp").forward(req, resp);
 			} else {
+				String pathInfo = req.getServletPath(); // /{value}/test
+			
 				req.setAttribute("type", "matrix");
 				req.setAttribute("jsp_file", "matrix");
 				req.setAttribute("que", "posts");

@@ -2,13 +2,12 @@ env.user = {}
 $(function(){
 
 	env.user.listusers = function(tab,callback){
-		tab["key"]=env.getKey();
-		$.getJSON("listusers",tab, function(d){	
+		env.getJSONK("listusers",tab, function(d){	
 			callback(d);
 		})
 	}
 	env.user.createuser = function(tab,callback){
-		$.getJSON("createuser",tab, function(d){
+		env.getJSON("createuser",tab, function(d){
 			callback(d);
 
 		})

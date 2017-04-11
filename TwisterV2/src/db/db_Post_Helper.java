@@ -323,4 +323,21 @@ public class db_Post_Helper extends dbM {
 		return p3;
 	}
 
+	public Parameters SelectMongoWithIdTotal(Parameters params) throws ClassNotFoundException, UnknownHostException, SQLException, LucasException {
+		// TODO Auto-generated method stub
+		Parameters messages = SelectMongoWithId(params.PS("id"));
+		for (Dico d : messages.parameters) {
+				Parameters dicop = d.toPa();
+				String id_user = dicop.getValue("id_user");
+				String login = db_User_Helper.c().getXWithX("login",Dico.toP("id",id_user)).getValue("login");
+				int nb_likes = db_Like_Helper.c().ListLikesFromIdPost(dicop.getDico("id").toPa().change("id", "id_post")).parameters.size();
+				int nb_coms = db_Comment_Helper.c().ListPostsFromIdPost(dicop.getDico("id").toPa().change("id", "id_post")).parameters.size();
+				d.addD("nb_likes", nb_likes);
+				d.addD("nb_coms", nb_coms);
+				d.addD("login", login);
+		}
+		
+		return messages;
+	}
+
 }

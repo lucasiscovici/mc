@@ -1,13 +1,12 @@
 env.session={};
 $(function(){
 	env.session.login = function(tab,callback){
-		$.getJSON("login",tab, function(d){
+		env.getJSON("login",tab, function(d){
 			callback(d);
 		});
 	}
 	env.session.logout = function(tab,callback){
-		tab["key"]=env.getKey();
-		$.get("logout",
+		env.getJSONK("logout",
 				tab,
 				function(f){
 					callback(f);

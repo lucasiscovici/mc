@@ -75,7 +75,12 @@ public class SListPosts extends ServiceList {
 				if (params.getDicosOK("friends")) { // KEY + FRIENDS -
 					messages = dPH.listPostFromIdFriends(params);
 				} else if (params.getDicosOK("id")) { // KEY + ID -
+					if (params.getDicosOK("type") && params.getValue("type").equals("TOTAL")) {
+						messages = dPH.SelectMongoWithIdTotal(params);
+
+					}else{
 					messages = dPH.SelectMongoWithId(params);
+					}
 				} else if (params.getDicosOK("type")) { // KEY + TYPE
 					String Vtype = params.getValue("type");
 					if (Vtype.equals("MY")) { // TYPE=MY -

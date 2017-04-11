@@ -17,7 +17,7 @@ Base.fromRequest(request);
 
 <div style='height: 100%;' align="center">
 <div id="i" style="padding: 0; width: 100%; height: 100%;">
-<img width="300px" src="http://li328.lip6.fr:8280/TwisterV2/img/logo.png" />
+<img width="300px" src="/TwisterV3/img/logo.png" />
 </div>
 </div>
 <!-- JS TO IMPORT  -->

@@ -391,7 +391,6 @@ public class Parameters {
 			if (key.charAt(0)=='_') {
 				keyo = key.substring(1, key.length());
 			}
-			io.print( db.get(key).getClass());
 			if ( db.get(key) instanceof Date) {
 				d.addD(keyo, ((Date) db.get(key)).getTime());
 

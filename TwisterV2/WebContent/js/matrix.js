@@ -14,6 +14,7 @@ $(function(){
 
 o=0;	
 
+
 function init(){
 	dd ={};
 	if(fd=="posts") {
