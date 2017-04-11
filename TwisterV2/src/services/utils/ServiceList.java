@@ -37,7 +37,7 @@ public abstract class ServiceList extends Service implements ServiceListCONF {
 		return lb;
 		}
 	}
-	
+
 	public ServiceList() throws NumberFormatException, ClassNotFoundException, IOException, SQLException, JSONException,
 			LucasException {
 		super();

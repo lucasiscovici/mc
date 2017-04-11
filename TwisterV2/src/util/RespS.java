@@ -58,11 +58,12 @@ public class RespS {
 	 * @param e Une erreur
 	 */
 	
-	public static void c(Service t, Error e) {
+	public static boolean  c(Service t, Error e) {
 		if (t.RespS == null) {
 
 		t.RespS = new RespS(t, e);
 		}
+		return true;
 	}
 	public static LucasException cl(Service t, Error e) {
 		if (t.RespS == null) {

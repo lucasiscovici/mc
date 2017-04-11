@@ -9,12 +9,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 
 import db.Tables;
+import db.util.db_crud;
 import util.RespS;
 import util.IOLUCAS;
 import util.IParameters;
 import util.LucasException;
 import util.Parameters;
 import util.TOJSON;
+import util.io;
 //import util.io;
 
 /**
@@ -25,6 +27,22 @@ public abstract class Service implements IOLUCAS, IParameters, TOJSON, ServiceKo
 	/**
 	 * parametres du services Local (les parameters ou dicos dont la fonction to_json a besoin pour constuire la response JSON)
 	 */
+	public boolean router(String ok,Object value){
+		if (params.getDicosOK(ok)){
+			if (value!=null) {
+				if (params.getValue(ok).equals(value)) {
+					return true;
+				}
+			}else{
+				return true;
+			}
+		}		
+		return false;
+	}
+	public boolean router(String ok){
+		return router(ok,null);
+	}
+	
 	public static Service me = null;
 	public Parameters Local_params = new Parameters(); 
 	public HttpServletResponse response = null; // FROM IOLUCAS

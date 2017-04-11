@@ -70,8 +70,8 @@ public class db_Session_Helper extends db {
 	
 	/**
 	 * 
-	 * @param params Un paramètre
-	 * @return this.getXWithX(session_id_user, params.PS(session_key)).getValueInt(session_id_user)
+	 * @param params key
+	 * @return id_user
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */

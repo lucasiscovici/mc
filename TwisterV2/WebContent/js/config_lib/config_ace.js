@@ -6,6 +6,9 @@ editor2.setTheme("ace/theme/chaos");
 var editorDiv = document.getElementById("editor");     // its container
 var doc = editor.getSession().getDocument();  // a reference to the doc
 var sess = editor.getSession();
+editor.setOption("showPrintMargin", false)
+editor2.setOption("showPrintMargin", false)
+
 function setSessionMode(lg){
 	sess.setMode("ace/mode/"+lg);
 }

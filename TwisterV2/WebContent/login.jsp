@@ -8,10 +8,11 @@
 <%
 Base.fromRequest(request);
 %>
+
 <link rel="stylesheet" href="${baseCSS}login.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.terminal/1.0.10/css/jquery.terminal.min.css" rel="stylesheet"/>
-
 <link href="https://fonts.googleapis.com/css?family=Caveat+Brush" rel="stylesheet">
+
 </head>
 <body style='background-color:black; margin: 0; height: 100%;'>
 
@@ -25,6 +26,7 @@ Base.fromRequest(request);
 <c:forEach items="${importJSGlobal}" var="importJSGlobalItem">
 	<script type="text/javascript" src="${importJSGlobalItem}"></script>	
 </c:forEach>
+
 <%
 	request.setAttribute("importJS", Usefull.ListFromStringA(
 			Base.baseJSLib+"polyfill.js",

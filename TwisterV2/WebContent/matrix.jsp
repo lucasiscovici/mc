@@ -21,6 +21,7 @@ Base.fromRequest(request);
 <c:forEach items="${importCSS}" var="importItem">
 <link href="${importItem}" rel="stylesheet">
 </c:forEach>
+
 </head>
 
 <body style='background-color:white'>
@@ -29,7 +30,9 @@ Base.fromRequest(request);
 <div class="container-fluid" style="padding: 0;">
 	<div class="overlay hidden" style="position:fixed;width:100%;height:100%;z-index:99;">
 	</div>
+	
 	<c:import url="nav.jsp"/>
+	
     <div style="margin-top: 70px;z-index: 88; top: 0; position: fixed;"> 
     	<div class="bare bleu" onclick="$('#postModal').toggleClass('hidden');"><span class="centerH"><i class="glyphicon glyphicon-plus"></i></span>
     	</div>
@@ -42,6 +45,7 @@ Base.fromRequest(request);
 </div>
 
 <!-- TEMPLATES TO IMPORT -->
+
 <%
 	request.setAttribute("importTemplates", Usefull.ListFromStringA(
 			"message"
@@ -69,6 +73,7 @@ Base.fromRequest(request);
 <script type="text/javascript">
 fd="${que}";
 </script>
+
 <!-- JS GLOBAL TO IMPORT -->
 <c:forEach items="${importJSGlobal}" var="importJSGlobalItem">
 	<script type="text/javascript" src="${importJSGlobalItem}"></script>	

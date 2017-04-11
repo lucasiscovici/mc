@@ -340,4 +340,14 @@ public class db_Post_Helper extends dbM {
 		return messages;
 	}
 
+	public boolean checkIfSameIDUser(Parameters params) throws ClassNotFoundException, SQLException, UnknownHostException, LucasException {
+		// TODO Auto-generated method stub
+		int idFromKey = db_Session_Helper.c().getIdWithKey(params);
+		int idUserFromIdPost = getXWithX("id_user", params.PS("id")).getValueInt("id_user");
+		if (idFromKey == idUserFromIdPost) {
+			return true;
+		}
+		return false;
+	}
+
 }

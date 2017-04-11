@@ -5,12 +5,18 @@ $(function(){
 			callback(d);
 		})
 	}
+	env.post.removepost = function(tab,callback){
+		env.getJSONK("removepost",tab,function(d){
+			callback(d);
+		})
+	}
 	env.post.addpost = function(tab,callback){
 		env.tabKey(tab);
 		$.post("addpost",tab,function(d){
 			callback(d);
 		})
 	}
+	
 	env.post.reloadPost = function(pos,call){
 		p=env.messages_list[pos];
 		env.post.listposts({ id:p.id },function(d){
@@ -77,8 +83,8 @@ $(function(){
  });
   }
   function getLikes(that,env,pos,callback){
-	  $.getJSON("listlikes",{
-		  key:$.cookie("key"),
+
+	  env.like.listlikes({
 		  id_post:that.id
 	  },function(d){
 		  console.log(d);
@@ -105,15 +111,17 @@ $(function(){
     }else{
     	console.log(typeof(this.m));
     if (typeof(this.m)=="object" && !$.isArray(this.m)){
-    	this.m.pos=0;
-    	this.mess[0]=new Message(this.m);
+    	a = new Message(this.m);
+    	a.pos = a.id;
+    	this.mess[a.id]=a;
     }else{
    //if (typeof(this.m)=="object")
     for (var i = 0; i < this.m.length; i++) {
     	
     l=this.m.length-i-1;
-    	this.m[i].pos=l;
-  	  this.mess[l]=new Message(this.m[i]);
+  	  a=new Message(this.m[i]);
+  	  a.pos = a.id;
+  	this.mess[a.id]=a;
     }
     }
     } 

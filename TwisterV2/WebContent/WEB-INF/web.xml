@@ -50,6 +50,10 @@
 		<servlet-class>servlet.like.RemoveLike</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>RemovePost</servlet-name>
+		<servlet-class>servlet.post.RemovePost</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>Presentation</servlet-name>
 		<servlet-class>servlet.matrix</servlet-class>
 	</servlet>
@@ -146,6 +150,10 @@
 	<servlet-mapping>
 		<servlet-name>RemoveLike</servlet-name>
 		<url-pattern>/removelike</url-pattern>
+	</servlet-mapping>
+		<servlet-mapping>
+		<servlet-name>RemovePost</servlet-name>
+		<url-pattern>/removepost</url-pattern>
 	</servlet-mapping>
 <servlet-mapping>
 		<servlet-name>Matrix</servlet-name>

@@ -32,7 +32,7 @@ public enum Error {
 	  ParseException(37, "ParseException Error");
 
 
-	  private final int code;
+	  private int code;
 	  private String description;
 	  private String description2 = "";
 	  
@@ -178,5 +178,11 @@ public enum Error {
 		 this.description2="";
 		 return d;
 	 }
+
+	public Error setCode(int i) {
+		// TODO Auto-generated method stub
+		this.code=i;
+		return this;
+	}
 	  
 	}

@@ -38,6 +38,7 @@ function init(){
 		
 		setTimeout(function(){
 			env.highlight.apply();
+			
 			$(".title_mess").click(function(){
 				id=$(this).attr('data-index');
 				console.log(id);
@@ -54,7 +55,11 @@ function init(){
 				setSessionMode2(lg);
 				editor2.setValue(_.unescape(messages_list[id].text),-1);
 				
+				if(messages_list[id].description==null){
+					$("#modal_desc").parent().hide();
+				}else{
 				$("#modal_desc").html(messages_list[id].description);
+				}
 				$("#modal_title").html(messages_list[id].title);
 				$("#modal_user").html(messages_list[id].login);
 				$("#likes").replace_motif("nb_likes",messages_list[id].nb_like);

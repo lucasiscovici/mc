@@ -10,6 +10,11 @@ $(function(){
 			callback(d);
 		})
 }
+	env.like.listlikes = function(tab,callback){
+		env.getJSONK("listlikes",tab,function(d){
+			callback(d);
+		})
+	}
 });
 
 

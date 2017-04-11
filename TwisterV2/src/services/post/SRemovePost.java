@@ -11,12 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 
 import db.db_Post_Helper;
+import db.util.db_crud;
 import services.utils.Service;
 import util.Dico;
 import util.Error;
 import util.LucasException;
 import util.Parameters;
 import util.TestError;
+import util.io;
 
 /**
  * Classe du service suppression commentaire
@@ -24,9 +26,12 @@ import util.TestError;
  * OUT: RESPONSE:OK
  */
 
+/**
+ * @author lucasiscovici
+ *
+ */
 public class SRemovePost extends Service {
-	
-	
+	db_Post_Helper H = null;
 	public SRemovePost() throws NumberFormatException, ClassNotFoundException, IOException, SQLException, JSONException,
 			LucasException {
 		super();
@@ -71,43 +76,88 @@ public class SRemovePost extends Service {
 		return Dico.response(this);
 	}
 	
+
+	
+	/** 
+	 * FONCTIONS UTILISÉES
+	 * @param params
+	 * @param dPH
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws UnknownHostException
+	 * @throws SQLException
+	 * @throws LucasException
+	 */
+	private boolean Key_ID() throws ClassNotFoundException, UnknownHostException, SQLException, LucasException {
+		if (!H.Remove(params)) {
+			RespS.c(this, Error.MongoError.detail("remove post"));
+			return false;
+		}
+		return true;
+	}
+	private boolean Key_ID_Check() throws ClassNotFoundException, UnknownHostException, SQLException, LucasException {
+		
+		if (!H.checkIfSameIDUser(params)) {
+			RespS.c(this, Error.NAUTH.detail("pas authauriser").setCode(190));
+			return false;
+		}
+		return Key_ID();
+	}
+	private boolean Key_Type_ALL() throws ClassNotFoundException, UnknownHostException, SQLException, LucasException {
+
+		if (!H.RemoveMongoWith(null)) {
+			RespS.c(this, Error.MongoError.detail("remove post"));
+			io.print("feqqsfs");
+
+			return false;
+		}
+		return true;
+	}
+	private boolean Key_Type_MY() throws ClassNotFoundException, UnknownHostException, SQLException, LucasException {
+		if (!H.removeMine(params)) {
+			RespS.c(this, Error.MongoError.detail("remove post"));
+			return false;
+		}
+		return true;
+	}
+	
+	private boolean Ok() throws JSONException {
+		this.Local_params.AddParamRespOK();
+		RespS.cj(this);
+		return true;
+	}
 	/**
 	 * Méthode qui exécute notre service
+	 * @throws LucasException 
+	 * @throws SQLException 
+	 * @throws UnknownHostException 
+	 * @throws ClassNotFoundException 
 	 */
-
 	@Override
 	public void koko() {
+		H = new db_Post_Helper();
+		boolean _;
 		try {
+			if ((TestError.params_authAdmin(this))) { // CHECK PARAMS + KEY ADMIN
 
-			if (TestError.params_auth(this)) {
-				
-				db_Post_Helper dPH = db_Post_Helper.c();
-				if (params.getDicosOK("id")) { // KEY + ID -
-					if (!dPH.Remove(params)) {
-						RespS.c(this, Error.MongoError.detail("remove post"));
-						return;
-					}
-				}else if (params.getDicosOK("type")) { // KEY + TYPE
-					String VType = params.getValue("type"); 
-					if (VType.equals("ALL")) { // TYPE=ALL - 
-						if (!dPH.RemoveMongoWith(null)) {
-							RespS.c(this, Error.MongoError.detail("remove post"));
-							return;
-						}
-					}else if (VType.equals("MY")) { //TYPE=MY - 
-						if (!dPH.removeMine(params)) {
-							RespS.c(this, Error.MongoError.detail("remove post"));
-							return;
-						}
-					}else{
-						RespS.c(this, Error.ErrArgs);
-					}
-				}else{
-					RespS.c(this, Error.ErrArgs);
-					return;
-				}
-				this.Local_params.AddParamRespOK();
-				RespS.cj(this);
+				_ = (
+					router("id" ) ? Key_ID() : false //KEY + ID
+				 || router("type","ALL") ? Key_Type_ALL() : false // KEY + TYPE=ALL
+			     || router("type","MY") ? Key_Type_MY() : false // KEY + TYPE=MY
+			     	) ? 
+			     	Ok() : 
+			     	RespS.c(this, Error.ErrArgs); //Si pas de combinaison avec les params -> ErrorArgs sinon Ok
+			
+			
+			}
+			else if (TestError.params_auth(this)) {
+			 	_ = (
+					router("id" ) ? Key_ID_Check() : false //KEY + ID + CHECK_AUTH
+			     || router("type","MY") ? Key_Type_MY() : false // KEY + TYPE=MY
+			     	) ? 
+			     	Ok() : 
+			     	RespS.c(this, Error.ErrArgs); //Si pas de combinaison avec les params -> ErrorArgs sinon Ok	     
+					     
 			}
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -127,7 +177,10 @@ public class SRemovePost extends Service {
 		}catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
+
 
 }
