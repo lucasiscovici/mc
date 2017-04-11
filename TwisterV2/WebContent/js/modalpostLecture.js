@@ -46,10 +46,11 @@ $(function() {
 	$("#likes").click(function() {
 		idPost = $("#postModalLecture").attr("data-index");
 
-		env.post.reloadPost(idPost, function(f) {
-			console.log(f);
-		})
+		
 		if(k==true){
+			env.post.reloadPost(idPost, function(f) {
+				console.log(f);
+			})
 		k=false;
 		selected = $(this).attr("selectedf");
 
