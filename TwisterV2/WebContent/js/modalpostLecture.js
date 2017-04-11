@@ -60,7 +60,7 @@ $(function() {
 			isSelected(function(){
 				setTimeout(function(){
 				k=true;
-				},1000);
+				},3000);
 			});
 			
 
@@ -69,7 +69,7 @@ $(function() {
 			isNotSelected(function(){
 				setTimeout(function(){
 					k=true;
-					},1000);
+					},3000);
 				});
 			
 
