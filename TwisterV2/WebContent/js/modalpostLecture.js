@@ -24,8 +24,9 @@ $(function() {
 			console.log(d);
 			if (!("response" in d)) {
 				maxus();
-				c();
+				
 			}
+			c();
 		});
 
 	}
@@ -36,20 +37,22 @@ $(function() {
 		}, function(d) {
 			if (!("response" in d)) {
 				minus();
-				c()
+				
 			}
+			c();
 		})
 	}
 	k=true;
 	$("#likes").click(function() {
+		env.post.reloadPost(idPost, function(f) {
+			console.log(f);
+		})
 		if(k==true){
 		k=false;
 		selected = $(this).attr("selectedf");
 		idPost = $("#postModalLecture").attr("data-index");
 
-		env.post.reloadPost(idPost, function(f) {
-			console.log(f);
-		})
+		
 
 		if (selected != null && selected == "true") {
 
