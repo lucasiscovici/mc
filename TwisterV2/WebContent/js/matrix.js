@@ -74,9 +74,10 @@ function init(){
 				
 				$("#modal_title").html(messages_list[id].title);
 				$("#modal_user").html(messages_list[id].login);
-				$("#likes").replace_motif("nb_likes",env.messages_list[id].nb_like);
-				$("#commentaire2").replace_motif("nb_coms",env.messages_list[id].nb_comments);
+				$("#likep").html(env.messages_list[id].nb_like);
+				$("#comsp").html(env.messages_list[id].nb_comments);
 				$("#likes").attr('selectedf',"false");
+				$("#likes").css("background-color","black");
 				
 				env.messages_list[id].getLikes(env,id,function(j){
 			

@@ -1,7 +1,7 @@
-<div id="postModalLecture" class="hidden" style="position:fixed;width:100vw;height:100vh;top:0px;left:0px;background-color: #161616;z-index: 27777;" data-index="-1">
-	<span onclick="$('#postModalLecture').toggleClass('hidden');" style="cursor:pointer" id="modalspan">
-		<img style="position: absolute; top: 0; right: 0; margin-top: 10px;" width="30px" src="/TwisterV3/img/fermer.png" />
-		<img onclick="suppressionPost('{{index}}');" src="http://li328.lip6.fr:8280/TwisterV3/img/croixSuppression.png" style="position: absolute; top: 0; left: 0; margin-top: 10px;" class="croixSuppression hidden" id="modaldelete" />
+<div id="postModalLecture" class="hidden" style="position:fixed;width:70vw;top:0px;left:0px;background-color: #161616;z-index: 27777;" data-index="-1">
+	<span onclick="$('#postModalLecture').toggleClass('hidden');$('#grid').toggleClass('deplacementPost');var elmt = document.getElementById('grid');if (document.getElementById('grid').getAttribute('class') == 'grid deplacementPost') {elmt.style.position = 'absolute';} else {elmt.style.position = 'relative';}" style="cursor:pointer" id="modalspan">
+		<img style="position: absolute; top: 0; right: 0; margin-top: 10px;" width="30px" src="/TwisterV2/img/fermer.png" />
+		<img onclick="suppressionPost('{{index}}');" src="http://li328.lip6.fr:8280/TwisterV2/img/croixSuppression.png" style="position: absolute; top: 0; left: 0; margin-top: 10px;" class="croixSuppression hidden" id="modaldelete" />
 	</span>
 	
 	<h4 style="text-align: center; background-color: #FFFFFF; color: #000000; padding-top: 5px; height: 30px;" ><span>Login: </span><span id="modal_user"></span></h4>
