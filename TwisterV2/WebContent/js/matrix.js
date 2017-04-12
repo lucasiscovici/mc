@@ -14,7 +14,7 @@ $(function(){
 	env.user.listusers({},function(d){
 		console.log(d);
 		a=new Mes(d);
-		env.me=a.users;
+		env.me=a;
 	});
 
 o=0;	
@@ -35,7 +35,7 @@ function init(){
 		if ("response" in d) {
 			
     	a=new Messages(d);
-		env.messages_list=a.mess;
+		env.messages_list=a;
     	
 		$items=a.HTML()
 		$(".grid").append($items).masonry( 'appended', $items ).masonry();
