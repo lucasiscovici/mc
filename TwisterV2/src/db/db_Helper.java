@@ -773,7 +773,7 @@ public class db_Helper {
 		BasicDBObject r = CreateRequest();
 	
 		whereMongo(r, p);
-		DBCursor dcu = dc.find(r);
+		DBCursor dcu = dc.find(r).sort(new BasicDBObject("date",-1));
 		Parameters pn = new Parameters();
 		int c = 0;
 		while (dcu.hasNext()) {
@@ -801,7 +801,7 @@ public class db_Helper {
 		whereMongo(r, p);
 		BasicDBObject fields = new BasicDBObject();
 		fields.put(select, 1);
-		DBCursor dcu = dc.find(r,fields);
+		DBCursor dcu = dc.find(r,fields).sort(new BasicDBObject("date",-1));
 		Parameters pn = new Parameters();
 		int c = 0;
 		while (dcu.hasNext()) {
@@ -834,7 +834,7 @@ public class db_Helper {
 		
 		fields.put(string, 1);
 		}
-		DBCursor dcu = dc.find(r,fields);
+		DBCursor dcu = dc.find(r,fields).sort(new BasicDBObject("date",-1));
 		Parameters pn = new Parameters();
 		int c = 0;
 		while (dcu.hasNext()) {
@@ -866,7 +866,7 @@ public class db_Helper {
 		 docIds.addAll(p);
 		 DBObject inClause = new BasicDBObject("$in", docIds);
          DBObject r = new BasicDBObject(quoi, inClause);
-		DBCursor dcu = dc.find(r);
+		DBCursor dcu = dc.find(r).sort(new BasicDBObject("date",-1));
 		
 		Parameters pn = new Parameters();
 		int c = 0;

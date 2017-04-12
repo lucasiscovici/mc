@@ -17,6 +17,7 @@ $(function(){
 		})
 	}
 	env.post.reloadPostWId = function(pid,call){
+		p = env.messages_list.get(pid);
 		env.post.listposts({ id:pid },function(d){
 			a=new Messages(d);
 			console.log(a);
@@ -36,7 +37,7 @@ $(function(){
 	}
 
 	env.post.reloadPost = function(pos,call){
-		p=env.messages_list[pos];
+		p=env.messages_list.get(pos);
 		env.post.reloadPostWId(p.id,function(reload,mess,suppr){
 			call(reload,mess,suppr);
 		});
@@ -52,7 +53,7 @@ $(function(){
 
 	this.Message = function(m) {
 		obj = m;
-    this.date=obj["date"];
+    this.date=moment(parseInt(obj["date"])).locale("fr");
     this.pos=obj["pos"];
     this.id = obj["id"];
     this.login = obj["login"];
@@ -71,20 +72,38 @@ $(function(){
 	Message.prototype.reload = function() {
 		env.post.reloadPostWId(this.id,function(reload,mess,suppr){
 			console.log(reload,mess,suppr);
+			if(suppr || reload){
+				delete env.messages_list.mess[this.id]
+			}
+			if(reload && mess != null){
+				env.messages_list.mess[this.id] = mess;
+			}
+			if(suppr){
+				$(".grid-item[data-index='"+(this.id)+"']").remove();
+			}
+			if(reload){
+				v=$(".grid-item[data-index='"+(this.id)+"']");
+				v.find(".mess_title").html(mess.title);
+				v.find(".mess_desc").html(mess.description);
+				v.find(".mess_lg").html(mess.language);
+				v.find(".nb_likes_grid_item").html(mess.nb_like);
+				v.find(".nb_comments_grid_item").html(mess.nb_comments);
+			}
 		});
 	}
   function getHTML(that) {
 	  html ="";
-	  arr={};
+	  arr= {};
 	  arr.text = that.text;
 	    arr.name = that.login;
 	    arr.desc = that.description;
 	    arr.title = that.title;
 	    arr.lg = that.language;
-	    arr.index=that.pos;
-	    arr.nb_likes=that.nb_like;
-	    arr.nb_coms=that.nb_comments;
+	    arr.index = that.pos;
+	    arr.nb_likes = that.nb_like;
+	    arr.nb_coms = that.nb_comments;
 	    arr.cl = arr.desc == null ? "hidden" : "" ;
+	    arr.date = that.date.format("dddd DD MMM YYYY \\à HH\\h\\\\mm");
 	  return template(arr,"message");
   }
   
@@ -101,7 +120,7 @@ $(function(){
 		  console.log(d);
 		  a=new Likes(d);
 		  that.likes=a.likes;
-		  env.messages_list[pos].likes=a.likes;
+		  env.messages_list.get(pos).likes=a.likes;
 		  callback(a.likes);
 	  });
 
@@ -146,10 +165,13 @@ $(function(){
   	}
   function getHTML(that) {
       html = "";
+      fs=[];
       for (i in that.mess) {
-    	  html+=(that.mess[i].HTML());
+    	  sf=that.mess[i].HTML();
+    	  fs.push(sf);
+    	  
       }
-      return html;
+      return fs.join("");
   }
 
   }(jQuery));

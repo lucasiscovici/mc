@@ -1,20 +1,35 @@
-<div id="postModalLecture" class="hidden" style="position:fixed;width:100vw;top:0px;left:0px;background-color: #161616;z-index: 27777;" data-index="-1">
-	<span onclick="$('#postModalLecture').toggleClass('hidden');$('#grid').toggleClass('deplacementPost');var elmt = document.getElementById('grid');if (document.getElementById('grid').getAttribute('class') == 'grid deplacementPost') {elmt.style.position = 'absolute';} else {elmt.style.position = 'relative';}" style="cursor:pointer" id="modalspan">
-		<img style="position: absolute; top: 0; right: 0; margin-top: 10px;" width="30px" src="/TwisterV2/img/fermer.png" />
-		<img onclick="suppressionPost('{{index}}');" src="http://li328.lip6.fr:8280/TwisterV2/img/croixSuppression.png" style="position: absolute; top: 0; left: 0; margin-top: 10px;" class="croixSuppression hidden" id="modaldelete" />
-	</span>
+<div id="postModalLecture" class="hidden" style="position:fixed;width:100vw;height: 100vh;top:0px;left:0px;background-color: #161616;z-index: 27777;" data-index="-1">
 	
-	<h4 style="text-align: center; background-color: #FFFFFF; color: #000000; padding-top: 5px; height: 30px;" ><span>Login: </span><span id="modal_user"></span></h4>
-	<h4 style="text-align: center; background-color: #FFFFFF; color: #000000; padding-top: 5px; height: 30px;" ><span>Titre: </span><span id="modal_title"></span></h4>
-	<h5 style="text-align: center; background-color: #FFFFFF; color: #000000; padding-top: 5px; height: 30px;"><span>Description: </span><span id="modal_desc"></span></h5>
-	<div id="editor2" style="width:100%;height:74vh; margin-top: 5px;">
-	</div>
+	<div style="
+    width: 30vw;
+    z-index: 9999;
+    position: absolute;
+    /* position: fixed; */
+    margin: 0px;
+    right: 0px;
+    height: 100%;
+">
+<span onclick="$('#postModalLecture').toggleClass('hidden');" style="cursor:pointer" id="modalspan">
+		<img style="position: absolute; top: 0; right: 0; margin-top: 10px;" width="30px" src="/TwisterV2/img/fermer.png" />
+		<img onclick="suppressionPost('{{index}}');" src="http://li328.lip6.fr:8280/TwisterV2/img/croixSuppression.png" style="position: absolute; top: 0; left: 0; margin-top: 10px;" class="croixSuppression mpl hidden" id="modaldelete" />
+	</span>
+	<h4 style="text-align: center; background-color: #FFFFFF; color: #000000; padding-top: 5px; height: 30px;overflow-y:scroll;" ><span>Login: </span><span id="modal_user"></span></h4>
+	<h4 style="text-align: center; background-color: #FFFFFF; color: #000000; padding-top: 5px; height: 30px;overflow-y:scroll;" ><span>Titre: </span><span id="modal_title"></span></h4>
+	<h5 style="text-align: center; background-color: #FFFFFF; color: #000000; padding-top: 5px; height: 100px;overflow-y:scroll;"><span>Description: </span><span id="modal_desc"></span></h5>
+		<h5 style="text-align: center; background-color: #FFFFFF; color: #000000; padding-top: 5px; height: 30px;overflow-y:scroll;"><span>Language: </span><span id="modal_lg"></span></h5>
+			<h5 style="text-align: center; background-color: #FFFFFF; color: #000000; padding-top: 5px; height: 30px;overflow-y:scroll;"><span>Date: </span><span id="modal_date"></span></h5>
 	<div class="form-group">
 		
-		<button style="margin-left: 30px;background-color:black;color:white;" class="btn btn-primary pull-right" type="button" id="commentaire2"><span class="comsp">{{nb_coms}}</span><i class="glyphicon glyphicon-comment"></i></button>
+		<button style="margin-left: 30px;background-color:black;color:white;" class="btn btn-primary pull-right" type="button" id="commentaire2"><span id="comsp">{{nb_coms}}</span><i class="glyphicon glyphicon-comment"></i></button>
 		<button style="margin-right: 30px;background-color:black;color:white; " class="btn btn-primary" type="button" id="cl" onclick="editor2.selectAll()">Select All</button>
-		<button style="margin-right: 30px;background-color:black;color:white; " class="btn btn-primary pull-left" type="button" id="likes"><span id="likep">{{nb_likes}}</span><i class="glyphicon glyphicon-heart"></i></button>
+		<p><button style="margin-right: 30px;background-color:black;color:white; " class="btn btn-primary pull-left" type="button" id="likes"><span id="likep">{{nb_likes}}</span><i class="glyphicon glyphicon-heart"></i></button><span id="plus_like" style="position:absolute;margin-top:5px;color:blue;margin-left:-20px;">show</span></p>
 	</div>   
+	</div>
+	<div style="width:70vw;">
+	<div id="editor2" style="width:100%;height:100vh; margin-top: 5px;">
+	</div>
+	</div>
+	
 </div>
 
 
