@@ -16,7 +16,7 @@ $(function() {
 		$("#likep").html(df + 1);
 	}
 	
-	function isSelected(c) {
+	function isSelected(idPost,c) {
 		minus();
 		env.like.removelike({
 			id_post : env.messages_list[idPost].id
@@ -30,10 +30,10 @@ $(function() {
 		});
 
 	}
-	function isNotSelected(c) {
+	function isNotSelected(idPost,c) {
 		maxus();
 		env.like.addlike({
-			id_post : messages_list[idPost].id
+			id_post : env.messages_list[idPost].id
 		}, function(d) {
 			if (!("response" in d)) {
 				minus();
@@ -58,7 +58,7 @@ $(function() {
 
 		if (selected != null && selected == "true") {
 
-			isSelected(function(){
+			isSelected(idPost,function(){
 				setTimeout(function(){
 				k=true;
 				},3000);
@@ -67,7 +67,7 @@ $(function() {
 
 		} else {
 
-			isNotSelected(function(){
+			isNotSelected(idPost,function(){
 				setTimeout(function(){
 					k=true;
 					},3000);
@@ -75,6 +75,8 @@ $(function() {
 			
 
 		}
+		env.messages_list[idPost].nb_like=$("#likep").html();
+		
 		$(".grid-item[data-index="+idPost+"]").find(".nb_likes_grid_item").html($("#likep").html());
 		}
 	});

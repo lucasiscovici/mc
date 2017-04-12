@@ -63,11 +63,11 @@ public static Connection getMySQLConnection() throws SQLException, ClassNotFound
 	if (!DBStatic.mysql_pooling) {
 		if (conn==null) {
 			conn = (DriverManager.getConnection("jdbc:mysql://"+ DBStatic.mysql_host + "/" + DBStatic.mysql_db, DBStatic.mysql_username, DBStatic.mysql_password));
-
-		}
+			return conn;
+		}else{
 		return conn;
 
-			
+		}
 		}else
 		{
 			

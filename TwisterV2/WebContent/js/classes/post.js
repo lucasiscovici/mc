@@ -16,23 +16,29 @@ $(function(){
 			callback(d);
 		})
 	}
-	
-	env.post.reloadPost = function(pos,call){
-		p=env.messages_list[pos];
-		env.post.listposts({ id:p.id },function(d){
+	env.post.reloadPostWId = function(pid,call){
+		env.post.listposts({ id:pid },function(d){
 			a=new Messages(d);
 			console.log(a);
 			if(a.mess[0]==null){
 				console.log("mess supprimer");
+				call(false,null,true);
 			}else{
 			if(p.date > a.mess[0].date){
 				console.log("date vieille");
-				call(false,null);
+				call(true,a.mess[0],false);
 			}else{
 				console.log("date jeune");
-				call(true,a.mess[0]);
+				call(false,null,false);
 			}
 			}
+		});
+	}
+
+	env.post.reloadPost = function(pos,call){
+		p=env.messages_list[pos];
+		env.post.reloadPostWId(p.id,function(reload,mess,suppr){
+			call(reload,mess,suppr);
 		});
 	}
 	
@@ -62,6 +68,11 @@ $(function(){
 		 return getHTML(this)
 		
   	}
+	Message.prototype.reload = function() {
+		env.post.reloadPostWId(this.id,function(reload,mess,suppr){
+			console.log(reload,mess,suppr);
+		});
+	}
   function getHTML(that) {
 	  html ="";
 	  arr={};
@@ -126,6 +137,10 @@ $(function(){
     }
     } 
   }
+	Messages.prototype.get = function(f) {
+		return this.mess[f];
+	}
+
 	Messages.prototype.HTML = function() {
 		return getHTML(this);
   	}

@@ -59,7 +59,7 @@ public class db_Helper {
 	}
 	
 	public static void closeMySQLConnection() throws ClassNotFoundException, SQLException {
-		Database.getMySQLConnection().close();
+		//Database.getMySQLConnection().close();
 	}
 	/**
 	 * 

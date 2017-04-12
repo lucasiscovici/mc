@@ -1,7 +1,5 @@
-me=null;
-messages_list=null;
-env.messages_list=messages_list;
-env.me=me;
+env.messages_list=null;
+env.me=null;
 
 function suppressionPost(idp){
 	env.post.removepost({id:idp},
@@ -16,8 +14,7 @@ $(function(){
 	env.user.listusers({},function(d){
 		console.log(d);
 		a=new Mes(d);
-		me=a.users;
-		env.me=me;
+		env.me=a.users;
 	});
 
 o=0;	
@@ -38,23 +35,25 @@ function init(){
 		if ("response" in d) {
 			
     	a=new Messages(d);
-    	messages_list=a.mess;
-		env.messages_list=messages_list;
+		env.messages_list=a.mess;
     	
 		$items=a.HTML()
 		$(".grid").append($items).masonry( 'appended', $items ).masonry();
 		
 		setTimeout(function(){
+			
 			env.highlight.apply();
 			
 			$(".title_mess").click(function(){
 				
 				id=$(this).attr('data-index');
 				
+				
 				console.log(id);
 				console.log(messages_list)
 				console.log(messages_list[id])
-				
+				mess=env.messages_list.get(id);
+				mess.reload();
 				$("#postModalLecture").attr("data-index",id);
 				
 				$("#postModalLecture").toggleClass("hidden");
@@ -64,27 +63,28 @@ function init(){
 					lg="c_cpp";
 				}
 				setSessionMode2(lg);
-				editor2.setValue(_.unescape(messages_list[id].text),-1);
+				editor2.setValue(_.unescape(mess.text),-1);
 				
-				if(messages_list[id].description==null){
+				if(mess.description==null){
 					$("#modal_desc").parent().hide();
 				}else{
-				$("#modal_desc").html(messages_list[id].description);
+				$("#modal_desc").html(mess.description);
 				}
 				
-				$("#modal_title").html(messages_list[id].title);
-				$("#modal_user").html(messages_list[id].login);
-				$("#likep").html(env.messages_list[id].nb_like);
-				$("#comsp").html(env.messages_list[id].nb_comments);
+				$("#modal_title").html(mess.title);
+				$("#modal_user").html(mess.login);
+				$("#likep").html(mess.nb_like);
+				$("#comsp").html(mess.nb_comments);
 				$("#likes").attr('selectedf',"false");
 				$("#likes").css("background-color","black");
 				
-				env.messages_list[id].getLikes(env,id,function(j){
-			
-					if ( env.func_tools.inArray(env.me[0].id, env.func_tools.inObjToArr(j,"id_user"))) {
+				mess.getLikes(env,id,function(j){
+					
+					if ( env.func_tools.inArray(env.me.get(0).id, env.func_tools.inObjToArr(j,"id_user"))) {
 						$("#likes").css("background-color","blue");
 						$("#likes").attr('selectedf',"true");
 					}
+					console.log(env.func_tools.inObjToArr(j,"id_user").length);
 				});
 				
 				$("#modalspan").replace_motif("index",id);

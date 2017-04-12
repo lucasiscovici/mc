@@ -18,6 +18,19 @@
     margin-top: 10px;
     margin-right: 10px;
 }
+.deplacementPost {
+	/*position: absolute;*/
+	width: 40vw;
+	right: 0;
+}
+
+.modification {
+    width: 20px;
+    right: 0;
+    position: absolute;
+    margin-top: 40px;
+    margin-right: 10px;
+}
 .bare:hover{
 	cursor:pointer;
 }
