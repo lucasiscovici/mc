@@ -16,7 +16,9 @@ $(function(){
 (function($){
 	$.fn.replace_motif = function(key,d){
     	var e = $(this).html();
-    	$(this).html(replace_motif2(key,d,e));
+    	var df = replace_motif2(key,d,e);
+    	$(this).html(df);
+    	console.log(df);
 	};
 	function replace_motif2(key,d,ou){
 		var find = "{{"+key+"}}";

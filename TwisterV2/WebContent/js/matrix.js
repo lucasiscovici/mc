@@ -7,7 +7,7 @@ function suppressionPost(idp){
 	env.post.removepost({id:idp},
 			function(d){
 				if("response" in d){
-					env.reload(d);
+					env.func_tools.reload(d);
 				}
 	})
 }
@@ -48,12 +48,15 @@ function init(){
 			env.highlight.apply();
 			
 			$(".title_mess").click(function(){
+				
 				id=$(this).attr('data-index');
+				
 				console.log(id);
 				console.log(messages_list)
 				console.log(messages_list[id])
 				
 				$("#postModalLecture").attr("data-index",id);
+				
 				$("#postModalLecture").toggleClass("hidden");
 				
 				lg=messages_list[id].language;
@@ -83,7 +86,7 @@ function init(){
 					}
 				});
 				
-				
+				$("#modalspan").replace_motif("index",id);
 				editor2.clearSelection();
 			});
 		},1000);
