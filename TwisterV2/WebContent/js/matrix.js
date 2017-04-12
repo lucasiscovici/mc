@@ -50,8 +50,8 @@ function init(){
 				
 				
 				console.log(id);
-				console.log(messages_list)
-				console.log(messages_list[id])
+				console.log(env.messages_list)
+				console.log(env.messages_list.get(id));
 				mess=env.messages_list.get(id);
 				mess.reload();
 				$("#postModalLecture").attr("data-index",id);
