@@ -20,13 +20,13 @@ $(function(){
 		env.post.listposts({ id:pid },function(d){
 			a=new Messages(d);
 			console.log(a);
-			if(a.mess[0]==null){
+			if(a.get(pid)==null){
 				console.log("mess supprimer");
 				call(false,null,true);
 			}else{
-			if(p.date > a.mess[0].date){
+			if(p.date > a.get(pid).date){
 				console.log("date vieille");
-				call(true,a.mess[0],false);
+				call(true,a.get(pid),false);
 			}else{
 				console.log("date jeune");
 				call(false,null,false);

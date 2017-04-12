@@ -58,7 +58,7 @@ function init(){
 				
 				$("#postModalLecture").toggleClass("hidden");
 				
-				lg=messages_list[id].language;
+				lg=mess.language;
 				if(lg=="c") {
 					lg="c_cpp";
 				}
