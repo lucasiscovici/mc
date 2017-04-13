@@ -80,23 +80,9 @@ fd="${que}";
 </c:forEach>
 <%
 	request.setAttribute("importJS", Usefull.ListFromStringA(
-			Base.baseJSLib+"jquery.cookie.js",
-			Base.baseJSClasses+"objects.js",
-			"http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js",
-			Base.baseJSConfigLib+"config_highlight.js",
-			"http://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js",
+			"https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js",
 			"https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ext-language_tools.js",
-			Base.baseJSConfigLib+"config_ace.js",
-			"https://cdnjs.cloudflare.com/ajax/libs/masonry/4.1.1/masonry.pkgd.min.js",
-			Base.baseJSConfigLib+"config_masonry.js",
-			Base.baseJSClasses+"like.js",
-			Base.baseJSClasses+"user.js",
-			Base.baseJSClasses+"post.js",
-			Base.baseJSClasses+"session.js",
-			Base.baseJS+"matrix.js",
-			Base.baseJS+"modalpost.js",
-			Base.baseJS+"modalpostLecture.js"
-
+			Base.baseJS+"compressed_matrix.js"
 			));
 %>
 

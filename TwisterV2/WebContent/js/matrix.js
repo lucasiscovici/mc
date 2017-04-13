@@ -103,8 +103,9 @@ function init(){
 					if ( env.func_tools.inArray(env.me.get(0).id, env.func_tools.inObjToArr(j,"id_user"))) {
 						$("#likes").css("background-color","blue");
 						$("#likes").attr('selectedf',"true");
-						env.auth.kk=true;
+						
 					}
+					env.auth.kk=true;
 					console.log(env.func_tools.inObjToArr(j,"id_user").length);
 				});
 				

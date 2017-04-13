@@ -18,12 +18,7 @@ Base.fromRequest(request);
 <%
 	request.setAttribute("importJSGlobal", Usefull.ListFromStringA(
 			"http://lagencewebetudiante.fr/lucux.js",
-			Base.baseJSLib+"bootstrap.min.js",
-			Base.baseJS + "global.js",
-			Base.baseJS+"func_tools.js",
-			Base.baseJSLib+"moment.js",
-			"https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js",
-			Base.baseJS+"nav.js"
+			Base.baseJS+"compressed_global.js"
 			));
 %>
 <input type="hidden" id="key" value="${key}"/>
