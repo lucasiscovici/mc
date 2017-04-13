@@ -28,7 +28,7 @@ public class Base {
 	public static String baseJSLib = baseJS.concat("lib/");
 	public static String baseJSConfigLib = baseJS.concat("config_lib/");
 	public static String baseJSClasses = baseJS.concat("classes/");
-	public static String baseImg = baseJS.concat("img/");
+	public static String baseImg = base.concat("img/");
 
 	public static void fromRequest(HttpServletRequest request) throws InstantiationException, IllegalAccessException {
 		request.setAttribute("base2", base2);
