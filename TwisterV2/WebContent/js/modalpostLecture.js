@@ -100,4 +100,7 @@ $(function() {
 					})
 				}
 			});
+	$('#clipboard').on('click', function() {
+		env.func_tools.copyTextToClipboard(editor2.getSelectedText());
+    });
 });

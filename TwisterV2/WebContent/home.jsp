@@ -12,12 +12,14 @@ Base.fromRequest(request);
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://fonts.googleapis.com/css?family=Caveat+Brush" rel="stylesheet">
+<link rel="stylesheet" href="http://lagencewebetudiante.fr/midter.css" type="text/css" />
 <title>Twister</title>
 
 <!-- JS TO IMPORT -->
 <%
 	request.setAttribute("importJSGlobal", Usefull.ListFromStringA(
-			"http://lagencewebetudiante.fr/lucux.js",
+			"https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js",
+			"http://lagencewebetudiante.fr/only.js",
 			Base.baseJS+"compressed_global.js"
 			));
 %>
