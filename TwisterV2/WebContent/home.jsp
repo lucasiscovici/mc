@@ -28,19 +28,19 @@ Base.fromRequest(request);
 %>
 <script>
 bases = {
-		'base2':'/',
-		'base':'/TwisterV3/',
-		'baseCSS':'/TwisterV3/css/',
-		'baseVue':'/TwisterV3/vue/',
-		'baseTemplates':'/TwisterV3/templates/',
-		'baseVue2':'/vue/',
-		'baseTemplates2':'/templates/',
-		'baseCSSLib':'/TwisterV3/css/lib/',
-		'baseJS':'/TwisterV3/js/',
-		'baseJSLib':'/TwisterV3/js/lib/',
-		'baseJSConfigLib':'/TwisterV3/js/config_lib/',
-		'baseJSClasses':'/TwisterV3/js/classes/',
-		'baseImg':'/TwisterV3/img/',
+		'base2':'${base2}',
+		'base':'${base}',
+		'baseCSS':'${baseCSS}',
+		'baseVue':'${baseVue}',
+		'baseTemplates':'${baseTemplates}',
+		'baseVue2':'${baseVue2}',
+		'baseTemplates2':'${baseTemplates2}',
+		'baseCSSLib':'${baseCSSLib}',
+		'baseJS':'${baseJS}',
+		'baseJSLib':'${baseJSLib}',
+		'baseJSConfigLib':'${baseJSConfigLib}',
+		'baseJSClasses':'${baseJSClasses}',
+		'baseImg':'${baseImg}',
 }
 </script>
 <!-- IMPORT JSP FILE -->
