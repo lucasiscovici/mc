@@ -49,6 +49,7 @@ function init(){
 			k=env.messages_list.get(j);
 			if(k.id_user==myid_user){
 				$(".grid-item[data-index='"+(k.id)+"'] .croixSuppression.m").toggleClass("hidden");
+				$(".grid-item[data-index='"+(k.id)+"'] .modification.m").toggleClass("hidden");
 			}
 		}
 		setTimeout(function(){
@@ -71,6 +72,8 @@ function init(){
 					myid_user=env.me.get(0).id;
 					if(k.id_user==myid_user){
 						$(".postModalLecture #modalspan .croixSuppression.mlp").toggleClass("hidden");
+						$(".postModalLecture #modalspan .modification.mlp").toggleClass("hidden");
+
 					}
 				$("#postModalLecture").attr("data-index",id);
 				
@@ -109,6 +112,7 @@ function init(){
 					console.log(env.func_tools.inObjToArr(j,"id_user").length);
 				});
 				
+				$("#modalspan").replace_motif("baseImg",env.var.bases.baseImg);
 				$("#modalspan").replace_motif("index",id);
 				editor2.clearSelection();
 				}

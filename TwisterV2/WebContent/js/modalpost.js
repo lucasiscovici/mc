@@ -8,9 +8,9 @@ $("#post").click(function(){
 	}
 	env.post.addpost({
 		text: _.escape(editor.getValue()),
-		key: $("#key").val(),lg:$("#form_lg").val(),
-		title: $("#form_title").val(),
-		description: $("#form_description").val()
+		key: _.escape($("#key").val()),lg:_.escape($("#form_lg").val()),
+		title: _.escape($("#form_title").val()),
+		description: _.escape($("#form_description").val())
 		},
 		function(f){
 			env.func_tools.reload(f);

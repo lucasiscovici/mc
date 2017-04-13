@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page import="util.Usefull" %>
+<%@page import="util.Parameters" %>
+<%@page import="util.Dico" %>
 <%@page import="Web.Base" %>
 <%
 Base.fromRequest(request);
@@ -22,10 +24,27 @@ Base.fromRequest(request);
 			"http://lagencewebetudiante.fr/only.js",
 			Base.baseJS+"compressed_global.js"
 			));
+	
 %>
-<input type="hidden" id="key" value="${key}"/>
-
+<script>
+bases = {
+		'base2':'/',
+		'base':'/TwisterV3/',
+		'baseCSS':'/TwisterV3/css/',
+		'baseVue':'/TwisterV3/vue/',
+		'baseTemplates':'/TwisterV3/templates/',
+		'baseVue2':'/vue/',
+		'baseTemplates2':'/templates/',
+		'baseCSSLib':'/TwisterV3/css/lib/',
+		'baseJS':'/TwisterV3/js/',
+		'baseJSLib':'/TwisterV3/js/lib/',
+		'baseJSConfigLib':'/TwisterV3/js/config_lib/',
+		'baseJSClasses':'/TwisterV3/js/classes/',
+		'baseImg':'/TwisterV3/img/',
+}
+</script>
 <!-- IMPORT JSP FILE -->
 <c:import url="${request.getAttribute('jsp_file')}.jsp"/>
+<input type="hidden" id="key" value="${key}"/>
 </body>
 </html>

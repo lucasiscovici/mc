@@ -1,5 +1,7 @@
 env = {};
 env.auth={};
+env.var = {};
+env.var.bases= bases;
 env.getKey = function(){
 	return $("#key").val();
 }

@@ -104,6 +104,7 @@ $(function(){
 	    arr.nb_coms = that.nb_comments;
 	    arr.cl = arr.desc == null ? "hidden" : "" ;
 	    arr.date = that.date.format("dddd DD MMM YYYY \\à HH\\h\\\\mm");
+	    arr.baseImg = env.var.bases.baseImg;
 	  return template(arr,"message");
   }
   
