@@ -230,7 +230,7 @@ public class db_Post_Helper extends dbM {
 	public boolean Update(Parameters params)
 			throws ClassNotFoundException, SQLException, LucasException, UnknownHostException {
 		// TODO Auto-generated method stub
-		return this.UpdateMongoWithId(params);
+		return this.UpdateMongoWithId(params.PS("text","lg","title","description","id"));
 	}
 	
 	/**

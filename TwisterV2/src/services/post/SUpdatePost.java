@@ -1,6 +1,7 @@
 package services.post;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.text.ParseException;
 
@@ -18,10 +19,11 @@ import util.Parameters;
 import util.TestError;
 
 public class SUpdatePost extends Service {
-
+	db_Post_Helper dPH = null;
 	public SUpdatePost() throws NumberFormatException, ClassNotFoundException, IOException, SQLException, JSONException,
 			LucasException {
 		// TODO Auto-generated constructor stub
+		super();
 	}
 
 	public SUpdatePost(Parameters params) throws NumberFormatException, ClassNotFoundException, IOException,
@@ -45,7 +47,7 @@ public class SUpdatePost extends Service {
 	@Override
 	public String[] giveGetEntry() {
 		// TODO Auto-generated method stub
-		return Dico.vs_ak("text", "title", "lg");
+		return Dico.vs_ak("id");
 	}
 
 	@Override
@@ -53,21 +55,38 @@ public class SUpdatePost extends Service {
 		// TODO Auto-generated method stub
 		return Dico.response(this);
 	}
-
+	public boolean UpdateAdmin() throws ClassNotFoundException, UnknownHostException, SQLException, LucasException {
+		if (!dPH.Update(params)) {
+			RespS.c(this, Error.MongoError.detail("modification"));
+			return false;
+		}
+		return true;
+	}
+	public boolean Update() throws ClassNotFoundException, UnknownHostException, SQLException, LucasException {
+		
+		if (!dPH.checkIfSameIDUser(params)) {
+			RespS.c(this, Error.NAUTH.detail("pas les droits neccessaires"));
+			return false;
+		}
+		return UpdateAdmin();
+	}
+	public boolean ok() throws JSONException {
+		Local_params.responseID(params);
+		//io.print(Local_params);
+		RespS.cj(this);
+		return true;
+	}
+	
 	@Override
 	public void koko() throws IOException {
-		
+		dPH = new db_Post_Helper();
+		boolean _;
 		try {
+			if ((TestError.params_authAdmin(this))) { // CHECK PARAMS + KEY ADMIN
+				_ = UpdateAdmin() ? ok() : RespS.c(this, Error.ErrArgs) ;
+			}
 			if (TestError.params_auth(this)) { // ErrParams+AUTH
-
-				if (!db_Post_Helper.c().Update(params)) {
-					RespS.c(this, Error.MongoError.detail("modification"));
-					return;
-				}
-
-				Local_params.responseID(params);
-				//io.print(Local_params);
-				RespS.cj(this);
+				_ = Update() ? ok() : RespS.c(this, Error.ErrArgs) ;
 			}
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
