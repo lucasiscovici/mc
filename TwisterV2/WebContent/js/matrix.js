@@ -14,6 +14,19 @@ function suppressionPost(idp){
 				}
 	})
 }
+
+function modificationPost(idp){
+	env.post.updatepost({id:idp},
+		function(d){
+			if("response" in d){
+				if(!$(".modalpostLecture").hasClass("hidden")){
+					$(".modalpostLecture").toggleClass("hidden");
+				}
+				//env.func_tools.reload(d);
+			}
+	})
+}
+
 $(function(){
 	
 	env.user.listusers({},function(d){

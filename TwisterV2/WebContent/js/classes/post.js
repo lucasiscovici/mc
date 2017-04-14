@@ -16,6 +16,14 @@ $(function(){
 			callback(d);
 		})
 	}
+	
+	env.post.updatepost = function(tab,callback){
+		env.tabKey(tab);
+		$.post("updatepost",tab,function(d){
+			callback(d);
+		})
+	}
+	
 	env.post.reloadPostWId = function(pid,call){
 		p = env.messages_list.get(pid);
 		env.post.listposts({ id:pid },function(d){

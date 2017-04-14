@@ -49,6 +49,10 @@
 		<servlet-class>servlet.post.AddPost</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>UpdatePost</servlet-name>
+		<servlet-class>servlet.post.UpdatePost</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>AddLike</servlet-name>
 		<servlet-class>servlet.like.AddLike</servlet-class>
 	</servlet>
@@ -149,6 +153,10 @@
 	<servlet-mapping>
 		<servlet-name>AddPost</servlet-name>
 		<url-pattern>/addpost</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UpdatePost</servlet-name>
+		<url-pattern>/updatepost</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>AddLike</servlet-name>
