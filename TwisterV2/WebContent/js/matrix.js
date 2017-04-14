@@ -18,6 +18,7 @@ function suppressionPost(idp){
 function modificationPost(idp){
 	env.post.updatepost({id:idp},
 		function(d){
+		console.log(d);
 			if("response" in d){
 				if(!$(".modalpostLecture").hasClass("hidden")){
 					$(".modalpostLecture").toggleClass("hidden");

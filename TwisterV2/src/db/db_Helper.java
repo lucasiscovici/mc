@@ -386,7 +386,8 @@ public class db_Helper {
 	public static boolean updateMongo(String table,Parameters sets,Parameters where) throws LucasException, ClassNotFoundException, SQLException, UnknownHostException {
 		DBObject jo = CreateRequest();
 		if (sets==null || sets.parameters.size()==0) {
-			throw new LucasException("db_Helper sets pb updataMongo");
+			return true;
+			//throw new LucasException("db_Helper sets pb updataMongo");
 		}
 		for (Dico d : sets.parameters) {
 		jo.put(d.getKey(), d.getValue()); 
