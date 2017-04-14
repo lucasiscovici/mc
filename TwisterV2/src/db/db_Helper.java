@@ -41,7 +41,7 @@ import services.utils.Service;
  */
 
 public class db_Helper {
-
+	public static Database db = null;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
@@ -55,11 +55,18 @@ public class db_Helper {
 	 */
 	
 	public static Statement giveMeAnStatement() throws SQLException, ClassNotFoundException {
-		return (Statement) Database.getMySQLConnection().createStatement();
+		if (db==null) {
+			db= new Database();
+		}
+		return (Statement) db.getMySQLConnection().createStatement();
+	}
+	public static void closeMySQLConnection2() throws ClassNotFoundException, SQLException {
 	}
 	
 	public static void closeMySQLConnection() throws ClassNotFoundException, SQLException {
-		//Database.getMySQLConnection().close();
+		db.getMySQLConnection().close();
+		db.conn=null;
+		
 	}
 	/**
 	 * 

@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 public class Database {
 static Database database;
 private DataSource dataSource;
-private static Connection conn = null;
+public Connection conn = null;
 
 /**
  * Constructeur Database
@@ -39,6 +39,10 @@ throw new SQLException(jndiname +" is missing in JNDI! : "+e.getMessage());
 
 }
 
+public Database() {
+	// TODO Auto-generated constructor stub
+}
+
 /**
  * 
  * @return Notre connexion SQL
@@ -57,17 +61,19 @@ return dataSource.getConnection();
  * @throws ClassNotFoundException
  */
 
-public static Connection getMySQLConnection() throws SQLException, ClassNotFoundException {
+public  Connection getMySQLConnection() throws SQLException, ClassNotFoundException {
     Class.forName("com.mysql.jdbc.Driver");
 
 	if (!DBStatic.mysql_pooling) {
-		if (conn==null) {
-			conn = (DriverManager.getConnection("jdbc:mysql://"+ DBStatic.mysql_host + "/" + DBStatic.mysql_db, DBStatic.mysql_username, DBStatic.mysql_password));
+			if (conn==null) {
+				
+			
+			conn = DriverManager.getConnection("jdbc:mysql://"+ DBStatic.mysql_host + "/" + DBStatic.mysql_db, DBStatic.mysql_username, DBStatic.mysql_password);
+			}
 			return conn;
-		}else{
-		return conn;
-
-		}
+			
+		
+		
 		}else
 		{
 			
