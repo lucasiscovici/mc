@@ -3,6 +3,7 @@ package db;
 import java.net.UnknownHostException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Connection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,7 +42,6 @@ import services.utils.Service;
  */
 
 public class db_Helper {
-	public static Database db = null;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
@@ -55,18 +55,15 @@ public class db_Helper {
 	 */
 	
 	public static Statement giveMeAnStatement() throws SQLException, ClassNotFoundException {
-		if (db==null) {
-			db= new Database();
-		}
-		return (Statement) db.getMySQLConnection().createStatement();
+	
+	
+		return (Statement)  Database.getMySQLConnection().createStatement();
 	}
 	public static void closeMySQLConnection2() throws ClassNotFoundException, SQLException {
 	}
 	
-	public static void closeMySQLConnection() throws ClassNotFoundException, SQLException {
-		db.getMySQLConnection().close();
-		db.conn=null;
-		
+	public static void closeMySQLConnection(Statement st) throws ClassNotFoundException, SQLException {
+		st.getConnection().close();
 	}
 	/**
 	 * 
@@ -121,14 +118,14 @@ public class db_Helper {
 	 */
 	
 	public static Parameters select(String query) throws SQLException, ClassNotFoundException {
-		try {
+		
 			List<Dico> liste = new ArrayList<Dico>();
 			//io.print(query);
 			Statement s = giveMeAnStatement();
 			//io.print(query);
 			ResultSet r = s.executeQuery(query);
 			List<String> columns = getColumnsNames(r);
-
+			try {
 			int c = 0;
 			int o = getRowCount(r);
 			while (r.next()) {
@@ -149,11 +146,12 @@ public class db_Helper {
 			}
 
 			r.close();
-			s.close();
+			
 
 			return new Parameters(liste);
 		} finally {
-			closeMySQLConnection();
+			closeMySQLConnection(s);
+			s.close();
 		}
 	}
 	
@@ -354,7 +352,7 @@ public class db_Helper {
 	 */
 	
 	public static int update(String table,Parameters sets,Parameters where) throws LucasException, ClassNotFoundException, SQLException {
-		try {
+	
 			String query = "UPDATE " + table;
 			if (sets == null || sets.parameters.size() == 0) {
 				throw new LucasException("db_Helper sets pb update");
@@ -364,9 +362,11 @@ public class db_Helper {
 			query += where(where);
 			//io.print(query);
 			Statement s = giveMeAnStatement();
+			try {
 			return s.executeUpdate(query);
 		} finally {
-			closeMySQLConnection();
+			closeMySQLConnection(s);
+			s.close();
 		}
 
 	}
@@ -462,11 +462,13 @@ public class db_Helper {
 
 	public static int insert(String query) throws SQLException, ClassNotFoundException {
 		//io.print(query);
-		try {
+		
 			Statement s = giveMeAnStatement();
+			try {
 			return s.executeUpdate(query);
 		} finally {
-			closeMySQLConnection();
+			closeMySQLConnection(s);
+			s.close();
 		}
 	}
 	
@@ -510,13 +512,14 @@ public class db_Helper {
 	 */
 	
 	public static int insertValues(String query,Parameters dd) throws SQLException, ClassNotFoundException {
-		try {
+
 			List<String> d = dd.getOnlyValues();
 			query += " VALUES( ";
 			query += stringMe(d);
 			query += ")";
 			//io.print(query);
 			Statement s = giveMeAnStatement();
+			try {
 			int sf = s.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
 			ResultSet rs = s.getGeneratedKeys();
 			if (rs.next()) {
@@ -524,7 +527,8 @@ public class db_Helper {
 			}
 			return sf;
 		} finally {
-			closeMySQLConnection();
+			closeMySQLConnection(s);
+			s.close();
 		}
 	}
 	/**
@@ -552,16 +556,17 @@ public class db_Helper {
 	 */
 	
 	public static int delete(String table,Parameters d) throws SQLException, ClassNotFoundException {
-		try {
+	
 
 		String query = "DELETE FROM "+table+"";
 		query += where(d);
 		Statement s = giveMeAnStatement();
 		//io.print(query);
-		return s.executeUpdate(query);	
+		try {	return s.executeUpdate(query);	
 			
 		} finally {
-			closeMySQLConnection();
+			closeMySQLConnection(s);
+			s.close();
 		}
 	}
 	

@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 public class Database {
 static Database database;
 private DataSource dataSource;
-public Connection conn = null;
+public static Connection conn = null;
 
 /**
  * Constructeur Database
@@ -61,18 +61,13 @@ return dataSource.getConnection();
  * @throws ClassNotFoundException
  */
 
-public  Connection getMySQLConnection() throws SQLException, ClassNotFoundException {
+public static Connection getMySQLConnection() throws SQLException, ClassNotFoundException {
     Class.forName("com.mysql.jdbc.Driver");
 
 	if (!DBStatic.mysql_pooling) {
-			if (conn==null) {
 				
-			
 			conn = DriverManager.getConnection("jdbc:mysql://"+ DBStatic.mysql_host + "/" + DBStatic.mysql_db, DBStatic.mysql_username, DBStatic.mysql_password);
-			}
-			return conn;
-			
-		
+			return conn;		
 		
 		}else
 		{
