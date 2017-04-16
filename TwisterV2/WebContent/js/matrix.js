@@ -1,6 +1,17 @@
 env.messages_list=null;
 env.me=null;
-
+function openPostModal(){
+	post=$("#postModal");
+	post.attr("idp","");
+	post.attr("type","0");
+	post.find("#form_title").val();
+	post.find("#form_description").html();
+	editor.setValue("");
+	fs=post.find("#form_lg option").eq(0)
+	fs.prop('selected', true);
+	setSessionMode(fs.attr("value"));
+	post.toggleClass("hidden");
+}
 function suppressionPost(idp){
 	env.post.removepost({id:idp},
 			function(d){
@@ -16,16 +27,18 @@ function suppressionPost(idp){
 }
 
 function modificationPost(idp){
-	env.post.updatepost({id:idp},
-		function(d){
-		console.log(d);
-			if("response" in d){
-				if(!$(".modalpostLecture").hasClass("hidden")){
-					$(".modalpostLecture").toggleClass("hidden");
-				}
-				//env.func_tools.reload(d);
-			}
-	})
+	$(".modale").toggleClassAlways("hidden");
+	post=$("#postModal");
+	post.attr("idp",idp);
+	post.attr("type","2");
+	ms=env.messages_list.get(idp);
+	post.find("#form_title").val(_.unescape(ms.title));
+	post.find("#form_description").html(_.unescape(ms.description));
+	editor.setValue(_.unescape(ms.text));
+	post.find("#form_lg option[value='"+(ms.language)+"']").prop('selected', true);
+	setSessionMode(ms.language);
+	post.toggleClass("hidden");
+	editor.clearSelection();
 }
 
 $(function(){
@@ -85,8 +98,8 @@ function init(){
 					k=mess;
 					myid_user=env.me.get(0).id;
 					if(k.id_user==myid_user){
-						$("#postModalLecture #modalspan .croixSuppression.mlp").toggleClass("hidden");
-						$("#postModalLecture #modalspan .modification.mlp").toggleClass("hidden");
+						$("#postModalLecture #modalspan .croixSuppression.mpl").toggleClass("hidden");
+						$("#postModalLecture #modalspan .modification.mpl").toggleClass("hidden");
 
 					}
 				$("#postModalLecture").attr("data-index",id);

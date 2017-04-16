@@ -241,7 +241,7 @@ public class Parameters {
 	public Integer getValueInt(String key) {
 		Dico c =getDico(key);
 		if (c==null || c.getValue() == "null") {
-			return null;
+			return -1;
 		}else{
 			return Integer.parseInt(c.getValue());
 

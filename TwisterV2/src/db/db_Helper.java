@@ -389,19 +389,22 @@ public class db_Helper {
 			return true;
 			//throw new LucasException("db_Helper sets pb updataMongo");
 		}
+		BasicDBList docIds = new BasicDBList();
+
 		for (Dico d : sets.parameters) {
-		jo.put(d.getKey(), d.getValue()); 
+			 
+			
+			 jo.put(d.getKey(), d.getValue()); 
 		}
+		 DBObject inClause = new BasicDBObject("$set", jo);
 		BasicDBObject r= CreateRequest();
 		if (where != null) {
 			
-		
-		for (Dico d : where.parameters) {
-			r.put(d.getKey(), d.getValue());
-			
+			whereMongo(r,where);
+	
 		}
-		}
-		WriteResult w = getMyCollection(table).update(r,jo);
+	
+		WriteResult w = getMyCollection(table).update(r,inClause);
 		return w.getError() == null;
 	}
 	
@@ -912,7 +915,6 @@ public class db_Helper {
 		 whereMongo(r, params);
 		 //io.print(r);
 		DBCursor dcu = dc.find(r).sort(new BasicDBObject("date",-1));
-		io.print(dcu);
 		if (limit != null) {
 			dcu = dcu.limit(limit);
 		}
@@ -921,7 +923,6 @@ public class db_Helper {
 		int c = 0;
 		while (dcu.hasNext()) {
 			DBObject dbObject = (DBObject) dcu.next();
-			io.print(dbObject);
 			pn.co=c++;
 			pn.AddParam(dbObject);
 			

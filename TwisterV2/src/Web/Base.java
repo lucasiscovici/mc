@@ -14,6 +14,8 @@ import util.Parameters;
 import util.io;
 
 public class Base {
+	public static String env = "DEV"; //PROD ou DEV
+
 	public static String  base2 = "/";
 
 	public static String  base = base2+"TwisterV3/";

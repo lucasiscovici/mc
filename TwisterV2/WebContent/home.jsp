@@ -19,11 +19,20 @@ Base.fromRequest(request);
 
 <!-- JS TO IMPORT -->
 <%
+if(Base.env=="PROD"){
 	request.setAttribute("importJSGlobal", Usefull.ListFromStringA(
 			"https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js",
 			"http://lagencewebetudiante.fr/only.js",
 			Base.baseJS+"compressed_global.js"
 			));
+}else if(Base.env == "DEV"){
+	request.setAttribute("importJSGlobal", Usefull.ListFromStringA(
+			"https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js",
+			"http://lagencewebetudiante.fr/only.js",
+			Base.baseJSLib+"bootstrap.min.js", Base.baseJS+"global.js" ,Base.baseJS+"func_tools.js",Base.baseJSLib+"moment.js",Base.baseJSLib+"underscore-min.js"
+			));
+}
+	
 	
 %>
 <script>

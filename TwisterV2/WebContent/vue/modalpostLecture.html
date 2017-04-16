@@ -1,4 +1,4 @@
-<div id="postModalLecture" class="hidden" style="position:fixed;width:100vw;height: 100vh;top:0px;left:0px;background-color: #161616;z-index: 27777;" data-index="-1">
+<div id="postModalLecture" class="hidden modale" style="position:fixed;width:100vw;height: 100vh;top:0px;left:0px;background-color: #161616;z-index: 27777;" data-index="-1">
 	
 	<div style="
     width: 30vw;
@@ -12,11 +12,11 @@
 <span onclick="$('#postModalLecture').toggleClass('hidden');" style="cursor:pointer" id="modalspan">
 		<img style="position: absolute; top: 0; right: 0; margin-top: 10px;" width="30px" src="{{baseImg}}fermer.png" />
 		<img onclick="suppressionPost('{{index}}');" src="{{baseImg}}croixSuppression.png" style="position: absolute; top: 0; left: 0; margin-top: 10px;" class="croixSuppression mpl hidden" id="modaldelete" />
-			<img onclick="modificationPost('{{index}}');" src="{{baseImg}}modifier.png" style="cursor:pointer;position: absolute; top: 0; left: 0; margin-top: 10px;" class="modification mpl hidden" id="modalmodif" />
+			<img onclick="modificationPost('{{index}}');" src="{{baseImg}}modifier.png" style="cursor:pointer;position: absolute;top: 2px;left: 25px;margin-top: 10px;" class="modification mpl hidden" id="modalmodif" />
 	</span>
 	<h4 style="text-align: center; background-color: #FFFFFF; color: #000000; padding-top: 5px; height: 30px;overflow-y:scroll;" ><span>Login: </span><span id="modal_user"></span></h4>
 	<h4 style="text-align: center; background-color: #FFFFFF; color: #000000; padding-top: 5px; height: 30px;overflow-y:scroll;" ><span>Titre: </span><span id="modal_title"></span></h4>
-	<h5 style="text-align: center; background-color: #FFFFFF; color: #000000; padding-top: 5px; height: 100px;overflow-y:scroll;"><span>Description: </span><span id="modal_desc"></span></h5>
+	<h5 style="text-align: center; background-color: #FFFFFF; color: #000000; padding-top: 5px; max-height: 200px;overflow-y:scroll;"><span>Description: </span><span id="modal_desc"></span></h5>
 		<h5 style="text-align: center; background-color: #FFFFFF; color: #000000; padding-top: 5px; height: 30px;overflow-y:scroll;"><span>Language: </span><span id="modal_lg"></span></h5>
 			<h5 style="text-align: center; background-color: #FFFFFF; color: #000000; padding-top: 5px; height: 30px;overflow-y:scroll;"><span>Date: </span><span id="modal_date"></span></h5>
 	<div class="form-group">

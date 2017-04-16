@@ -63,8 +63,10 @@ public class SUpdatePost extends Service {
 		return true;
 	}
 	public boolean Update() throws ClassNotFoundException, UnknownHostException, SQLException, LucasException {
-		
-		if (!dPH.checkIfSameIDUser(params)) {
+		if (!params.getDicosOK("id")) {
+			return false;
+		}
+		if ( !dPH.checkIfSameIDUser(params)) {
 			RespS.c(this, Error.NAUTH.detail("pas les droits neccessaires"));
 			return false;
 		}
@@ -89,6 +91,7 @@ public class SUpdatePost extends Service {
 				_ = Update() ? ok() : RespS.c(this, Error.ErrArgs) ;
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			// TODO Auto-generated catch block
 			RespS.c(this, Error.JavaError.detail(e.getMessage()).setDescription(e.getClass().getName()));
 		} 

@@ -71,6 +71,13 @@ $(function(){
 });
 
 (function($){
+	$.fn.toggleClassAlways = function(cls){
+		return $(this).each(function(){
+			if(!$(this).hasClass(cls)){
+				$(this).addClass(cls)
+			}
+		})
+	}
 	$.fn.replace_motif = function(key,d){
     	var e = $(this).html();
     	var df = replace_motif2(key,d,e);

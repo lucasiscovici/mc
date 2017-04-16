@@ -67,7 +67,7 @@ public class SListPosts extends ServiceList {
 	public void koko() throws IOException {
 		try {
 
-			if (TestError.params_auth(this)) {
+			if (TestError.params_auth(this) ) {
 
 				Parameters messages;
 				db_Post_Helper dPH = db_Post_Helper.c();
