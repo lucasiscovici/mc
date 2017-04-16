@@ -1,0 +1,37 @@
+<div id="listCommentaire" class="hidden modale" style="position:fixed;width:50vw;height: 50vh;top:25%;left:25%;background-color: #161616;z-index: 27777;" data-index="-1">
+	
+	<div>
+	bonjour
+	</div>
+</div>
+	
+
+
+ <style>
+	.hh{
+		height:90vh !important;
+	}
+	#editor{
+		z-index: 999;
+		height: 150px;
+	}
+	#form_post{
+		z-index: 999;
+	}
+	.langageSelect {
+		margin-left: 30px;
+		background-color: #3B5999;
+		color: #ffffff;
+		height: 35px;
+	}
+	.inputTitle {
+		border: 0;
+		color: #000000;
+		left: 50%;
+		width: 100%;
+		text-align: center;
+		height: 30px;
+		vertical-align: middle;
+		background-color: white;
+	}
+</style>
