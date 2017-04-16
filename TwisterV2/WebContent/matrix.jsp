@@ -34,7 +34,7 @@ Base.fromRequest(request);
 	<c:import url="nav.jsp"/>
 	
     <div style="margin-top: 70px;z-index: 88; top: 0; position: fixed;"> 
-    	<div class="bare bleu" onclick="$('#postModal').toggleClass('hidden');"><span class="centerH"><i class="glyphicon glyphicon-plus"></i></span>
+    	<div class="bare bleu" onclick="openPostModal()"><span class="centerH"><i class="glyphicon glyphicon-plus"></i></span>
     	</div>
 	</div>
     <div class="row">
@@ -61,7 +61,8 @@ Base.fromRequest(request);
 <%
 	request.setAttribute("importHTML", Usefull.ListFromStringA(
 			"modalpost",
-			"modalpostLecture"
+			"modalpostLecture",
+			"commentaire"
 			));
 %>
 <c:forEach items="${importHTML}" var="importHTMLItem">
@@ -79,11 +80,31 @@ fd="${que}";
 	<script type="text/javascript" src="${importJSGlobalItem}"></script>	
 </c:forEach>
 <%
+if(Base.env=="PROD"){
+
 	request.setAttribute("importJS", Usefull.ListFromStringA(
 			"https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js",
 			"https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ext-language_tools.js",
 			Base.baseJS+"compressed_matrix.js"
 			));
+}else if (Base.env=="DEV"){
+	request.setAttribute("importJS", Usefull.ListFromStringA(
+			"https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js",
+			"https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ext-language_tools.js",
+			Base.baseJSConfigLib+"config_ace.js",
+			Base.baseJSLib+"jquery.cookie.js",
+			Base.baseJSClasses+"objects.js",
+			Base.baseJSLib+"masonry.pkgd.min.js",
+			Base.baseJSConfigLib+"config_masonry.js",
+			Base.baseJSClasses+"like.js",
+			Base.baseJSClasses+"user.js",
+			Base.baseJSClasses+"post.js",
+			Base.baseJSClasses+"session.js",
+			Base.baseJS+"matrix.js",
+			Base.baseJS+"modalpost.js",
+			Base.baseJS+"modalpostLecture.js"
+			));
+}
 %>
 
 <c:forEach items="${importJS}" var="importJSItem">

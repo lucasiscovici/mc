@@ -20,8 +20,9 @@ $(function(){
 	env.post.updatepost = function(tab,callback){
 		env.tabKey(tab);
 		$.post("updatepost",tab,function(d){
+			console.log(d);
 			callback(d);
-		})
+		}, 'json' )
 	}
 	
 	env.post.reloadPostWId = function(pid,call){

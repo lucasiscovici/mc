@@ -80,6 +80,30 @@ $(function() {
 		$(".grid-item[data-index="+idPost+"]").find(".nb_likes_grid_item").html($("#likep").html());
 		}
 	});
+	
+	$("#commentaire2").click(function(){
+		$("#listCommentaire").toggleClass("hidden");
+		$("#modalspanComm").replace_motif("baseImg",env.var.bases.baseImg);
+	});
+	
+	$("#newComm").click(function(){
+		if ($('#newCommentaire').val().length > 0) {
+			$.getJSON("addcomment", {
+				key : $.cookie("key"),
+				text : $('#newCommentaire').val(),
+				id_post : env.messages_list.get($("#postModalLecture").attr("data-index")).id
+			}, function(d) {
+				console.log(d);
+				if ("response" in d) {
+					sd = $("#comsp").val();
+					df = parseInt(sd, 10);
+					$("#comsp").val(df + 1);
+					$('#newCommentaire').val("");
+					$('#listCommentaire').toggleClass("hidden");
+				}
+			})
+		}
+	});
 
 	$("#commentaire").click(
 			function() {

@@ -63,15 +63,17 @@ public class SUpdatePost extends Service {
 		return true;
 	}
 	public boolean Update() throws ClassNotFoundException, UnknownHostException, SQLException, LucasException {
-		
-		if (!dPH.checkIfSameIDUser(params)) {
+		if (!params.getDicosOK("id")) {
+			return false;
+		}
+		if ( !dPH.checkIfSameIDUser(params)) {
 			RespS.c(this, Error.NAUTH.detail("pas les droits neccessaires"));
 			return false;
 		}
 		return UpdateAdmin();
 	}
 	public boolean ok() throws JSONException {
-		Local_params.responseID(params);
+		Local_params.AddParamRespOK();
 		//io.print(Local_params);
 		RespS.cj(this);
 		return true;
@@ -85,25 +87,14 @@ public class SUpdatePost extends Service {
 			if ((TestError.params_authAdmin(this))) { // CHECK PARAMS + KEY ADMIN
 				_ = UpdateAdmin() ? ok() : RespS.c(this, Error.ErrArgs) ;
 			}
-			if (TestError.params_auth(this)) { // ErrParams+AUTH
+			else if (TestError.params_auth(this)) { // ErrParams+AUTH
 				_ = Update() ? ok() : RespS.c(this, Error.ErrArgs) ;
 			}
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
-		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (LucasException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			RespS.c(this, Error.JavaError.detail(e.getMessage()).setDescription(e.getClass().getName()));
+		} 
 
 	}
 
