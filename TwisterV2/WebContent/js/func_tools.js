@@ -71,10 +71,17 @@ $(function(){
 });
 
 (function($){
-	$.fn.toggleClassAlways = function(cls){
+	$.fn.addClassAlways = function(cls){
 		return $(this).each(function(){
 			if(!$(this).hasClass(cls)){
 				$(this).addClass(cls)
+			}
+		})
+	}
+	$.fn.removeClassAlways = function(cls){
+		return $(this).each(function(){
+			if($(this).hasClass(cls)){
+				$(this).removeClass(cls)
 			}
 		})
 	}

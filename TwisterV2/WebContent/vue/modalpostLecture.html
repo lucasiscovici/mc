@@ -9,10 +9,10 @@
     right: 0px;
     height: 100%;
 ">
-<span onclick="$('#postModalLecture').toggleClass('hidden');" style="cursor:pointer" id="modalspan">
-		<img style="position: absolute; top: 0; right: 0; margin-top: 10px;" width="30px" src="{{baseImg}}fermer.png" />
-		<img onclick="suppressionPost('{{index}}');" src="{{baseImg}}croixSuppression.png" style="position: absolute; top: 0; left: 0; margin-top: 10px;" class="croixSuppression mpl hidden" id="modaldelete" />
-			<img onclick="modificationPost('{{index}}');" src="{{baseImg}}modifier.png" style="cursor:pointer;position: absolute;top: 2px;left: 25px;margin-top: 10px;" class="modification mpl hidden" id="modalmodif" />
+<span style="cursor:pointer" id="modalspan">
+		<img  onclick="$('#postModalLecture').toggleClass('hidden')" style="position: absolute; top: 0; right: 0; margin-top: 10px;" width="30px" src="{{baseImg}}fermer.png" />
+		<img onclick="suppressionPost('{{index}}')" src="{{baseImg}}croixSuppression.png" style="position: absolute; top: 0; left: 0; margin-top: 10px;" class="croixSuppression mpl hidden" id="modaldelete" />
+			<img onclick="modificationPost('{{index}}')" src="{{baseImg}}modifier.png" style="cursor:pointer;position: absolute;top: 2px;left: 25px;margin-top: 10px;" class="modification mpl hidden" id="modalmodif" />
 	</span>
 	<h4 style="text-align: center; background-color: #FFFFFF; color: #000000; padding-top: 5px; height: 30px;overflow-y:scroll;" ><span>Login: </span><span id="modal_user"></span></h4>
 	<h4 style="text-align: center; background-color: #FFFFFF; color: #000000; padding-top: 5px; height: 30px;overflow-y:scroll;" ><span>Titre: </span><span id="modal_title"></span></h4>

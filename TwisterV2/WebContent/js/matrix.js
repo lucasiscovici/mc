@@ -18,8 +18,8 @@ function suppressionPost(idp){
 				if("response" in d){
 				
 						$(".grid-item[data-index='"+(idp)+"']").remove();
-				if(!$(".modalpostLecture").hasClass("hidden")){
-					$(".modalpostLecture").toggleClass("hidden");
+				if(!$("#modalpostLecture").hasClass("hidden")){
+					$("#modalpostLecture").toggleClass("hidden");
 				}
 					//env.func_tools.reload(d);
 				}
@@ -27,7 +27,7 @@ function suppressionPost(idp){
 }
 
 function modificationPost(idp){
-	$(".modale").toggleClassAlways("hidden");
+	$(".modale").addClassAlways("hidden");
 	post=$("#postModal");
 	post.attr("idp",idp);
 	post.attr("type","2");
@@ -75,8 +75,8 @@ function init(){
 		for (j in env.messages_list.mess){
 			k=env.messages_list.get(j);
 			if(k.id_user==myid_user){
-				$(".grid-item[data-index='"+(k.id)+"'] .croixSuppression.m").toggleClass("hidden");
-				$(".grid-item[data-index='"+(k.id)+"'] .modification.m").toggleClass("hidden");
+				$(".grid-item[data-index='"+(k.id)+"'] .croixSuppression.m").removeClassAlways("hidden");
+				$(".grid-item[data-index='"+(k.id)+"'] .modification.m").removeClassAlways("hidden");
 			}
 		}
 		setTimeout(function(){
@@ -87,7 +87,8 @@ function init(){
 				//env.highlight.apply();
 				id=$(this).attr('data-index');
 				
-				
+				$("#postModalLecture #modalspan .croixSuppression.mpl").addClassAlways("hidden");
+				$("#postModalLecture #modalspan .modification.mpl").addClassAlways("hidden");
 				console.log(id);
 				console.log(env.messages_list)
 				console.log(env.messages_list.get(id));
@@ -98,9 +99,8 @@ function init(){
 					k=mess;
 					myid_user=env.me.get(0).id;
 					if(k.id_user==myid_user){
-						$("#postModalLecture #modalspan .croixSuppression.mpl").toggleClass("hidden");
-						$("#postModalLecture #modalspan .modification.mpl").toggleClass("hidden");
-
+						$("#postModalLecture #modalspan .croixSuppression.mpl").removeClassAlways("hidden");
+						$("#postModalLecture #modalspan .modification.mpl").removeClassAlways("hidden");
 					}
 				$("#postModalLecture").attr("data-index",id);
 				
