@@ -1,0 +1,8 @@
+<div class="grid-item col-xs-offset-1 col-xs-10 col-lg-4 col-lg-offset-4 col-md-offset-2 col-md-8" style="background-color: ghostwhite; border-radius: 2%; margin-bottom:10px;" data-index="{{index}}">
+	<img onclick="suppressionPost('{{index}}');" src="{{baseImg}}croixSuppression.png" style="cursor:pointer;" class="croixSuppression m hidden">
+	<img onclick="modificationPost('{{index}}');" src="{{baseImg}}modifier.png" style="cursor:pointer;" class="modification m hidden ">
+	<div style="text-align: center;">
+		<h3>{{name}}</h3>
+		<h4 class="title_mess" data-index="{{index}}">{{text}}</h4>
+	</div>
+</div>
