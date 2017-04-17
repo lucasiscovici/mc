@@ -141,22 +141,21 @@ public class SRemovePost extends Service {
 			if ((TestError.params_authAdmin(this))) { // CHECK PARAMS + KEY ADMIN
 
 				_ = (
-					router("id" ) ? Key_ID() : false //KEY + ID
+					router("id") ? Key_ID() : false //KEY + ID
 				 || router("type","ALL") ? Key_Type_ALL() : false // KEY + TYPE=ALL
-			     || router("type","MY") ? Key_Type_MY() : false // KEY + TYPE=MY
 			     	) ? 
 			     	Ok() : 
-			     	RespS.c(this, Error.ErrArgs); //Si pas de combinaison avec les params -> ErrorArgs sinon Ok
+			     	RespS.c(this, Error.ErrArgs); 				//Si pas de combinaison avec les params -> ErrorArgs sinon Ok
 			
 			
 			}
 			else if (TestError.params_auth(this)) {
 			 	_ = (
-					router("id" ) ? Key_ID_Check() : false //KEY + ID + CHECK_AUTH
+					router("id" ) ? Key_ID_Check() : false 		//KEY + ID + CHECK_AUTH
 			     || router("type","MY") ? Key_Type_MY() : false // KEY + TYPE=MY
 			     	) ? 
 			     	Ok() : 
-			     	RespS.c(this, Error.ErrArgs); //Si pas de combinaison avec les params -> ErrorArgs sinon Ok	     
+			     	RespS.c(this, Error.ErrArgs); 				//Si pas de combinaison avec les params -> ErrorArgs sinon Ok	     
 					     
 			}
 		} catch (ClassNotFoundException e) {

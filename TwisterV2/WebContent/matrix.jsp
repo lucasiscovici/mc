@@ -99,10 +99,12 @@ if(Base.env=="PROD"){
 			Base.baseJSClasses+"like.js",
 			Base.baseJSClasses+"user.js",
 			Base.baseJSClasses+"post.js",
+			Base.baseJSClasses+"comment.js",
 			Base.baseJSClasses+"session.js",
 			Base.baseJS+"matrix.js",
 			Base.baseJS+"modalpost.js",
-			Base.baseJS+"modalpostLecture.js"
+			Base.baseJS+"modalpostLecture.js",
+			Base.baseJS+"nav.js"
 			));
 }
 %>

@@ -11,7 +11,8 @@ $("#post").click(function(){
 	}
 	env.post.addpost({
 		text: _.escape(editor.getValue()),
-		key: _.escape($("#key").val()),lg:_.escape($("#form_lg").val()),
+		key: _.escape($("#key").val()),
+		lg:_.escape($("#form_lg").html()),
 		title: _.escape($("#form_title").val()),
 		description: _.escape($("#form_description").val())
 		},
@@ -23,7 +24,7 @@ $("#post").click(function(){
 		env.post.updatepost({
 			text: _.escape(editor.getValue()),
 			key: _.escape($("#key").val()),
-			lg:_.escape($("#form_lg").val()),
+			lg:_.escape($("#form_lg").html()),
 			title: _.escape($("#form_title").val()),
 			description: _.escape($("#form_description").val()),
 			id:_.escape($("#postModal").attr("idp"))
