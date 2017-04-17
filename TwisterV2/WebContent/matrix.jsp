@@ -48,7 +48,8 @@ Base.fromRequest(request);
 
 <%
 	request.setAttribute("importTemplates", Usefull.ListFromStringA(
-			"message"
+			"message",
+			"commentaire"
 			));
 %>
 <c:forEach items="${importTemplates}" var="importTemplatesItem">
@@ -61,8 +62,7 @@ Base.fromRequest(request);
 <%
 	request.setAttribute("importHTML", Usefull.ListFromStringA(
 			"modalpost",
-			"modalpostLecture",
-			"commentaire"
+			"modalpostLecture"
 			));
 %>
 <c:forEach items="${importHTML}" var="importHTMLItem">
