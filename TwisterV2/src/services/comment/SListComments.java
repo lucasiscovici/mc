@@ -21,12 +21,13 @@ import util.TestError;
 
 /**
  * class SListComments service qui listes les commentaires
- * GET: KEY | KEY + TYPE=ALL | KEY + ID 
+ * GET: KEY + TYPE=ALL | KEY + ID | KEY + ID_POST
  *OUT: RESPONSE:ID:X
  */
 
 public class SListComments extends Service {
-
+	db_Comment_Helper dUH = null;
+	Parameters comments = null;
 	public SListComments() throws NumberFormatException, ClassNotFoundException, IOException, SQLException,
 			JSONException, LucasException {
 		super();
@@ -62,27 +63,48 @@ public class SListComments extends Service {
 		// TODO Auto-generated method stub
 		return Dico.response(this);
 	}
-
+	
+	private boolean KEY_ID() throws ClassNotFoundException, UnknownHostException, SQLException, LucasException {
+		comments = dUH.SelectMongoWithId(params);
+		return true;
+	}
+	private boolean KEY_ID_POST() throws ClassNotFoundException, UnknownHostException, SQLException, LucasException {
+		comments = dUH.ListCommentsFromIdPost(params);
+		return true;
+	}
+	
+	private boolean KEY_ALL() throws ClassNotFoundException, UnknownHostException, SQLException, LucasException {
+		comments = dUH.SelectMongoWith(null);
+		return true;
+	}
+	private boolean ok() throws LucasException, JSONException {
+		Local_params.AddParamResponse("comments", comments);
+		RespS.cj(this);
+		return true;
+	}
 	@Override
 	public void koko() {
+		dUH = db_Comment_Helper.c();
+		boolean _;
 		try {
-			if (TestError.params_auth(this)) {
-				Parameters comments = null;
-				db_Comment_Helper dUH = db_Comment_Helper.c();
-				if (params.getDicosOK("id")) {
-					
-					comments = dUH.SelectMongoWithId(params);
-				 } else if (params.getDicosOK("type") && params.getValue("type").equals("ALL")) {
-					 comments = dUH.SelectMongoWith(null);
-				 } else {
-				
+			if (TestError.params_authAdmin(this)) { // ADMIN
+				_ = (
+					   router("id") ? KEY_ID() : false
+					|| router("type","ALL") ? KEY_ALL() : false
+					|| router("id_post") ? KEY_ID_POST() : false 
+					) ? 
+					ok() :
 					RespS.c(this, Error.ErrArgs);
-					return;
-					
-				}
-				Local_params.AddParamResponse("comments", comments);
-				RespS.cj(this);
 			}
+		else if (TestError.params_auth(this)) {
+				_ = ( 
+						router("id") ? KEY_ID() : false
+						|| router("id_post") ? KEY_ID_POST() : false 
+						) ? 
+						ok() :
+						RespS.c(this, Error.ErrArgs);
+			}
+			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			RespS.c(this, Error.ClassNotFoundException);

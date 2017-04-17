@@ -10,7 +10,7 @@ $(function(){
 			callback(d);
 		})
 	}
-	env.post.addcomment = function(tab,callback){
+	env.comment.addcomment = function(tab,callback){
 		env.tabKey(tab);
 		$.post("addcomment",tab,function(d){
 			callback(d);
@@ -53,7 +53,6 @@ $(function(){
 		obj = m;
 		this.date=moment(parseInt(obj["date"])).locale("fr");
 		this.id_post=obj["id_post"];
-		this.pos=obj["pos"];
 		this.id = obj["id"];
 		this.id_user = obj["id_user"];
 		this.text = obj["text"];
@@ -85,10 +84,11 @@ $(function(){
 		html ="";
 		arr= {};
 		arr.text = that.text;
-	    arr.index = that.pos;
-	    arr.cl = arr.desc == null ? "hidden" : "" ;
+	    arr.index = that.id;
+	    arr.id_post = that.id_post;
+	    arr.date = that.date.format("dddd DD MMM YYYY \\à HH\\h\\\\mm");
 	    arr.baseImg = env.var.bases.baseImg;
-	    return template(arr,"message");
+	    return template(arr,"commentaire");
 	}
 }());
 
@@ -98,7 +98,7 @@ $(function(){
   	}
 	var m = [];
 	this.Comments = function(m) {
-		this.m=m["response"]["messages"];
+		this.m=m["response"]["comments"];
 		this.mess={};
 		if (typeof(this.m)=="string"){
 			this.m = [];

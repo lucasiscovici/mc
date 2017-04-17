@@ -66,14 +66,14 @@ function init(){
 		console.log(d);
 		if ("response" in d) {
 			
-    	a=new Comments(d);
-		env.comments_list=a;
+    	a=new Messages(d);
+		env.messages_list=a;
     	
 		$items=a.HTML()
 		$(".grid").append($items).masonry( 'appended', $items ).masonry();
 		myid_user=env.me.get(0).id;
-		for (j in env.comments_list.mess){
-			k=env.comments_list.get(j);
+		for (j in env.messages_list.mess){
+			k=env.messages_list.get(j);
 			if(k.id_user==myid_user){
 				$(".grid-item[data-index='"+(k.id)+"'] .croixSuppression.m").removeClassAlways("hidden");
 				$(".grid-item[data-index='"+(k.id)+"'] .modification.m").removeClassAlways("hidden");
@@ -90,11 +90,11 @@ function init(){
 				$("#postModalLecture #modalspan .croixSuppression.mpl").addClassAlways("hidden");
 				$("#postModalLecture #modalspan .modification.mpl").addClassAlways("hidden");
 				console.log(id);
-				console.log(env.comments_list)
-				console.log(env.comments_list.get(id));
-				mess=env.comments_list.get(id);
+				console.log(env.messages_list)
+				console.log(env.messages_list.get(id));
+				mess=env.messages_list.get(id);
 				mess.reload();
-				mess=env.comments_list.get(id);
+				mess=env.messages_list.get(id);
 				if(mess){
 					k=mess;
 					myid_user=env.me.get(0).id;
@@ -130,13 +130,12 @@ function init(){
 				env.auth.kk=false;
 				mess.getLikes(env,id,function(j){
 					
-					if ( env.func_tools.inArray(env.me.get(0).id, env.func_tools.inObjToArr(j,"id_user"))) {
+					if ( env.func_tools.inArray(env.me.get(0).id, env.func_tools.inObjToArr(j.likes,"id_user"))) {
 						$("#likes").css("background-color","blue");
 						$("#likes").attr('selectedf',"true");
 						
 					}
 					env.auth.kk=true;
-					console.log(env.func_tools.inObjToArr(j,"id_user").length);
 				});
 				
 				$("#modalspan").replace_motif("baseImg",env.var.bases.baseImg);
@@ -174,81 +173,6 @@ init();
 
 
 
-
-
-
-
-
-function init2(){
-	dd ={};
-	if(fd=="comments") {
-		dd={}
-	}else{
-		dd= {
-				type:"TOTAL"
-			};
-	}
-	
-	env.comment.listcomments(dd,function(d){
-		console.log(d);
-		if ("response" in d) {
-			
-    	a=new Comments(d);
-		env.comments_list=a;
-    	
-		$items=a.HTML()
-		myid_user=env.me.get(0).id;
-		for (j in env.comments_list.mess){
-			k=env.comments_list.get(j);
-			if(k.id_user==myid_user){
-				$(".grid-item[data-index='"+(k.id)+"'] .croixSuppression.m").removeClassAlways("hidden");
-				$(".grid-item[data-index='"+(k.id)+"'] .modification.m").removeClassAlways("hidden");
-			}
-		}
-		setTimeout(function(){
-			
-			
-			
-			$("#commentaire2").click(function(){
-				//env.highlight.apply();
-				id=$("#postModalLecture").attr('data-index');
-				
-				$("#postModalLecture #modalspan .croixSuppression.mpl").addClassAlways("hidden");
-				$("#postModalLecture #modalspan .modification.mpl").addClassAlways("hidden");
-				console.log(id);
-				console.log(env.comments_list)
-				console.log(env.comments_list.get(id));
-				mess=env.comments_list.get(id);
-				mess.reload();
-				mess=env.comments_list.get(id);
-				if(mess){
-					k=mess;
-					myid_user=env.me.get(0).id;
-					if(k.id_user==myid_user){
-						$("#postModalLecture #modalspan .croixSuppression.mpl").removeClassAlways("hidden");
-						$("#postModalLecture #modalspan .modification.mpl").removeClassAlways("hidden");
-					}
-				$("#postModalLecture").attr("data-index",id);
-				
-				$("#postModalLecture").toggleClass("hidden");
-							
-				$("#textComment").html(mess.text);
-				env.auth.kk=false;
-				mess.getLikes(env,id,function(j){
-					env.auth.kk=true;
-					console.log(env.func_tools.inObjToArr(j,"id_user").length);
-				});
-				
-				$("#modalspanComm").replace_motif("baseImg",env.var.bases.baseImg);
-				}
-			});
-			
-		},1000);
-		
-  }
-	});
-}
-init();
 
 
 

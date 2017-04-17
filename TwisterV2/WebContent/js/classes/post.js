@@ -129,12 +129,30 @@ $(function(){
 	  },function(d){
 		  console.log(d);
 		  a=new Likes(d);
-		  that.likes=a.likes;
-		  env.messages_list.get(pos).likes=a.likes;
-		  callback(a.likes);
+		  that.likes=a;
+		  env.messages_list.get(pos).likes=a;
+		  callback(a);
 	  });
 
   }
+  Message.prototype.getComments = function(env,pos,callback){
+	  getComments(this,env,pos,function(g){
+	 	 callback(g);
+	  });
+	   }
+	   function getComments(that,env,pos,callback){
+
+	 	  env.comment.listcomments({
+	 		  id_post:that.id
+	 	  },function(d){
+	 		  console.log(d);
+	 		  a=new Comments(d);
+	 		  that.comments=a;
+	 		  env.messages_list.get(pos).comments=a;
+	 		  callback(a);
+	 	  });
+
+	   }
 
   }());
 

@@ -82,8 +82,16 @@ $(function() {
 	});
 	
 	$("#commentaire2").click(function(){
+		idp=$('#postModalLecture').attr("data-index");
+		mess=env.messages_list.get(idp);
+		mess.getComments(env,idp,function(d){
+			item=d.HTML();
+			$("#listCommentaire #commentslists").append(item);
+		});
+		//$(".modale").addClassAlways("hidden");
 		$("#listCommentaire").toggleClass("hidden");
-		$("#modalspanComm").replace_motif("baseImg",env.var.bases.baseImg);
+		//$("#modalspanComm").replace_motif("baseImg",env.var.bases.baseImg);
+		
 	});
 	
 	$("#newComm").click(function(){

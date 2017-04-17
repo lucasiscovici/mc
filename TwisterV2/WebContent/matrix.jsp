@@ -62,7 +62,8 @@ Base.fromRequest(request);
 <%
 	request.setAttribute("importHTML", Usefull.ListFromStringA(
 			"modalpost",
-			"modalpostLecture"
+			"modalpostLecture",
+			"modalcomments"
 			));
 %>
 <c:forEach items="${importHTML}" var="importHTMLItem">
