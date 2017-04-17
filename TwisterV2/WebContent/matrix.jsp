@@ -48,7 +48,8 @@ Base.fromRequest(request);
 
 <%
 	request.setAttribute("importTemplates", Usefull.ListFromStringA(
-			"message"
+			"message",
+			"commentaire"
 			));
 %>
 <c:forEach items="${importTemplates}" var="importTemplatesItem">
@@ -61,8 +62,7 @@ Base.fromRequest(request);
 <%
 	request.setAttribute("importHTML", Usefull.ListFromStringA(
 			"modalpost",
-			"modalpostLecture",
-			"commentaire"
+			"modalpostLecture"
 			));
 %>
 <c:forEach items="${importHTML}" var="importHTMLItem">
@@ -99,10 +99,12 @@ if(Base.env=="PROD"){
 			Base.baseJSClasses+"like.js",
 			Base.baseJSClasses+"user.js",
 			Base.baseJSClasses+"post.js",
+			Base.baseJSClasses+"comment.js",
 			Base.baseJSClasses+"session.js",
 			Base.baseJS+"matrix.js",
 			Base.baseJS+"modalpost.js",
-			Base.baseJS+"modalpostLecture.js"
+			Base.baseJS+"modalpostLecture.js",
+			Base.baseJS+"nav.js"
 			));
 }
 %>
