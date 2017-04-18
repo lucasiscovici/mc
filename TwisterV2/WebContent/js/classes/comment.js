@@ -133,6 +133,7 @@ $(function(){
       html = "";
       fs=[];
       for (i in that.mess) {
+    	  console.log(that.mess[i]);
     	  sf=that.mess[i].HTML();
     	  fs.push(sf);
     	  

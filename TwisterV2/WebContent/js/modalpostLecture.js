@@ -86,7 +86,9 @@ $(function() {
 		mess=env.messages_list.get(idp);
 		mess.getComments(env,idp,function(d){
 			item=d.HTML();
-			$("#listCommentaire #commentslists").append(item);
+			edf=$("#listCommentaire #commentslists").append(item);
+			console.log(item);
+			console.log(d);
 		});
 		//$(".modale").addClassAlways("hidden");
 		$("#listCommentaire").toggleClass("hidden");
