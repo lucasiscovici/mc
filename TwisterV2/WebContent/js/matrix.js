@@ -31,7 +31,7 @@ function modificationPost(idp){
 	post=$("#postModal");
 	post.attr("idp",idp);
 	post.attr("type","2");
-	ms=env.comments_list.get(idp);
+	ms=env.messages_list.get(idp);
 	post.find("#form_title").val(_.unescape(ms.title));
 	post.find("#form_description").html(_.unescape(ms.description));
 	editor.setValue(_.unescape(ms.text));

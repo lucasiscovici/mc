@@ -9,11 +9,20 @@ var sess = editor.getSession();
 editor.setOption("showPrintMargin", false)
 editor2.setOption("showPrintMargin", false)
 
+function conf(lg) {
+	fs=lg.toLowerCase()
+	if(fs=="c"){
+		fs="c_cpp"
+	}
+	return fs;
+}
 function setSessionMode(lg){
+	lg=conf(lg)
 	sess.setMode("ace/mode/"+lg);
 }
 var sess2 = editor2.getSession();
 function setSessionMode2(lg){
+	lg=conf(lg)
 	sess2.setMode("ace/mode/"+lg);
 }
 editor2.setOptions({

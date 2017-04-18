@@ -12,7 +12,7 @@ $("#post").click(function(){
 	env.post.addpost({
 		text: _.escape(editor.getValue()),
 		key: _.escape($("#key").val()),
-		lg:_.escape($("#form_lg").html()),
+		lg:_.escape($("#form_lg option:selected").text()),
 		title: _.escape($("#form_title").val()),
 		description: _.escape($("#form_description").val())
 		},
@@ -24,7 +24,7 @@ $("#post").click(function(){
 		env.post.updatepost({
 			text: _.escape(editor.getValue()),
 			key: _.escape($("#key").val()),
-			lg:_.escape($("#form_lg").html()),
+			lg:_.escape($("#form_lg option:selected").text()),
 			title: _.escape($("#form_title").val()),
 			description: _.escape($("#form_description").val()),
 			id:_.escape($("#postModal").attr("idp"))
