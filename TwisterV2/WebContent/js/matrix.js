@@ -45,7 +45,7 @@ $(function(){
 	
 	env.user.listusers({},function(d){
 		console.log(d);
-		a=new Mes(d);
+		a=new env.user.Mes(d);
 		env.me=a;
 	});
 
@@ -66,7 +66,7 @@ function init(){
 		console.log(d);
 		if ("response" in d) {
 			
-    	a=new Messages(d);
+    	a=new env.post.Messages(d);
 		env.messages_list=a;
     	
 		$items=a.HTML()

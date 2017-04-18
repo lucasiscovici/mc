@@ -28,7 +28,7 @@ $(function(){
 	env.post.reloadPostWId = function(pid,call){
 		p = env.messages_list.get(pid);
 		env.post.listposts({ id:pid },function(d){
-			a=new Messages(d);
+			a=new env.post.Messages(d);
 			console.log(a);
 			if(a.get(pid)==null){
 				console.log("mess supprimer");
@@ -56,11 +56,11 @@ $(function(){
 
 
 (function() {
-    if (typeof Message !== "undefined") {
+    if (typeof env.post.Message !== "undefined") {
     return;
   	}
 
-	this.Message = function(m) {
+    env.post.Message = function(m) {
 		obj = m;
     this.date=moment(parseInt(obj["date"])).locale("fr");
     this.pos=obj["pos"];
@@ -74,11 +74,11 @@ $(function(){
     this.nb_like =obj["nb_likes"];
     this.nb_comments = obj["nb_coms"];
   }
-	Message.prototype.HTML = function() {
+    env.post.Message.prototype.HTML = function() {
 		 return getHTML(this)
 		
   	}
-	Message.prototype.reload = function() {
+    env.post.Message.prototype.reload = function() {
 		env.post.reloadPostWId(this.id,function(reload,mess,suppr){
 			console.log(reload,mess,suppr);
 			if(suppr || reload){
@@ -117,7 +117,7 @@ $(function(){
 	  return template(arr,"message");
   }
   
-  Message.prototype.getLikes = function(env,pos,callback){
+  env.post.Message.prototype.getLikes = function(env,pos,callback){
  getLikes(this,env,pos,function(g){
 	 callback(g);
  });
@@ -128,14 +128,14 @@ $(function(){
 		  id_post:that.id
 	  },function(d){
 		  console.log(d);
-		  a=new Likes(d);
+		  a=new env.like.Likes(d);
 		  that.likes=a;
 		  env.messages_list.get(pos).likes=a;
 		  callback(a);
 	  });
 
   }
-  Message.prototype.getComments = function(env,pos,callback){
+  env.post.Message.prototype.getComments = function(env,pos,callback){
 	  getComments(this,env,pos,function(g){
 	 	 callback(g);
 	  });
@@ -146,7 +146,7 @@ $(function(){
 	 		  id_post:that.id
 	 	  },function(d){
 	 		  console.log(d);
-	 		  a=new Comments(d);
+	 		  a=new env.comment.Comments(d);
 	 		  that.comments=a;
 	 		  env.messages_list.get(pos).comments=a;
 	 		  callback(a);
@@ -157,11 +157,11 @@ $(function(){
   }());
 
 (function() {
-    if (typeof Messages !== "undefined") {
+    if (typeof env.post.Messages !== "undefined") {
     return;
   	}
  var m = [];
-	this.Messages = function(m) {
+ env.post.Messages = function(m) {
     this.m=m["response"]["messages"];
     this.mess={};
     if (typeof(this.m)=="string"){
@@ -169,7 +169,7 @@ $(function(){
     }else{
     	console.log(typeof(this.m));
     if (typeof(this.m)=="object" && !$.isArray(this.m)){
-    	a = new Message(this.m);
+    	a = new env.post.Message(this.m);
     	a.pos = a.id;
     	this.mess[a.id]=a;
     }else{
@@ -177,18 +177,18 @@ $(function(){
     for (var i = 0; i < this.m.length; i++) {
     	
     l=this.m.length-i-1;
-  	  a=new Message(this.m[i]);
+  	  a=new env.post.Message(this.m[i]);
   	  a.pos = a.id;
   	this.mess[a.id]=a;
     }
     }
     } 
   }
-	Messages.prototype.get = function(f) {
+ env.post.Messages.prototype.get = function(f) {
 		return this.mess[f];
 	}
 
-	Messages.prototype.HTML = function() {
+ env.post.Messages.prototype.HTML = function() {
 		return getHTML(this);
   	}
   function getHTML(that) {

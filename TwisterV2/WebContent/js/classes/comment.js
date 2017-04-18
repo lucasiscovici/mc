@@ -45,11 +45,11 @@ $(function(){
 });
 
 (function() {
-    if (typeof Comment !== "undefined") {
+    if (typeof env.comment.Comment !== "undefined") {
     	return;
   	}
 
-	this.Comment = function(m) {
+    env.comment.Comment = function(m) {
 		obj = m;
 		this.date=moment(parseInt(obj["date"])).locale("fr");
 		this.id_post=obj["id_post"];
@@ -57,11 +57,11 @@ $(function(){
 		this.id_user = obj["id_user"];
 		this.text = obj["text"];
 	}
-	Comment.prototype.HTML = function() {
+    env.comment.Comment.prototype.HTML = function() {
 		 return getHTML(this)
   	}
 	
-	Comment.prototype.reload = function() {
+    env.comment.Comment.prototype.reload = function() {
 		env.comment.reloadCommentWId(this.id,function(reload,mess,suppr){
 			console.log(reload,mess,suppr);
 			if(suppr || reload){
@@ -93,19 +93,19 @@ $(function(){
 }());
 
 (function() {
-	if (typeof Comments !== "undefined") {
+	if (typeof env.comment.Comments !== "undefined") {
     	return;
   	}
 	var m = [];
-	this.Comments = function(m) {
+	env.comment.Comments = function(m) {
 		this.m=m["response"]["comments"];
 		this.mess={};
 		if (typeof(this.m)=="string"){
 			this.m = [];
 		}else{
-			console.log(typeof(this.m));
 			if (typeof(this.m)=="object" && !$.isArray(this.m)){
-				a = new Comment(this.m);
+				a = new env.comment.Comment(this.m);
+				console.log(a);
 				a.pos = a.id;
 				this.mess[a.id]=a;
 			}else{
@@ -113,7 +113,7 @@ $(function(){
 				for (var i = 0; i < this.m.length; i++) {
     	
 					l=this.m.length-i-1;
-					a=new Comment(this.m[i]);
+					a=new env.comment.Comment(this.m[i]);
 					a.pos = a.id;
 					this.mess[a.id]=a;
 				}
@@ -121,19 +121,20 @@ $(function(){
 		} 
 	}
 	
-	Comments.prototype.get = function(f) {
+	env.comment.Comments.prototype.get = function(f) {
 		return this.mess[f];
 	}
 
-	Comments.prototype.HTML = function() {
+	env.comment.Comments.prototype.HTML = function() {
 		return getHTML(this);
   	}
 	
 	function getHTML(that) {
       html = "";
       fs=[];
+      console.log(that.mess);
       for (i in that.mess) {
-    	  console.log(that.mess[i]);
+    	  console.log(i);
     	  sf=that.mess[i].HTML();
     	  fs.push(sf);
     	  

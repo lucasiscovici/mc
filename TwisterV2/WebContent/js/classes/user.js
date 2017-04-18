@@ -16,11 +16,11 @@ $(function() {
 
 (function() {
 
-	if (typeof Me !== "undefined") {
+	if (typeof env.user.Me !== "undefined") {
 		return;
 	}
 
-	this.Me = function(m) {
+	env.user.Me = function(m) {
 		obj = m;
 		this.id = obj["id"];
 		this.prenom = obj["prenom"];
@@ -31,11 +31,11 @@ $(function() {
 }());
 
 (function() {
-	if (typeof Mes !== "undefined") {
+	if (typeof env.userMes !== "undefined") {
 		return;
 	}
 	var m = [];
-	this.Mes = function(m) {
+	env.user.Mes = function(m) {
 		this.m = m["response"]["users"];
 		this.users = [];
 		if (typeof (this.m) == "string") {
@@ -44,17 +44,17 @@ $(function() {
 			console.log(typeof (this.m));
 			if (typeof (this.m) == "object" && !$.isArray(this.m)) {
 				this.m.pos = 0;
-				this.users.push(new Me(this.m));
+				this.users.push(new env.user.Me(this.m));
 			} else {
 				// if (typeof(this.m)=="object")
 				for (var i = 0; i < this.m.length; i++) {
 					this.m[i].pos = i;
-					this.users.unshift(new Me(this.m[i]));
+					this.users.unshift(new env.user.Me(this.m[i]));
 				}
 			}
 		}
 	}
-	Mes.prototype.get = function(d){
+	env.user.Mes.prototype.get = function(d){
 		return this.users[d];
 	}
 }(jQuery));
