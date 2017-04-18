@@ -86,12 +86,12 @@ $(function() {
 		mess=env.messages_list.get(idp);
 		mess.getComments(env,idp,function(d){
 			item=d.HTML();
-			edf=$("#listCommentaire #commentslists").append(item);
+			edf=$("#postModalComments #commentslists").append(item);
 			console.log(item);
 			console.log(d);
 		});
 		//$(".modale").addClassAlways("hidden");
-		$("#listCommentaire").toggleClass("hidden");
+		$("#postModalComments").toggleClass("hidden");
 		//$("#modalspanComm").replace_motif("baseImg",env.var.bases.baseImg);
 		
 	});
