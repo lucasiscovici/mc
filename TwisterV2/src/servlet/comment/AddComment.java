@@ -36,4 +36,25 @@ public class AddComment extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		try {
+			new SAddComment(req, resp).print();
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (LucasException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

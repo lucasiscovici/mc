@@ -125,8 +125,7 @@ $(function() {
 	$("#commentaire").click(
 			function() {
 				if ($('#newCommentaire').val().length > 0) {
-					$.getJSON("addcomment", {
-						key : $.cookie("key"),
+					env.comment.addcomment({
 						text : $('#newCommentaire').val(),
 						id_post : env.messages_list.get($("#postModalLecture")
 								.attr("data-index")).id
@@ -137,6 +136,13 @@ $(function() {
 							df = parseInt(sd, 10);
 							$("#comsp").val(df + 1);
 							$('#newCommentaire').val("");
+							env.messages_list.get($("#postModalLecture").attr("data-index")).getComments(env,$("#postModalLecture").attr("data-index"),function(d){
+								$("#comsp").val(d.mess.count);
+								item=d.HTML();
+								edf=$("#listCommentaire #commentslists").html(item);
+								console.log(item);
+								console.log(d);
+							});
 						}
 					})
 				}
