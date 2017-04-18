@@ -137,9 +137,9 @@ $(function() {
 							$("#comsp").val(df + 1);
 							$('#newCommentaire').val("");
 							env.messages_list.get($("#postModalLecture").attr("data-index")).getComments(env,$("#postModalLecture").attr("data-index"),function(d){
-								$("#comsp").val(d.mess.count);
+								$("#comsp").html(d.mess.count);
 								item=d.HTML();
-								edf=$("#listCommentaire #commentslists").html(item);
+								edf=$("#postModalComments #commentslists").html(item);
 								console.log(item);
 								console.log(d);
 							});
