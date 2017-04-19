@@ -55,6 +55,7 @@ $(function(){
 		this.id_post=obj["id_post"];
 		this.id = obj["id"];
 		this.id_user = obj["id_user"];
+		this.login = obj["login"];
 		this.text = obj["text"];
 	}
     env.comment.Comment.prototype.HTML = function() {
@@ -86,6 +87,7 @@ $(function(){
 		arr.text = that.text;
 	    arr.index = that.id;
 	    arr.id_post = that.id_post;
+	    arr.login=that.login
 	    arr.date = that.date.format("dddd DD MMM YYYY \\à HH\\h\\\\mm");
 	    arr.baseImg = env.var.bases.baseImg;
 	    return template(arr,"commentaire");

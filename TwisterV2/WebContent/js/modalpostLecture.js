@@ -142,6 +142,7 @@ $(function() {
 								edf=$("#postModalComments #commentslists").html(item);
 								console.log(item);
 								console.log(d);
+								$("#postModalComments #commentslists")[0].scrollTop = 0;
 							});
 						}
 					})

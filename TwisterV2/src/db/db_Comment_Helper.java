@@ -4,10 +4,12 @@ import java.net.UnknownHostException;
 import java.sql.SQLException;
 
 import db.util.dbM;
+import util.Dico;
 import util.LucasException;
 import util.Parameters;
 import util.RespS;
 import util.Usefull;
+import util.io;
 
 public class db_Comment_Helper extends dbM {
 	
@@ -28,7 +30,12 @@ public class db_Comment_Helper extends dbM {
 		return SelectMongoWith("id_post", params);
 	}
 	public Parameters ListCommentsFromIdPost(Parameters params) throws ClassNotFoundException, UnknownHostException, SQLException, LucasException {
-		return SelectMongoWith(params.PS("id_post"));
+		Parameters p = SelectMongoWith(params.PS("id_post"));
+		Parameters p2 = p.copy();
+		for (Dico d : p.parameters) {
+			d.addD("login", db_User_Helper.c().getXWithX("login", d.valuesdP().getDico("id_user").toPa().change("id_user", "id")).getValue("login"));
+		}
+		return p;
 	}
 	
 	@Override

@@ -18,6 +18,7 @@ import util.Error;
 import util.LucasException;
 import util.Parameters;
 import util.TestError;
+import util.io;
 
 /**
  * class SListComments service qui listes les commentaires
@@ -105,25 +106,27 @@ public class SListComments extends Service {
 						RespS.c(this, Error.ErrArgs);
 			}
 			
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			RespS.c(this, Error.ClassNotFoundException);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			RespS.c(this, Error.SQLException);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			RespS.c(this, Error.ParseException);
-		} catch (LucasException e) {
-			// TODO Auto-generated catch block
-			RespS.c(this, Error.LucasException);
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			RespS.c(this, Error.JSONException);
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			RespS.c(this, Error.UnknownHostException);
-		}
+//		} catch (ClassNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			RespS.c(this, Error.ClassNotFoundException);
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			RespS.c(this, Error.SQLException);
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			RespS.c(this, Error.ParseException);
+//		} catch (LucasException e) {
+//			// TODO Auto-generated catch block
+//			RespS.c(this, Error.LucasException);
+//		} catch (JSONException e) {
+//			// TODO Auto-generated catch block
+//			RespS.c(this, Error.JSONException);
+//		} catch (UnknownHostException e) {
+//			// TODO Auto-generated catch block
+//			RespS.c(this, Error.UnknownHostException);
+//		}
+	}catch (Exception e) {
+		e.printStackTrace();
 	}
-
+	}
 }

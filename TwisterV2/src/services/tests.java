@@ -44,10 +44,11 @@ class test {
 	//new SListFriends(Dico.toP("key",key)).print();
 		//new SRemoveFriend(Dico.toP("key","14945d4d-d77f-4c18-94f6-69839b297a77","id_friend","1")).print();
 	//new SListPosts(Dico.toP("key",key,"type","ALL")).print();
-//slp.print(); 
+//slp.print();
+	new SListComments(Dico.toP("id_post","58f388ec77c8381fbcc60736","key","981d10a1-52e3-4906-8d20-cd8f535e245e")).print();
 		//io.print(slp.to_bean());
 		//new SAddPost(Dico.toP("key",key,"text","test")).print(); //58a4c12b77c879b41828823e
-	new SRemovePost(Dico.toP("key","babar","type","ALL")).print();
+	//new SRemovePost(Dico.toP("key","babar","type","ALL")).print();
 		//new SRemoveUser(Dico.toP("key","12689cff-7533-4b04-b0ba-139b3b230f3d")).print();;
 	//new SUpdatePost(Dico.toP("key","babar","id","58f2c6c8e4b0687a848f60c6","title","sf")).print();
 	///new SListPosts(Dico.toP("key",key,"type","ALL")).print();
