@@ -115,7 +115,7 @@ function init(){
 				if (add==0) {
 					$(".grid-item[data-index='"+(k.id)+"'] .removeFriend.m").removeClassAlways("hidden");
 				} else {
-					add=0;
+					add=0; 
 				}
 			}
 		}
