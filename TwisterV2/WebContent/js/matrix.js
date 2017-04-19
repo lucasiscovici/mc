@@ -26,6 +26,28 @@ function suppressionPost(idp){
 	})
 }
 
+function removeFriend(id){
+	env.friend.removefriend({id:id},
+		function(d){
+			if("response" in d){
+				$("#r"+id+"").toggleClass("hidden");
+				$("#a"+id+"").toggleClass("hidden");
+				//env.func_tools.reload(d);
+			}
+	})
+}
+
+function addFriend(id){
+	env.friend.addfriend({id:id},
+		function(d){
+			if("response" in d){
+				$("#r"+id+"").toggleClass("hidden");
+				$("#a"+id+"").toggleClass("hidden");
+				//env.func_tools.reload(d);
+			}
+	})
+}
+
 function modificationPost(idp){
 	$(".modale").addClassAlways("hidden");
 	post=$("#postModal");
@@ -64,10 +86,14 @@ function init(){
 	
 	env.post.listposts(dd,function(d){
 		console.log(d);
+		add=0;
 		if ("response" in d) {
 			
     	a=new env.post.Messages(d);
 		env.messages_list=a;
+		
+		b=new env.comment.Comments(d);
+		env.comments_list=b;
     	
 		$items=a.HTML()
 		$(".grid").append($items).masonry( 'appended', $items ).masonry();
@@ -77,6 +103,20 @@ function init(){
 			if(k.id_user==myid_user){
 				$(".grid-item[data-index='"+(k.id)+"'] .croixSuppression.m").removeClassAlways("hidden");
 				$(".grid-item[data-index='"+(k.id)+"'] .modification.m").removeClassAlways("hidden");
+			} else {
+				for (i in env.comments_list.mess) {
+					m=env.friends_list.get(i);
+					if (m.to==myid_user) {
+						$("#a"+k.id+"").removeClassAlways("hidden");
+						add=1;
+					}
+				}
+				
+				if (add==0) {
+					$("#r"+k.id+"").removeClassAlways("hidden");
+				} else {
+					add=0;
+				}
 			}
 		}
 		setTimeout(function(){
@@ -150,42 +190,5 @@ function init(){
 	});
 }
 init();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 })

@@ -101,6 +101,7 @@ if(Base.env=="PROD"){
 			Base.baseJSClasses+"user.js",
 			Base.baseJSClasses+"post.js",
 			Base.baseJSClasses+"comment.js",
+			Base.baseJSClasses+"friends.js",
 			Base.baseJSClasses+"session.js",
 			Base.baseJS+"matrix.js",
 			Base.baseJS+"modalpost.js",
