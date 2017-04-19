@@ -31,7 +31,6 @@ public class db_Comment_Helper extends dbM {
 	}
 	public Parameters ListCommentsFromIdPost(Parameters params) throws ClassNotFoundException, UnknownHostException, SQLException, LucasException {
 		Parameters p = SelectMongoWith(params.PS("id_post"));
-		Parameters p2 = p.copy();
 		for (Dico d : p.parameters) {
 			d.addD("login", db_User_Helper.c().getXWithX("login", d.valuesdP().getDico("id_user").toPa().change("id_user", "id")).getValue("login"));
 		}

@@ -1,0 +1,13 @@
+<div id="postModalComments" class="hidden modale" style="position:fixed;width:66%;height:100vh;top:0px;left:33%;background-color: #161616;z-index: 27777;" data-index="-1">
+<span style="cursor:pointer" id="modalspan">
+		<img  onclick="$('#postModalComments').toggleClass('hidden')" style="position: absolute; top: 0; right: 0; margin-top: 10px;" width="30px" src="{{baseImg}}fermer.png" />
+		<img onclick="suppressionPost('{{index}}')" src="{{baseImg}}croixSuppression.png" style="position: absolute; top: 0; left: 0; margin-top: 10px;" class="croixSuppression mpl hidden" id="modaldelete" />
+		<img onclick="modificationPost('{{index}}')" src="{{baseImg}}modifier.png" style="cursor:pointer;position: absolute;top: 2px;left: 25px;margin-top: 10px;" class="modification mpl hidden" id="modalmodif" />
+	</span>
+	<div style="border-bottom: 50px;">
+		<input type="text" id="newCommentaire" placeholder="Commentaire..." style="margin-top: 7px;width: 40vw; vertical-align: middle;margin-right: 190px;right: 0;position: absolute;">
+		<button style="margin-left: 30px;background-color:black;color:white;" class="btn btn-primary pull-right" type="button" id="commentaire" >comments</button>
+	</div>
+	<div id="commentslists" class="container commentslists" style="padding-top: 50px;">
+	</div>
+</div>

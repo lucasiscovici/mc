@@ -1,0 +1,10 @@
+<div class="row">
+	<div class="col-xs-offset-1 col-xs-10 col-lg-4 col-lg-offset-4 col-md-offset-2 col-md-8" style="background-color: ghostwhite; border-radius: 2%; margin-bottom:10px;" idp="{{id_post}}" data-index="{{index}}">
+		<img onclick="suppressionComment('{{index}}');" src="{{baseImg}}croixSuppression.png" style="cursor:pointer;" class="croixSuppression mc hidden">
+		<img onclick="modificationComment('{{index}}');" src="{{baseImg}}modifier.png" style="cursor:pointer;" class="modification mc hidden ">
+		<div style="text-align: center;">
+		<h5 style="text-align: center; background-color: #FFFFFF; color: #000000; padding-top: 5px; max-height: 200px;overflow-y:scroll;"><span id="modalc_text">{{text}}</h5>
+		</div>
+		<h6>{{date}}</h6>
+	</div>
+</div>

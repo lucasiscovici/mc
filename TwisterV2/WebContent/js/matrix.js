@@ -107,13 +107,13 @@ function init(){
 				for (i in env.comments_list.mess) {
 					m=env.friends_list.get(i);
 					if (m.to==myid_user) {
-						$("#a"+k.id+"").removeClassAlways("hidden");
+						$(".grid-item[data-index='"+(k.id)+"'] .addFriend.m").removeClassAlways("hidden");
 						add=1;
 					}
 				}
 				
 				if (add==0) {
-					$("#r"+k.id+"").removeClassAlways("hidden");
+					$(".grid-item[data-index='"+(k.id)+"'] .removeFriend.m").removeClassAlways("hidden");
 				} else {
 					add=0;
 				}

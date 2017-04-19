@@ -1,0 +1,7 @@
+<div id="postModalComments" class="hidden modale" style="position:fixed;width:66%;height:100vh;top:0px;left:33%;background-color: #161616;z-index: 27777;" data-index="-1">
+<img onclick="$('#postModalComments').toggleClass('hidden');" src="{{baseImg}}croixSuppression.png" style="position: absolute; top: 0; left: 0; margin-top: 10px;" class="croixSuppression mpl hidden" id="modaldelete" />
+<input type="text" id="newCommentaire" placeholder="Commentaire..." style="margin-top: 7px;width: 40vw; vertical-align: middle;margin-right: 190px;right: 0;position: absolute;">
+	<button style="margin-left: 30px;background-color:black;color:white;" class="btn btn-primary pull-right" type="button" id="commentaire" >comments</button>
+</div>
+<div id="commentslists" class="container commentslists">
+</div>

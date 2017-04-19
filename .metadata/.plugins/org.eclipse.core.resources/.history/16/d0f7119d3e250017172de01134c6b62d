@@ -1,0 +1,22 @@
+
+<div class="grid-item col-xs-offset-1 col-xs-10 col-lg-4 col-lg-offset-4 col-md-offset-2 col-md-8" style="background-color: ghostwhite; border-radius: 2%; margin-bottom:10px;" data-index="{{index}}">
+	<button onclick="addFriend('{{index}}');" style="cursor:pointer;" class="addFriend hidden"></button>
+	<button onclick="removeFriend('{{index}}');" style="cursor:pointer;" class="removeFriend hidden"></button>
+	<img onclick="suppressionPost('{{index}}');" src="{{baseImg}}croixSuppression.png" style="cursor:pointer;" class="croixSuppression m hidden">
+	<img onclick="modificationPost('{{index}}');" src="{{baseImg}}modifier.png" style="cursor:pointer;" class="modification m hidden ">
+	<div style="text-align: center;">
+		<h3>{{name}}</h3>
+		<h4 class="title_mess" data-index="{{index}}"><a class="mess_title">{{title}}</a></h4>
+		
+		<p class="{{cl}} mess_desc" style="white-space: pre-wrap;" >{{desc}}</p>
+				<h5 class="mess_lg" data-index="{{index}}">{{lg}}</h5>
+				<h6 class="mess_date" data-index="{{index}}">{{date}}</h6>
+		
+        <p>
+        	<span><span class="nb_likes_grid_item">{{nb_likes}}</span><i class="glyphicon glyphicon-heart"></i>
+        	</span>
+        	<span><span class="nb_comments_grid_item">{{nb_coms}}</span><i class="glyphicon glyphicon-comment"></i>
+        	</span>
+        </p>                            
+	</div>
+</div>
