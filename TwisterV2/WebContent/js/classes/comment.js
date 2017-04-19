@@ -87,7 +87,7 @@ $(function(){
 		arr.text = that.text;
 	    arr.index = that.id;
 	    arr.id_post = that.id_post;
-	    arr.login=that.login
+	    arr.qui=that.login
 	    arr.date = that.date.format("dddd DD MMM YYYY \\à HH\\h\\\\mm");
 	    arr.baseImg = env.var.bases.baseImg;
 	    return template(arr,"commentaire");
