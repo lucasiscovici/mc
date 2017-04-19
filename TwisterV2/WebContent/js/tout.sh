@@ -1,1 +1,0 @@
-./matrix.sh;./global.sh
