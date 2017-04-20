@@ -29,7 +29,7 @@ $(function() {
 	}
 	
 	env.me.Me.prototype.removeFriend=function(idFriend, callback) {
-		env.friend.removeFriend({id_friend:idFriend}, function(d) {
+		env.friend.removefriend({id_friend:idFriend}, function(d) {
 			callback(d);
 		});
 	}
