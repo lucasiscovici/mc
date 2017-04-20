@@ -1,12 +1,12 @@
-env.user = {}
+env.me = {}
 $(function() {
 
-	env.user.listusers = function(tab, callback) {
+	env.me.listusers = function(tab, callback) {
 		env.getJSONK("listusers", tab, function(d) {
 			callback(d);
 		})
 	}
-	env.user.createuser = function(tab, callback) {
+	env.me.createuser = function(tab, callback) {
 		env.getJSON("createuser", tab, function(d) {
 			callback(d);
 
@@ -16,26 +16,32 @@ $(function() {
 
 (function() {
 
-	if (typeof env.user.Me !== "undefined") {
+	if (typeof env.me.Me !== "undefined") {
 		return;
 	}
 
-	env.user.Me = function(m) {
+	env.me.Me = function(m) {
 		obj = m;
 		this.id = obj["id"];
 		this.prenom = obj["prenom"];
 		this.nom = obj["nom"];
 		this.login = obj["login"];
 	}
+	
+	env.me.Me.prototype.removeFriend=function(idFriend, callback) {
+		env.friend.removeFriend({id_friend:idFriend}, function(d) {
+			callback(d);
+		});
+	}
 
 }());
 
 (function() {
-	if (typeof env.userMes !== "undefined") {
+	if (typeof env.me.Mes !== "undefined") {
 		return;
 	}
 	var m = [];
-	env.user.Mes = function(m) {
+	env.me.Mes = function(m) {
 		this.m = m["response"]["users"];
 		this.users = [];
 		if (typeof (this.m) == "string") {
@@ -44,17 +50,17 @@ $(function() {
 			console.log(typeof (this.m));
 			if (typeof (this.m) == "object" && !$.isArray(this.m)) {
 				this.m.pos = 0;
-				this.users.push(new env.user.Me(this.m));
+				this.users.push(new env.me.Me(this.m));
 			} else {
 				// if (typeof(this.m)=="object")
 				for (var i = 0; i < this.m.length; i++) {
 					this.m[i].pos = i;
-					this.users.unshift(new env.user.Me(this.m[i]));
+					this.users.unshift(new env.me.Me(this.m[i]));
 				}
 			}
 		}
 	}
-	env.user.Mes.prototype.get = function(d){
+	env.me.Mes.prototype.get = function(d){
 		return this.users[d];
 	}
 }(jQuery));

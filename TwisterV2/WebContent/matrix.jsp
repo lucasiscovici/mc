@@ -98,7 +98,7 @@ if(Base.env=="PROD"){
 			Base.baseJSLib+"masonry.pkgd.min.js",
 			Base.baseJSConfigLib+"config_masonry.js",
 			Base.baseJSClasses+"like.js",
-			Base.baseJSClasses+"user.js",
+			Base.baseJSClasses+"me.js",
 			Base.baseJSClasses+"post.js",
 			Base.baseJSClasses+"comment.js",
 			Base.baseJSClasses+"session.js",

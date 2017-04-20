@@ -1,5 +1,3 @@
-env.comments_list=null;
-env.me=null;
 function openPostModal(){
 	post=$("#postModal");
 	post.attr("idp","");
@@ -41,12 +39,33 @@ function modificationPost(idp){
 	editor.clearSelection();
 }
 
+function removeFriend(id){
+	env.my.removefriend(id,
+		function(d){
+			if("response" in d){
+				env.func_tools.reload(d);
+			}
+	})
+}
+
+function addFriend(id){
+	env.friend.addfriend({id:id},
+		function(d){
+			if("response" in d){
+				$("#r"+id+"").toggleClass("hidden");
+				$("#a"+id+"").toggleClass("hidden");
+				//env.func_tools.reload(d);
+			}
+	})
+}
+
 $(function(){
 	
-	env.user.listusers({},function(d){
+	env.me.listusers({},function(d){
 		console.log(d);
-		a=new env.user.Mes(d);
-		env.me=a;
+		a=new env.me.Mes(d);
+		env.mes=a;
+		env.my=a.users[0];
 	});
 
 o=0;	
@@ -71,12 +90,15 @@ function init(){
     	
 		$items=a.HTML()
 		$(".grid").append($items).masonry( 'appended', $items ).masonry();
-		myid_user=env.me.get(0).id;
+		myid_user=env.my.id;
 		for (j in env.messages_list.mess){
 			k=env.messages_list.get(j);
 			if(k.id_user==myid_user){
 				$(".grid-item[data-index='"+(k.id)+"'] .croixSuppression.m").removeClassAlways("hidden");
 				$(".grid-item[data-index='"+(k.id)+"'] .modification.m").removeClassAlways("hidden");
+			} else {
+				$(".grid-item[data-index='"+(k.id)+"'] .removeFriend.m").removeClassAlways("hidden");
+				$(".grid-item[data-index='"+(k.id)+"']").replace_motif("id_friend",k.id_user);
 			}
 		}
 		setTimeout(function(){
