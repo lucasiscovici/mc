@@ -100,6 +100,7 @@ if(Base.env=="PROD"){
 			Base.baseJSClasses+"like.js",
 			Base.baseJSClasses+"me.js",
 			Base.baseJSClasses+"post.js",
+			Base.baseJSClasses+"friend.js",
 			Base.baseJSClasses+"comment.js",
 			Base.baseJSClasses+"session.js",
 			Base.baseJS+"matrix.js",
