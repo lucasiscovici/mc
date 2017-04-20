@@ -1,0 +1,2 @@
+uglifyjs lib/bootstrap.min.js global.js func_tools.js lib/moment.js lib/underscore-min.js nav.js -o compressed_global.js
+baseJsLib+"bootstrap.min.js" "global.js" "func_tools.js" baseJsLib+"moment.js" baseJsLib+"underscore-min.js"

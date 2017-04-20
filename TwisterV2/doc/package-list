@@ -1,0 +1,16 @@
+
+db
+db.util
+services
+services.friend
+services.like
+services.post
+services.session
+services.user
+services.utils
+servlet
+servlet.friend
+servlet.post
+servlet.session
+servlet.user
+util

@@ -1,0 +1,11 @@
+<div id="postsearch" class="hidden modale" style="position:fixed;width:100vw;height: 100vh;top:0px;left:0px;background-color: #161616;z-index: 27777;" data-index="-1">
+	<div style="width: 100vw; margin-left: 25%; z-index: 9999; position: absolute; margin: 0px; right: 0px; height: 100%;">
+		<span style="cursor:pointer" id="modalspanSearch">
+			<img  onclick="$('#postsearch').toggleClass('hidden')" style="position: absolute; top: 0; right: 0; margin-top: 10px;" width="30px" src="{{baseImg}}fermer.png" />
+			<h4 id="loginSearch" style="text-align: center; background-color: #FFFFFF; color: #000000; padding-top: 5px; height: 30px;overflow-y:scroll;" ><span>Login: {{login}}</span><span id="modal_user"></span></h4>
+			<div id="existePas" style="color: #FFFFFF; font-size: 16px; text-align: center;" class="hidden"></div>
+			<button style="width: 100vw;" id="addFriendSearch" onclick="addFriend('{{index}}')" class="addFriendSearch mafs hidden">Add Friend</button>
+			<button style="width: 100vw;" id="removeFriendSearch" onclick="removeFriend('{{index}}')" class="removeFriendSearch mafs hidden">Remove Friend</button>
+		</span>
+	</div>
+</div>
