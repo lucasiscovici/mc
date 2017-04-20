@@ -40,7 +40,7 @@ function modificationPost(idp){
 }
 
 function removeFriend(id){
-	env.my.removefriend(id,
+	env.my.removeFriend(id,
 		function(d){
 			if("response" in d){
 				env.func_tools.reload(d);
