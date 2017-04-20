@@ -119,7 +119,7 @@ function init(){
 				mess=env.messages_list.get(id);
 				if(mess){
 					k=mess;
-					myid_user=env.me.get(0).id;
+					myid_user=env.my.id;
 					if(k.id_user==myid_user){
 						$("#postModalLecture #modalspan .croixSuppression.mpl").removeClassAlways("hidden");
 						$("#postModalLecture #modalspan .modification.mpl").removeClassAlways("hidden");
