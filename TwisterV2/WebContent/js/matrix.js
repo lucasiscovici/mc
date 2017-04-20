@@ -152,7 +152,7 @@ function init(){
 				env.auth.kk=false;
 				mess.getLikes(env,id,function(j){
 					
-					if ( env.func_tools.inArray(env.me.get(0).id, env.func_tools.inObjToArr(j.likes,"id_user"))) {
+					if ( env.func_tools.inArray(env.my.id, env.func_tools.inObjToArr(j.likes,"id_user"))) {
 						$("#likes").css("background-color","blue");
 						$("#likes").attr('selectedf',"true");
 						
